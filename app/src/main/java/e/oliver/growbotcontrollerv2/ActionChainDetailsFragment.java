@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -51,8 +52,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+
      * @return A new instance of fragment ActionChainDetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -115,6 +115,24 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
             }
         });
 
+        SeekBar seekbar1 = view.findViewById(R.id.value_par1);
+        seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                actionchain.getAction_par().set(0, i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         return view;
 
     }
@@ -155,7 +173,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
                     actionchain = ActionChainDetails.fromJson(output);
 
                     TextView value_id = getView().findViewById(R.id.value_id);
-                    value_id.setText(actionchain.getId());
+                    value_id.setText(actionchain.getId().toString());
 
                     TextView value_title = getView().findViewById(R.id.value_title);
                     value_title.setText(actionchain.getTitle());
@@ -172,6 +190,9 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
                         }
                     });
 
+                    SeekBar seekbar1 = getActivity().findViewById(R.id.value_par1);
+                    seekbar1.setProgress(actionchain.getAction_par().get(0), false);
+
 
                 } else if (output.getString("obj").contentEquals("ACTION")) {
                     JSONArray listJSON = output.getJSONArray("list");
@@ -180,7 +201,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
                     System.out.println("Action Processing");
 
                     //Populate Action Spinner 1
-                    Spinner spinner = (Spinner) getActivity().findViewById(R.id.value_action1);
+                    Spinner spinner = getActivity().findViewById(R.id.value_action1);
 
                     ArrayAdapter<ActionSpinnerListItem> adapter = new ArrayAdapter<ActionSpinnerListItem>(getActivity(),
                             android.R.layout.simple_spinner_item, action);

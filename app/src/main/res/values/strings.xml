@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">GrowBotControllerV2</string>
+    <string name="error_field_required">Enter valid IP address</string>
+    <string name="error_invalid_ip">IP address is not valid.</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="relop">
+        <item>Smaller</item>
+        <item>Equal</item>
+        <item>Greater</item>
+    </string-array>
+
+    <string-array name="boolop">
+        <item>AND</item>
+        <item>OR</item>
+        <item>NOT</item>
+    </string-array>
+
+    <string-array name="interval">
+        <item>Realtime</item>
+        <item>10 sec</item>
+        <item>20 sec</item>
+        <item>30 sec</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>5 min</item>
+        <item>15 min</item>
+        <item>30 min</item>
+        <item>1 h</item>
+        <item>2 h</item>
+        <item>3 h</item>
+        <item>4 h</item>
+        <item>6 h</item>
+        <item>12 h</item>
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>7 days</item>
+        <item>14 days</item>
+    </string-array>
+</resources>

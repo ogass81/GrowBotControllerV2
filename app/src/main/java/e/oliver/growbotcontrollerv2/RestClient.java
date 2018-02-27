@@ -2,7 +2,6 @@ package e.oliver.growbotcontrollerv2;
 
 import android.os.AsyncTask;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -10,26 +9,23 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * Created by ogass on 05.07.2017.
  */
 
 public class RestClient extends AsyncTask<Void, Integer, Boolean> {
+    public AsyncRestResponse caller = null;
+    String serverReturn = "";
     //OG: input
     private String uri;
     private String password = "";
     private String http_method = "";
     private JSONObject payload = null;
-    public AsyncRestResponse caller = null;
-
     //OG: response
     private int response_code = -1;
     private String response_message = "";
     private JSONObject response_payload = null;
-
-    String serverReturn = "";
 
 
     RestClient(String uri, String password, String http_method, JSONObject payload, AsyncRestResponse caller) {
@@ -88,8 +84,7 @@ public class RestClient extends AsyncTask<Void, Integer, Boolean> {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                }
-                else {
+                } else {
                     System.out.println(response_code);
                     System.out.println(response_message);
 
@@ -122,7 +117,7 @@ public class RestClient extends AsyncTask<Void, Integer, Boolean> {
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
 
-        System.out.println("RestClient->onPostExecute(): "+ serverReturn);
+        System.out.println("RestClient->onPostExecute(): " + serverReturn);
         caller.processFinish(response_code, response_message, response_payload);
     }
 }

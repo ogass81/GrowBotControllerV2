@@ -18,22 +18,6 @@ public class TriggerCategoryListItem {
     private String sensor;
     private Integer type;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getSensor() {
-        return sensor;
-    }
-
-    public Integer getType() { return type; }
-
-
     // Decodes business json into business model object
     public static TriggerCategoryListItem fromJson(Integer id, JSONObject jsonObject) {
         TriggerCategoryListItem item = new TriggerCategoryListItem();
@@ -60,19 +44,35 @@ public class TriggerCategoryListItem {
         // Process each result in json array, decode and convert to business object
         for (int i = 0; i < jsonArray.length(); i++) {
 
-                try {
-                    JSONitem = jsonArray.getJSONObject(i);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    continue;
-                }
+            try {
+                JSONitem = jsonArray.getJSONObject(i);
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
+            }
 
-                TriggerCategoryListItem listitem = TriggerCategoryListItem.fromJson(i, JSONitem);
-                if (listitem != null) {
-                    list.add(listitem);
-                }
+            TriggerCategoryListItem listitem = TriggerCategoryListItem.fromJson(i, JSONitem);
+            if (listitem != null) {
+                list.add(listitem);
+            }
         }
         return list;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSensor() {
+        return sensor;
+    }
+
+    public Integer getType() {
+        return type;
     }
 
     public JSONObject toJson() {

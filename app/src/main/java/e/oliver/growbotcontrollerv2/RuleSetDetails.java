@@ -25,17 +25,51 @@ public class RuleSetDetails {
     private Integer chain_ptr;
     private ArrayList<Integer> boolop = new ArrayList<Integer>();
 
+    // Decodes business json into business model object
+    public static RuleSetDetails fromJson(JSONObject jsonObject) {
+        RuleSetDetails rs = new RuleSetDetails();
+        // Deserialize json into object fields
+        try {
+            rs.id = jsonObject.getString("id");
+            rs.title = jsonObject.getString("tit");
+            rs.active = jsonObject.getBoolean("act");
+            rs.tset1_ptr = jsonObject.getInt("tset1_ptr");
+            rs.tcat1_ptr = jsonObject.getInt("tcat1_ptr");
+            rs.tset2_ptr = jsonObject.getInt("tset2_ptr");
+            rs.tcat2_ptr = jsonObject.getInt("tcat2_ptr");
+            rs.tset3_ptr = jsonObject.getInt("tset3_ptr");
+            rs.tcat3_ptr = jsonObject.getInt("tcat3_ptr");
+            rs.chain_ptr = jsonObject.getInt("chain_ptr");
 
+            JSONArray cast = jsonObject.getJSONArray("bool");
 
-    public String getId() { return id;}
+            for (int i = 0; i < cast.length(); i++) {
+                rs.boolop.add(cast.getInt(i));
+            }
 
-    public String getTitle() { return title;}
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        // Return new object
+        return rs;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public Boolean getActive() { return active;}
+    public Boolean getActive() {
+        return active;
+    }
 
     public void setActive(Boolean active) {
         this.active = active;
@@ -105,40 +139,8 @@ public class RuleSetDetails {
         this.boolop = boolop;
     }
 
-
-    // Decodes business json into business model object
-    public static RuleSetDetails fromJson(JSONObject jsonObject) {
-        RuleSetDetails rs = new RuleSetDetails();
-        // Deserialize json into object fields
-        try {
-            rs.id = jsonObject.getString("id");
-            rs.title = jsonObject.getString("tit");
-            rs.active = jsonObject.getBoolean("act");
-            rs.tset1_ptr = jsonObject.getInt("tset1_ptr");
-            rs.tcat1_ptr = jsonObject.getInt("tcat1_ptr");
-            rs.tset2_ptr = jsonObject.getInt("tset2_ptr");
-            rs.tcat2_ptr = jsonObject.getInt("tcat2_ptr");
-            rs.tset3_ptr = jsonObject.getInt("tset3_ptr");
-            rs.tcat3_ptr = jsonObject.getInt("tcat3_ptr");
-            rs.chain_ptr = jsonObject.getInt("chain_ptr");
-
-            JSONArray cast = jsonObject.getJSONArray("bool");
-
-            for (int i=0; i<cast.length(); i++) {
-                rs.boolop.add(cast.getInt(i));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-        // Return new object
-        return rs;
-    }
-
-
     public JSONObject toJson() {
-       JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("tit", title.toString());
             jsonObject.put("act", active.toString());
@@ -153,8 +155,8 @@ public class RuleSetDetails {
 
             JSONArray bp = new JSONArray();
 
-            for (int i=0; i<boolop.size(); i++) {
-               bp.put(boolop.get(i));
+            for (int i = 0; i < boolop.size(); i++) {
+                bp.put(boolop.get(i));
             }
             jsonObject.put("bool", bp);
 

@@ -39,7 +39,7 @@ public class ActionChainListRecyclerViewAdapter extends RecyclerView.Adapter<Act
         holder.mIdView.setText(mValues.get(position).getId().toString());
         holder.mTitleView.setText(mValues.get(position).getTitle());
 
-        if(mValues.get(position).getActive()) holder.mActiveView.setText("Active");
+        if (mValues.get(position).getActive()) holder.mActiveView.setText("Active");
         else holder.mActiveView.setText("Disabled");
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

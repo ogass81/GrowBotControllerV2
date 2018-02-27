@@ -17,31 +17,6 @@ public class ActionListItem {
     private Boolean active;
     private Integer type;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    @Override
-    public String toString() {
-        return title;
-    }
-
     // Decodes business json into business model object
     public static ActionListItem fromJson(Integer id, JSONObject jsonObject) {
         ActionListItem item = new ActionListItem();
@@ -61,7 +36,7 @@ public class ActionListItem {
     // Decodes array of business json results into business model objects
     public static ArrayList<ActionListItem> fromJson(JSONArray jsonArray) {
         JSONObject JSONitem;
-       
+
         ArrayList<ActionListItem> list = new ArrayList<ActionListItem>(jsonArray.length());
         // Process each result in json array, decode and convert to business object
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -79,6 +54,31 @@ public class ActionListItem {
         }
 
         return list;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 
     public JSONObject toJson() {

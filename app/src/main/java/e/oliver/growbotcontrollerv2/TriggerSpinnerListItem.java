@@ -19,44 +19,6 @@ public class TriggerSpinnerListItem {
     private Boolean active;
     private Integer type;
 
-    public Integer getType() {
-        return type;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public Integer getCat() {
-        return cat;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    @Override
-    public String toString() {
-        return title + " - " + source;
-    }
-
-
     // Decodes business json into business model object
     public static TriggerSpinnerListItem fromJson(Integer id, Integer cat, String src, Integer type, JSONObject jsonObject) {
         TriggerSpinnerListItem item = new TriggerSpinnerListItem();
@@ -80,17 +42,16 @@ public class TriggerSpinnerListItem {
         TriggerSpinnerListItem item = new TriggerSpinnerListItem();
         // Deserialize json into object fields
 
-            item.id = id;
-            item.cat = cat;
-            item.source = src;
-            item.type = type;
-            item.title = title;
-            item.active = active;
+        item.id = id;
+        item.cat = cat;
+        item.source = src;
+        item.type = type;
+        item.title = title;
+        item.active = active;
 
         // Return new object
         return item;
     }
-
 
     // Decodes array of business json results into business model objects
     public static ArrayList<TriggerSpinnerListItem> fromJson(JSONArray jsonArray) {
@@ -100,23 +61,60 @@ public class TriggerSpinnerListItem {
             try {
                 JSONObject category = jsonArray.getJSONObject(i);
                 JSONArray triggerlist = category.getJSONArray("trig");
-                    for(int j = 0; j < triggerlist.length(); j++) {
-                        JSONObject JSONitem = triggerlist.getJSONObject(j);
-                        TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(i, j, category.getString("src"), category.getInt("typ"), JSONitem);
-                        if (listitem != null) {
-                            list.add(listitem);
-                        }
+                for (int j = 0; j < triggerlist.length(); j++) {
+                    JSONObject JSONitem = triggerlist.getJSONObject(j);
+                    TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(i, j, category.getString("src"), category.getInt("typ"), JSONitem);
+                    if (listitem != null) {
+                        list.add(listitem);
                     }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 continue;
             }
         }
         //Add None Element
-        TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(Settings.getInstance().getTrigger_Sets(),  Settings.getInstance().getTrigger_Types(), "", 1, "None", true);
+        TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(Settings.getInstance().getTrigger_Sets(), Settings.getInstance().getTrigger_Types(), "", 1, "None", true);
         list.add(listitem);
 
         return list;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Integer getCat() {
+        return cat;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    @Override
+    public String toString() {
+        return title + " - " + source;
     }
 
     public JSONObject toJson() {

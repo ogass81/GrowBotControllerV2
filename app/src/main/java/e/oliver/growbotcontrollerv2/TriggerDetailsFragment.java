@@ -1,7 +1,6 @@
 package e.oliver.growbotcontrollerv2;
 
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,16 +40,14 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
+    TriggerDetails trigger;
+    Calendar myCalendar = Calendar.getInstance();
+    View context;
     // TODO: Rename and change types of parameters
     private String mTriggerID;
     private String mTriggerCat;
     private Integer mTriggerType;
-    TriggerDetails trigger;
-
-    Calendar myCalendar = Calendar.getInstance();
     private OnTriggerDetailsFragmentInteractionListener mListener;
-
-    View context;
 
 
     public TriggerDetailsFragment() {
@@ -158,7 +154,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             context = inflater.inflate(R.layout.fragment_trigger_details_comp, container, false);
 
             //Populate RelOp Spinner
-            spinner = (Spinner) context.findViewById(R.id.value_relop);
+            spinner = context.findViewById(R.id.value_relop);
             adapter = ArrayAdapter.createFromResource(getActivity(), R.array.relop, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -188,6 +184,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                         trigger.setInterval(0);
                     }
                 }
+
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
 
@@ -205,7 +202,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         });
 
         //Setup Interval Spinner Listener
-        spinner = (Spinner) context.findViewById(R.id.value_interval);
+        spinner = context.findViewById(R.id.value_interval);
         adapter = ArrayAdapter.createFromResource(getActivity(), R.array.interval, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -321,7 +318,6 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         });
 
 
-
         //End Time
         final TimePickerDialog.OnTimeSetListener endtimepicker = new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -343,7 +339,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                 new TimePickerDialog(getActivity(), endtimepicker, trigger.getEnd_hour(), trigger.getEnd_minute(), true).show();
             }
         });
-        
+
 
         return context;
 

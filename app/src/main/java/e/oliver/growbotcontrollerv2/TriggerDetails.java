@@ -1,10 +1,7 @@
 package e.oliver.growbotcontrollerv2;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by ogass on 05.07.2017.
@@ -29,6 +26,43 @@ public class TriggerDetails {
     private Integer relop;
     private Integer threshold;
     private Integer interval;
+
+    // Decodes business json into business model object
+    public static TriggerDetails fromJson(JSONObject jsonObject) {
+        TriggerDetails item = new TriggerDetails();
+        // Deserialize json into object fields
+        try {
+            item.id = jsonObject.getString("id");
+            item.title = jsonObject.getString("tit");
+            item.active = jsonObject.getBoolean("act");
+            item.type = jsonObject.getInt("typ");
+            item.source = jsonObject.getString("src");
+
+            item.start_day = jsonObject.getInt("s_d");
+            item.start_month = jsonObject.getInt("s_mon");
+            item.start_year = jsonObject.getInt("s_y");
+
+            item.start_hour = jsonObject.getInt("s_h");
+            item.start_minute = jsonObject.getInt("s_min");
+
+            item.end_day = jsonObject.getInt("e_d");
+            item.end_month = jsonObject.getInt("e_mon");
+            item.end_year = jsonObject.getInt("e_y");
+
+            item.end_hour = jsonObject.getInt("e_h");
+            item.end_minute = jsonObject.getInt("e_min");
+
+            item.relop = jsonObject.getInt("relop");
+            item.threshold = jsonObject.getInt("val");
+            item.interval = jsonObject.getInt("intv");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        // Return new object
+        return item;
+    }
 
     public Integer getStart_day() {
         return start_day;
@@ -142,60 +176,28 @@ public class TriggerDetails {
         return source;
     }
 
-    public String getId() { return id;}
+    public String getId() {
+        return id;
+    }
 
-    public String getTitle() { return title;}
+    public String getTitle() {
+        return title;
+    }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public Boolean getActive() { return active;}
+    public Boolean getActive() {
+        return active;
+    }
 
     public void setActive(Boolean active) {
         this.active = active;
     }
 
-
-    // Decodes business json into business model object
-    public static TriggerDetails fromJson(JSONObject jsonObject) {
-        TriggerDetails item = new TriggerDetails();
-        // Deserialize json into object fields
-        try {
-            item.id = jsonObject.getString("id");
-            item.title = jsonObject.getString("tit");
-            item.active = jsonObject.getBoolean("act");
-            item.type = jsonObject.getInt("typ");
-            item.source = jsonObject.getString("src");
-
-            item.start_day = jsonObject.getInt("s_d");
-            item.start_month = jsonObject.getInt("s_mon");
-            item.start_year = jsonObject.getInt("s_y");
-
-            item.start_hour = jsonObject.getInt("s_h");
-            item.start_minute = jsonObject.getInt("s_min");
-
-            item.end_day = jsonObject.getInt("e_d");
-            item.end_month = jsonObject.getInt("e_mon");
-            item.end_year = jsonObject.getInt("e_y");
-
-            item.end_hour = jsonObject.getInt("e_h");
-            item.end_minute = jsonObject.getInt("e_min");
-
-            item.relop = jsonObject.getInt("relop");
-            item.threshold = jsonObject.getInt("val");
-            item.interval = jsonObject.getInt("intv");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-        // Return new object
-        return item;
-    }
-
     public JSONObject toJson() {
-       JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("act", active.toString());
             jsonObject.put("tit", title.toString());
@@ -207,14 +209,14 @@ public class TriggerDetails {
             jsonObject.put("s_min", start_minute.toString());
 
             jsonObject.put("e_d", end_day.toString());
-            jsonObject.put("e_m",  end_month.toString());
-            jsonObject.put("e_y",  end_year.toString());
-            jsonObject.put("e_h",  end_hour.toString());
-            jsonObject.put("e_min",  end_minute.toString());
+            jsonObject.put("e_m", end_month.toString());
+            jsonObject.put("e_y", end_year.toString());
+            jsonObject.put("e_h", end_hour.toString());
+            jsonObject.put("e_min", end_minute.toString());
 
-            jsonObject.put("relop",  relop.toString());
-            jsonObject.put("val",  threshold.toString());
-            jsonObject.put("intv",  interval.toString());
+            jsonObject.put("relop", relop.toString());
+            jsonObject.put("val", threshold.toString());
+            jsonObject.put("intv", interval.toString());
             //more
 
         } catch (JSONException e) {

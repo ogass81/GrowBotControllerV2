@@ -16,25 +16,6 @@ public class SensorListItem {
     private String title;
     private String unit;
 
-    public String getId() { return id;}
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
     // Decodes business json into business model object
     public static SensorListItem fromJson(Integer id, JSONObject jsonObject) {
         SensorListItem s = new SensorListItem();
@@ -56,7 +37,7 @@ public class SensorListItem {
         JSONObject listitemJSON;
         ArrayList<SensorListItem> sensorlist = new ArrayList<SensorListItem>(jsonArray.length());
         // Process each result in json array, decode and convert to business object
-        for (int i=0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 listitemJSON = jsonArray.getJSONObject(i);
             } catch (Exception e) {
@@ -73,8 +54,28 @@ public class SensorListItem {
         return sensorlist;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     public JSONObject toJson() {
-       JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
 
         //tbd
 

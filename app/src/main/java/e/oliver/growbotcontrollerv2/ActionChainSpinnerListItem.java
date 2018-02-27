@@ -16,31 +16,6 @@ public class ActionChainSpinnerListItem {
     private String title;
     private Boolean active;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public String toString() {
-        return title;
-    }
-    // Decodes business json into business model object
-
     // Decodes business json into business model object
     public static ActionChainSpinnerListItem fromJson(Integer id, JSONObject jsonObject) {
         ActionChainSpinnerListItem item = new ActionChainSpinnerListItem();
@@ -61,9 +36,9 @@ public class ActionChainSpinnerListItem {
         ActionChainSpinnerListItem item = new ActionChainSpinnerListItem();
         // Deserialize json into object fields
 
-            item.id = id;
-            item.title = title;
-            item.active = active;
+        item.id = id;
+        item.title = title;
+        item.active = active;
 
         // Return new object
         return item;
@@ -72,7 +47,7 @@ public class ActionChainSpinnerListItem {
     // Decodes array of business json results into business model objects
     public static ArrayList<ActionChainSpinnerListItem> fromJson(JSONArray jsonArray) {
         JSONObject JSONitem;
-       
+
         ArrayList<ActionChainSpinnerListItem> list = new ArrayList<ActionChainSpinnerListItem>(jsonArray.length());
         // Process each result in json array, decode and convert to business object
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -93,6 +68,31 @@ public class ActionChainSpinnerListItem {
         list.add(listitem);
 
         return list;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    // Decodes business json into business model object
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String toString() {
+        return title;
     }
 
     public JSONObject toJson() {

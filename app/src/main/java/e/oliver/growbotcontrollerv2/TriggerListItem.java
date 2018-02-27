@@ -18,34 +18,6 @@ public class TriggerListItem {
     private Boolean active;
     private Integer type;
 
-    public Integer getType() {
-        return type;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public String getCat() {
-        return cat;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
     // Decodes business json into business model object
     public static TriggerListItem fromJson(Integer id, Integer cat, JSONObject jsonObject) {
         TriggerListItem item = new TriggerListItem();
@@ -67,7 +39,7 @@ public class TriggerListItem {
     // Decodes array of business json results into business model objects
     public static ArrayList<TriggerListItem> fromJson(Integer cat, JSONArray jsonArray) {
         JSONObject JSONitem;
-       
+
         ArrayList<TriggerListItem> list = new ArrayList<TriggerListItem>(jsonArray.length());
         // Process each result in json array, decode and convert to business object
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -85,6 +57,34 @@ public class TriggerListItem {
         }
 
         return list;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getCat() {
+        return cat;
     }
 
     public JSONObject toJson() {

@@ -2,7 +2,6 @@ package e.oliver.growbotcontrollerv2;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.drm.DrmStore;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,8 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import static android.os.AsyncTask.SERIAL_EXECUTOR;
 
 
 /**
@@ -225,7 +222,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     trigger = TriggerSpinnerListItem.fromJson(listJSON);
 
                     //Populate Trigger Spinner 1
-                    Spinner spinner = (Spinner) getActivity().findViewById(R.id.value_trigger1);
+                    Spinner spinner = getActivity().findViewById(R.id.value_trigger1);
 
                     ArrayAdapter<TriggerSpinnerListItem> adapter = new ArrayAdapter<TriggerSpinnerListItem>(getActivity(),
                             android.R.layout.simple_spinner_item, trigger);
@@ -236,10 +233,9 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner.setAdapter(adapter);
 
                     //Set to position
-                    if(ruleset.getTset1_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat1_ptr() < Settings.getInstance().getTrigger_Types()) {
+                    if (ruleset.getTset1_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat1_ptr() < Settings.getInstance().getTrigger_Types()) {
                         spinner.setSelection(ruleset.getTcat1_ptr() * Settings.getInstance().getTrigger_Sets() + ruleset.getTset1_ptr(), false);
-                    }
-                        else {
+                    } else {
                         spinner.setSelection(trigger.size() - 1, false);
                     }
 
@@ -260,7 +256,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     });
 
                     //Populate Trigger Spinner 2
-                    spinner = (Spinner) getActivity().findViewById(R.id.value_trigger2);
+                    spinner = getActivity().findViewById(R.id.value_trigger2);
 
                     adapter = new ArrayAdapter<TriggerSpinnerListItem>(getActivity(),
                             android.R.layout.simple_spinner_item, trigger);
@@ -271,10 +267,9 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner.setAdapter(adapter);
 
                     //Set to position
-                    if(ruleset.getTset2_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat2_ptr() < Settings.getInstance().getTrigger_Types()) {
+                    if (ruleset.getTset2_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat2_ptr() < Settings.getInstance().getTrigger_Types()) {
                         spinner.setSelection(ruleset.getTcat2_ptr() * Settings.getInstance().getTrigger_Sets() + ruleset.getTset2_ptr(), false);
-                    }
-                    else {
+                    } else {
                         spinner.setSelection(trigger.size() - 1, false);
                     }
 
@@ -292,7 +287,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     });
 
                     //Populate Trigger Spinner 3
-                    spinner = (Spinner) getActivity().findViewById(R.id.value_trigger3);
+                    spinner = getActivity().findViewById(R.id.value_trigger3);
 
                     adapter = new ArrayAdapter<TriggerSpinnerListItem>(getActivity(),
                             android.R.layout.simple_spinner_item, trigger);
@@ -303,10 +298,9 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner.setAdapter(adapter);
 
                     //Set to position
-                    if(ruleset.getTset3_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat3_ptr() < Settings.getInstance().getTrigger_Types()) {
+                    if (ruleset.getTset3_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat3_ptr() < Settings.getInstance().getTrigger_Types()) {
                         spinner.setSelection(ruleset.getTcat3_ptr() * Settings.getInstance().getTrigger_Sets() + ruleset.getTset3_ptr(), false);
-                    }
-                    else {
+                    } else {
                         spinner.setSelection(trigger.size() - 1, false);
                     }
 
@@ -325,12 +319,12 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
 
                 } else if (output.getString("obj").contentEquals("ACTIONCHAIN")) {
                     JSONArray listJSON = output.getJSONArray("list");
-                    actionchain  = ActionChainSpinnerListItem.fromJson(listJSON);
+                    actionchain = ActionChainSpinnerListItem.fromJson(listJSON);
 
                     System.out.println("Action Processing");
 
                     //Populate Action Spinner 1
-                    Spinner spinner = (Spinner) getActivity().findViewById(R.id.value_actionchain);
+                    Spinner spinner = getActivity().findViewById(R.id.value_actionchain);
 
                     ArrayAdapter<ActionChainSpinnerListItem> adapter = new ArrayAdapter<ActionChainSpinnerListItem>(getActivity(),
                             android.R.layout.simple_spinner_item, actionchain);
@@ -341,10 +335,9 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner.setAdapter(adapter);
 
                     //Set to position
-                    if(ruleset.getChain_ptr() < Settings.getInstance().getActionsChains_Num()) {
+                    if (ruleset.getChain_ptr() < Settings.getInstance().getActionsChains_Num()) {
                         spinner.setSelection(ruleset.getChain_ptr(), false);
-                    }
-                    else {
+                    } else {
                         spinner.setSelection(actionchain.size() - 1, false);
                     }
 

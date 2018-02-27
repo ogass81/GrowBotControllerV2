@@ -27,15 +27,13 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    ArrayList<ActionListItem> list = new ArrayList<ActionListItem>();
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private int counter = 0;
     //Listener for Item Interaction
     private OnActionListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
-
-
-    ArrayList<ActionListItem> list = new ArrayList<ActionListItem>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,8 +53,8 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse {
 
         }
 
-        
-        RestClient client = (RestClient) new RestClient(Settings.getInstance().getClient_ip()+"/action", Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+
+        RestClient client = (RestClient) new RestClient(Settings.getInstance().getClient_ip() + "/action", Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     @Override
@@ -68,10 +66,10 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse {
         recyclerView = view.findViewById(R.id.list);
 
         if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        }
         //OG: Create Adapter
         recyclerView.setAdapter(new ActionListRecyclerViewAdapter(list, mListener));
 
@@ -103,7 +101,7 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse {
         TextView response = getView().findViewById(R.id.server_response);
         response.setText(response_code + " " + response_message);
 
-        if(response_code == 200 && output != null) {
+        if (response_code == 200 && output != null) {
             try {
                 JSONArray listJSON = output.getJSONArray("list");
 
@@ -113,8 +111,7 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("ActionsListFragment->processFinish: no elements");
         }
     }

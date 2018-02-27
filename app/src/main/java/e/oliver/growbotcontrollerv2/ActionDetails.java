@@ -15,23 +15,6 @@ public class ActionDetails {
 
     //more
 
-    public String getId() { return id;}
-
-    public String getTitle() { return title;}
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Boolean getActive() { return active;}
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-
-
-
     // Decodes business json into business model object
     public static ActionDetails fromJson(JSONObject jsonObject) {
         ActionDetails item = new ActionDetails();
@@ -52,8 +35,28 @@ public class ActionDetails {
         return item;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     public JSONObject toJson() {
-       JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
 
         return jsonObject;
     }

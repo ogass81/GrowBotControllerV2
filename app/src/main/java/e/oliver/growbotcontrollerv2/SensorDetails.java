@@ -12,6 +12,12 @@ import java.util.Hashtable;
 
 public class SensorDetails {
 
+    ArrayList<Integer> minute_values = new ArrayList<Integer>();
+    ArrayList<Integer> hour_values = new ArrayList<Integer>();
+    ArrayList<Integer> day_values = new ArrayList<Integer>();
+    ArrayList<Integer> month_values = new ArrayList<Integer>();
+    ArrayList<Integer> year_values = new ArrayList<Integer>();
+    Hashtable<String, Integer> avg_values;
     private String id;
     private String title;
     private String unit;
@@ -20,72 +26,6 @@ public class SensorDetails {
     private String max_val;
     private String lower_threshold;
     private String upper_threshold;
-
-    ArrayList<Integer> minute_values = new ArrayList<Integer>();
-    ArrayList<Integer> hour_values = new ArrayList<Integer>();
-    ArrayList<Integer> day_values = new ArrayList<Integer>();
-    ArrayList<Integer> month_values = new ArrayList<Integer>();
-    ArrayList<Integer> year_values = new ArrayList<Integer>();
-
-    Hashtable<String, Integer> avg_values;
-
-    public String getId() { return id;}
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public String getNan_val() {
-        return nan_val;
-    }
-
-    public String getMin_val() {
-        return min_val;
-    }
-
-    public String getMax_val() {
-        return max_val;
-    }
-
-    public String getLower_threshold() {
-        return lower_threshold;
-    }
-
-    public String getUpper_threshold() {
-        return upper_threshold;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public void setNan_val(String nan_val) {
-        this.nan_val = nan_val;
-    }
-
-    public void setMin_val(String min_val) {
-        this.min_val = min_val;
-    }
-
-    public void setMax_val(String max_val) {
-        this.max_val = max_val;
-    }
-
-    public void setLower_threshold(String lower_threshold) {
-        this.lower_threshold = lower_threshold;
-    }
-
-    public void setUpper_threshold(String upper_threshold) {
-        this.upper_threshold = upper_threshold;
-    }
 
     // Decodes business json into business model object
     public static SensorDetails fromJson(JSONObject jsonObject) {
@@ -193,8 +133,68 @@ public class SensorDetails {
         return s;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getNan_val() {
+        return nan_val;
+    }
+
+    public void setNan_val(String nan_val) {
+        this.nan_val = nan_val;
+    }
+
+    public String getMin_val() {
+        return min_val;
+    }
+
+    public void setMin_val(String min_val) {
+        this.min_val = min_val;
+    }
+
+    public String getMax_val() {
+        return max_val;
+    }
+
+    public void setMax_val(String max_val) {
+        this.max_val = max_val;
+    }
+
+    public String getLower_threshold() {
+        return lower_threshold;
+    }
+
+    public void setLower_threshold(String lower_threshold) {
+        this.lower_threshold = lower_threshold;
+    }
+
+    public String getUpper_threshold() {
+        return upper_threshold;
+    }
+
+    public void setUpper_threshold(String upper_threshold) {
+        this.upper_threshold = upper_threshold;
+    }
+
     public JSONObject toJson() {
-       JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("low", lower_threshold.toString());
             jsonObject.put("high", upper_threshold.toString());

@@ -16,33 +16,6 @@ public class ActionChainListItem {
     private String title;
     private Boolean active;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    @Override
-
-    public String toString() {
-        return title;
-    }
-    // Decodes business json into business model object
-
     public static ActionChainListItem fromJson(Integer id, JSONObject jsonObject) {
         ActionChainListItem item = new ActionChainListItem();
         // Deserialize json into object fields
@@ -61,7 +34,7 @@ public class ActionChainListItem {
     // Decodes array of business json results into business model objects
     public static ArrayList<ActionChainListItem> fromJson(JSONArray jsonArray) {
         JSONObject JSONitem;
-       
+
         ArrayList<ActionChainListItem> list = new ArrayList<ActionChainListItem>(jsonArray.length());
         // Process each result in json array, decode and convert to business object
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -79,6 +52,33 @@ public class ActionChainListItem {
         }
 
         return list;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+    // Decodes business json into business model object
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    @Override
+
+    public String toString() {
+        return title;
     }
 
     public JSONObject toJson() {

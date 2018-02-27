@@ -2,7 +2,6 @@ package e.oliver.growbotcontrollerv2;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         Bundle bundle = new Bundle();
         Class fragmentClass = null;
-        System.out.println("MainActivity->NavID: "+ id);
+        System.out.println("MainActivity->NavID: " + id);
 
         if (id == R.id.nav_info) {
             fragmentClass = InfoFragment.class;
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_actionchain) {
             fragmentClass = ActionChainListFragment.class;
         } else if (id == R.id.nav_trigger) {
-           fragmentClass = TriggerCategoryListFragment.class;
+            fragmentClass = TriggerCategoryListFragment.class;
         } else if (id == R.id.nav_ruleset) {
             fragmentClass = RuleSetListFragment.class;
         }
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragment.setArguments(bundle);
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("List").commit();
 
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("Detail").commit();
     }
 
     public void onSensorDetailsFragmentInteraction(Button button) {
@@ -158,7 +157,7 @@ public class MainActivity extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("Detail").commit();
     }
 
     public void onRuleSetDetailsFragmentInteraction(Button button) {
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("Detail").commit();
     }
 
 
@@ -199,7 +198,7 @@ public class MainActivity extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("Detail").commit();
     }
 
     public void onTriggerDetailsFragmentInteraction(Button button) {
@@ -220,7 +219,7 @@ public class MainActivity extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("Detail").commit();
     }
 
     public void onActionChainDetailsFragmentInteraction(Button button) {
@@ -241,7 +240,7 @@ public class MainActivity extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("Detail").commit();
     }
 
     public void onSocketDetailsFragmentInteraction(Button button) {

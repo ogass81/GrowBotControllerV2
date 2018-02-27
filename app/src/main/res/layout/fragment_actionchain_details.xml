@@ -46,189 +46,22 @@
                 android:layout_marginTop="10dp"
                 android:background="#c0c0c0" />
 
-            <TextView
-                android:id="@+id/label_action1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/sets"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/line1"
-                android:text="Action 1" />
+                android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/value_action1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/label_action1"
-                android:layout_marginStart="9dp" />
+            </LinearLayout>
 
-            <SeekBar
-                android:id="@+id/value_par1"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/value_action1"
-                android:layout_marginTop="10dp"
-                android:max="30"
-                android:progress="1" />
-
-            <View
-                android:id="@+id/line2"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/value_par1"
-                android:layout_marginTop="10dp"
-                android:background="#c0c0c0" />
-
-
-            <TextView
-                android:id="@+id/label_action2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line2"
-                android:text="Action 2" />
-
-            <Spinner
-                android:id="@+id/value_action2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/label_action2"
-                android:layout_marginStart="9dp" />
-
-            <SeekBar
-                android:id="@+id/value_par2"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/value_action2"
-                android:layout_marginTop="10dp"
-                android:max="30"
-                android:progress="1" />
-
-            <View
-                android:id="@+id/line3"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/value_par2"
-                android:layout_marginTop="10dp"
-                android:background="#c0c0c0" />
-
-
-            <TextView
-                android:id="@+id/label_action3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line3"
-                android:text="Action 3" />
-
-            <Spinner
-                android:id="@+id/value_action3"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/label_action3"
-                android:layout_marginStart="9dp" />
-
-            <SeekBar
-                android:id="@+id/value_par3"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/value_action3"
-                android:layout_marginTop="10dp"
-                android:max="30"
-                android:progress="1" />
-
-            <View
-                android:id="@+id/line4"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/value_par3"
-                android:layout_marginTop="10dp"
-                android:background="#c0c0c0" />
-
-            <TextView
-                android:id="@+id/label_action4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line4"
-                android:text="Action 4" />
-
-            <Spinner
-                android:id="@+id/value_action4"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/label_action4"
-                android:layout_marginStart="9dp" />
-
-            <SeekBar
-                android:id="@+id/value_par4"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/value_action4"
-                android:layout_marginTop="10dp"
-                android:max="30"
-                android:progress="1" />
-
-            <View
-                android:id="@+id/line5"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/value_par4"
-                android:layout_marginTop="10dp"
-                android:background="#c0c0c0" />
-
-
-            <TextView
-                android:id="@+id/label_action5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line5"
-                android:text="Action 5" />
-
-            <Spinner
-                android:id="@+id/value_action5"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/label_action5"
-                android:layout_marginStart="9dp" />
-
-            <SeekBar
-                android:id="@+id/value_par5"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/value_action5"
-                android:layout_marginTop="10dp"
-                android:max="30"
-                android:progress="1" />
-
-            <View
-                android:id="@+id/line6"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/value_par5"
-                android:layout_marginTop="10dp"
-                android:background="#c0c0c0" />
-
-            <View
-                android:id="@+id/line8"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/line6"
-                android:layout_marginTop="10dp"
-                android:background="#c0c0c0" />
 
             <Switch
                 android:id="@+id/value_active"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/line8"
+                android:layout_below="@+id/sets"
                 android:text="Active" />
 
             <View
@@ -248,15 +81,14 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/line9"
                 android:text="Save" />
-
             <TextView
                 android:id="@+id/server_response"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true" />
 
-
         </RelativeLayout>
+
     </ScrollView>
 
 </RelativeLayout>

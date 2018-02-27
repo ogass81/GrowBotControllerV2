@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -66,16 +65,17 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
-    public void setLowerThreshold()  {
+    public void setLowerThreshold() {
         String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID + "/" + mRange + "/lower";
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
-    public void setUpperThreshold()  {
+    public void setUpperThreshold() {
         String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID + "/" + mRange + "/upper";
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
-    public void saveToBot()  {
+
+    public void saveToBot() {
         String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID;
         System.out.println("SensorsDetailsFragment->saveToBot:" + sensor.toJson());
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", sensor.toJson(), this).execute();
@@ -125,9 +125,11 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                 sensor.setLower_threshold(s.toString());
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
         box = view.findViewById(R.id.value_up);
@@ -138,8 +140,11 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                 sensor.setUpper_threshold(s.toString());
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
         return view;
@@ -173,9 +178,9 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
 
-       if(response_code == 200 && output != null) {
+        if (response_code == 200 && output != null) {
             sensor = SensorDetails.fromJson(output);
-       }
+        }
         TextView response = getView().findViewById(R.id.server_response);
         response.setText(response_code + " " + response_message);
 

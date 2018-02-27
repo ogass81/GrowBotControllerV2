@@ -2,6 +2,8 @@ package e.oliver.growbotcontrollerv2;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -52,7 +55,6 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-
      * @return A new instance of fragment ActionChainDetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -90,16 +92,6 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
 
         View view = inflater.inflate(R.layout.fragment_actionchain_details, container, false);
 
-        //OG: Set save button
-        Button button = view.findViewById(R.id.button_save);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveToBot();
-                System.out.println("Save");
-            }
-        });
-
         //OG: Update Memory model of ActionChain
         EditText box = view.findViewById(R.id.value_title);
         box.addTextChangedListener(new TextWatcher() {
@@ -115,24 +107,90 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
             }
         });
 
-        SeekBar seekbar1 = view.findViewById(R.id.value_par1);
-        seekbar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        //Setup Active Switch Listener
+        Switch ui_switch = view.findViewById(R.id.value_active);
+        ui_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                actionchain.getAction_par().set(0, i);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                actionchain.setActive(b);
             }
         });
 
+        //OG: Set save button
+        Button button = view.findViewById(R.id.button_save);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToBot();
+                System.out.println("Save");
+            }
+        });
+
+
+        //Create dynamic number of UI Elements for Actions
+        LinearLayout layout = view.findViewById(R.id.sets);
+        for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
+
+            //Label
+            TextView label = new TextView(getContext());
+            label.setText("Action " + (i + 1));
+            layout.addView(label);
+
+
+            //Spinner
+            Spinner spinner = new Spinner(getContext());
+            spinner.setId(1000 + i);
+            layout.addView(spinner);
+
+            //Progress Seekbar
+            LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.FILL_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params1.setMargins((int) (10 * Resources.getSystem().getDisplayMetrics().density), 0, (int) (10 * Resources.getSystem().getDisplayMetrics().density), 0);
+
+
+            ProgressSeekerBar seekbar = new ProgressSeekerBar(getContext());
+            seekbar.setId(2000 + i);
+            seekbar.setProgress(1);
+            seekbar.setLayoutParams(params1);
+
+            seekbar.setMax(Settings.getInstance().getActionchain_Task_Maxduration());
+
+            final int index = i;
+
+            seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int j, boolean b) {
+                    actionchain.getAction_par().set(index, j);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+            layout.addView(seekbar);
+
+
+            //Seperator Line
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params2.setMargins(0, (int) (10 * Resources.getSystem().getDisplayMetrics().density), 0, 0);
+
+            TextView line = new TextView(getContext());
+            line.setLayoutParams(params2);
+            line.setBackgroundColor(Color.parseColor("#c0c0c0"));
+            line.setHeight(1);
+            layout.addView(line);
+        }
         return view;
 
     }
@@ -172,63 +230,67 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
                 if (output.getString("obj").contentEquals("ACTIONCHAIN")) {
                     actionchain = ActionChainDetails.fromJson(output);
 
+                    //Set Actionchain ID
                     TextView value_id = getView().findViewById(R.id.value_id);
                     value_id.setText(actionchain.getId().toString());
 
+                    //Title
                     TextView value_title = getView().findViewById(R.id.value_title);
                     value_title.setText(actionchain.getTitle());
 
+                    //Set Active
                     Switch active = getView().findViewById(R.id.value_active);
                     active.setChecked(actionchain.getActive());
 
-                    //Setup Active Switch Listener
-                    Switch ui_switch = getActivity().findViewById(R.id.value_active);
-                    ui_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                            actionchain.setActive(b);
-                        }
-                    });
-
-                    SeekBar seekbar1 = getActivity().findViewById(R.id.value_par1);
-                    seekbar1.setProgress(actionchain.getAction_par().get(0), false);
-
+                    //Set Seeker
+                    for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
+                        SeekBar seekbar1 = getActivity().findViewById(2000 + i);
+                        seekbar1.setProgress(actionchain.getAction_par().get(i), false);
+                    }
 
                 } else if (output.getString("obj").contentEquals("ACTION")) {
                     JSONArray listJSON = output.getJSONArray("list");
                     action = ActionSpinnerListItem.fromJson(listJSON);
 
-                    System.out.println("Action Processing");
+                    //Set Spinner
+                    for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
+                        //Populate Action Spinner 1
+                        Spinner spinner = getActivity().findViewById(1000 + i);
 
-                    //Populate Action Spinner 1
-                    Spinner spinner = getActivity().findViewById(R.id.value_action1);
+                        ArrayAdapter<ActionSpinnerListItem> adapter = new ArrayAdapter<ActionSpinnerListItem>(getActivity(),
+                                android.R.layout.simple_spinner_item, action);
 
-                    ArrayAdapter<ActionSpinnerListItem> adapter = new ArrayAdapter<ActionSpinnerListItem>(getActivity(),
-                            android.R.layout.simple_spinner_item, action);
+                        // Specify the layout to use when the list of choices appears
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        spinner.setAdapter(adapter);
 
-                    // Specify the layout to use when the list of choices appears
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    // Apply the adapter to the spinner
-                    spinner.setAdapter(adapter);
+                        //Set to position
+                        spinner.setSelection(actionchain.getAction_ptr().get(i), false);
 
-                    //Set to position
-                    if (actionchain.getAction_ptr().get(0) < Settings.getInstance().getActions_Num()) {
-                        spinner.setSelection(actionchain.getAction_ptr().get(0), false);
-                    } else {
-                        spinner.setSelection(actionchain.getAction_ptr().size() - 1, false);
+                        /*
+                        if (actionchain.getAction_ptr().get(i) < Settings.getInstance().getActions_Num()) {
+                            spinner.setSelection(actionchain.getAction_ptr().get(i), false);
+                        } else {
+                            spinner.setSelection(actionchain.getAction_ptr().size() - 1, false);
+                        }
+                        */
+
+                        //Set Listener
+                        final int index = i;
+
+                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                actionchain.getAction_ptr().set(index, i);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
                     }
-
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            actionchain.getAction_ptr().set(0, i);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
 
 
                 }

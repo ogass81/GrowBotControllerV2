@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
 import e.oliver.growbotcontrollerv2.SensorListFragment.OnSensorListFragmentInteractionListener;
 import e.oliver.growbotcontrollerv2.dummy.DummyContent.DummyItem;
 

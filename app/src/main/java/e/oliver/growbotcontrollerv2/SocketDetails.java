@@ -15,23 +15,6 @@ public class SocketDetails {
 
     //more
 
-    public String getId() { return id;}
-
-    public String getTitle() { return title;}
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Boolean getActive() { return active;}
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-
-
-
     // Decodes business json into business model object
     public static SocketDetails fromJson(JSONObject jsonObject) {
         SocketDetails item = new SocketDetails();
@@ -52,8 +35,28 @@ public class SocketDetails {
         return item;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     public JSONObject toJson() {
-       JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("tit", title.toString());
             jsonObject.put("act", active.toString());

@@ -17,31 +17,6 @@ public class ActionSpinnerListItem {
     private Boolean active;
     private Integer type;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    @Override
-    public String toString() {
-        return title;
-    }
-
     // Decodes business json into business model object
     public static ActionSpinnerListItem fromJson(Integer id, JSONObject jsonObject) {
         ActionSpinnerListItem item = new ActionSpinnerListItem();
@@ -63,9 +38,9 @@ public class ActionSpinnerListItem {
         ActionSpinnerListItem item = new ActionSpinnerListItem();
         // Deserialize json into object fields
 
-            item.id = id.toString();
-            item.title = title;
-            item.active = active;
+        item.id = id.toString();
+        item.title = title;
+        item.active = active;
 
         // Return new object
         return item;
@@ -74,7 +49,7 @@ public class ActionSpinnerListItem {
     // Decodes array of business json results into business model objects
     public static ArrayList<ActionSpinnerListItem> fromJson(JSONArray jsonArray) {
         JSONObject JSONitem;
-       
+
         ArrayList<ActionSpinnerListItem> list = new ArrayList<ActionSpinnerListItem>(jsonArray.length());
         // Process each result in json array, decode and convert to business object
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -96,6 +71,31 @@ public class ActionSpinnerListItem {
 
 
         return list;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 
     public JSONObject toJson() {

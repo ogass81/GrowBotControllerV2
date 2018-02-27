@@ -47,15 +47,21 @@ public class ActionChainDetails {
         return item;
     }
 
-    public Integer getId() { return id;}
+    public Integer getId() {
+        return id;
+    }
 
-    public String getTitle() { return title;}
+    public String getTitle() {
+        return title;
+    }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public Boolean getActive() { return active;}
+    public Boolean getActive() {
+        return active;
+    }
 
     public void setActive(Boolean active) {
         this.active = active;
@@ -78,7 +84,7 @@ public class ActionChainDetails {
     }
 
     public JSONObject toJson() {
-       JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("tit", title.toString());
             jsonObject.put("act", active.toString());

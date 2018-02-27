@@ -27,15 +27,13 @@ public class TriggerCategoryListFragment extends Fragment implements AsyncRestRe
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    ArrayList<TriggerCategoryListItem> list = new ArrayList<TriggerCategoryListItem>();
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private int counter = 0;
     //Listener for Item Interaction
     private OnTriggerCategoryListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
-
-
-    ArrayList<TriggerCategoryListItem> list = new ArrayList<TriggerCategoryListItem>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -54,8 +52,8 @@ public class TriggerCategoryListFragment extends Fragment implements AsyncRestRe
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        
-        RestClient client = (RestClient) new RestClient(Settings.getInstance().getClient_ip()+"/trigger", Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+
+        RestClient client = (RestClient) new RestClient(Settings.getInstance().getClient_ip() + "/trigger", Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     @Override
@@ -67,10 +65,10 @@ public class TriggerCategoryListFragment extends Fragment implements AsyncRestRe
         recyclerView = view.findViewById(R.id.list);
 
         if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        }
         //OG: Create Adapter
         recyclerView.setAdapter(new TriggerCategoryListRecyclerViewAdapter(list, mListener));
 
@@ -103,7 +101,7 @@ public class TriggerCategoryListFragment extends Fragment implements AsyncRestRe
         response.setText(response_code + " " + response_message);
 
 
-        if(response_code == 200 && output != null) {
+        if (response_code == 200 && output != null) {
             try {
                 JSONArray listJSON = output.getJSONArray("list");
 
@@ -113,8 +111,7 @@ public class TriggerCategoryListFragment extends Fragment implements AsyncRestRe
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("TriggersListFragment->processFinish: no elements");
         }
     }

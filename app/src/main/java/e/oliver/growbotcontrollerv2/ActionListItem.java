@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ActionListItem {
 
-    private String id;
+    private Integer id;
     private String title;
     private Boolean active;
     private Integer type;
@@ -22,7 +22,7 @@ public class ActionListItem {
         ActionListItem item = new ActionListItem();
         // Deserialize json into object fields
         try {
-            item.id = id.toString();
+            item.id = id;
             item.title = jsonObject.getString("tit");
             item.active = jsonObject.getBoolean("vis");
         } catch (JSONException e) {
@@ -56,7 +56,7 @@ public class ActionListItem {
         return list;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

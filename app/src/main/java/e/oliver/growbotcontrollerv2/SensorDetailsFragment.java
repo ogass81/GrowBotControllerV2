@@ -28,7 +28,7 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    private String mSensorID;
+    private Integer mSensorID;
     private String mRange;
     private SensorDetails sensor;
 
@@ -56,27 +56,26 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSensorID = getArguments().getString("id");
-            System.out.println("Sensor ID: " + mSensorID.toString());
+            mSensorID = getArguments().getInt("id");
             mRange = getArguments().getString("range");
         }
 
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID + "/" + mRange;
+        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange;
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void setLowerThreshold() {
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID + "/" + mRange + "/lower";
+        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange + "/lower";
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void setUpperThreshold() {
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID + "/" + mRange + "/upper";
+        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange + "/upper";
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID;
+        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString();
         System.out.println("SensorsDetailsFragment->saveToBot:" + sensor.toJson());
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", sensor.toJson(), this).execute();
     }

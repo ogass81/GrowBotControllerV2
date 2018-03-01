@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -28,7 +30,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    private String mSocketID;
+    private Integer mSocketID;
     private SocketDetails socket;
 
     private OnSocketDetailsFragmentInteractionListener mListener;
@@ -55,16 +57,15 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSocketID = getArguments().getString("id");
-            System.out.println("Socket ID: " + mSocketID.toString());
+            mSocketID = getArguments().getInt("id");
         }
 
-        String uri = Settings.getInstance().getClient_ip() + "/socket/" + mSocketID;
+        String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/socket/" + mSocketID;
+        String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
         System.out.println("SocketsDetailsFragment->saveToBot:" + socket.toJson());
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", socket.toJson(), this).execute();
     }
@@ -77,17 +78,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
 
         View view = inflater.inflate(R.layout.fragment_socket_details, container, false);
 
-        //OG: Set save button
-        Button button = view.findViewById(R.id.button_save);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveToBot();
-                System.out.println("Save");
-            }
-        });
-
-        //OG: Update Memory model of Socket
+        //OG: Update Memory model of ActionChain
         EditText box = view.findViewById(R.id.value_title);
         box.addTextChangedListener(new TextWatcher() {
 
@@ -102,8 +93,26 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
             }
         });
 
-        return view;
+        //Setup Active Switch Listener
+        Switch ui_switch = view.findViewById(R.id.value_active);
+        ui_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                socket.setActive(b);
+            }
+        });
 
+        //OG: Set save button
+        Button button = view.findViewById(R.id.button_save);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToBot();
+                System.out.println("Save");
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -140,7 +149,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
             response.setText(response_code + " " + response_message);
 
             TextView value_id = getView().findViewById(R.id.value_id);
-            value_id.setText(socket.getId());
+            value_id.setText(socket.getId().toString());
 
             TextView value_title = getView().findViewById(R.id.value_title);
             value_title.setText(socket.getTitle());

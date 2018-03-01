@@ -37,7 +37,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    private String mRuleSetID;
+    private Integer mRuleSetID;
     private RuleSetDetails ruleset;
     private ArrayList<TriggerSpinnerListItem> trigger = new ArrayList<TriggerSpinnerListItem>();
     private ArrayList<ActionChainSpinnerListItem> actionchain = new ArrayList<ActionChainSpinnerListItem>();
@@ -67,11 +67,11 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mRuleSetID = getArguments().getString("id");
-            System.out.println("RuleSet ID: " + mRuleSetID.toString());
+            mRuleSetID = getArguments().getInt("id");
+
         }
 
-        String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID;
+        String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID.toString();
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
 
         uri = Settings.getInstance().getClient_ip() + "/trigger/all";
@@ -82,7 +82,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID;
+        String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID.toString();
         System.out.println("RuleSetsDetailsFragment->saveToBot:" + ruleset.toJson());
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", ruleset.toJson(), this).execute();
     }

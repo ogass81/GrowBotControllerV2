@@ -41,7 +41,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    private String mActionChainID;
+    private Integer mActionChainID;
     private ActionChainDetails actionchain;
     private ArrayList<ActionSpinnerListItem> action = new ArrayList<ActionSpinnerListItem>();
 
@@ -67,11 +67,10 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mActionChainID = getArguments().getString("id");
-            System.out.println("ActionChain ID: " + mActionChainID.toString());
+            mActionChainID = getArguments().getInt("id");
         }
 
-        String uri = Settings.getInstance().getClient_ip() + "/actionchain/" + mActionChainID;
+        String uri = Settings.getInstance().getClient_ip() + "/actionchain/" + mActionChainID.toString();
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
 
         uri = Settings.getInstance().getClient_ip() + "/action";
@@ -79,7 +78,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/actionchain/" + mActionChainID;
+        String uri = Settings.getInstance().getClient_ip() + "/actionchain/" + mActionChainID.toString();
         System.out.println("ActionChainsDetailsFragment->saveToBot:" + actionchain.toJson());
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", actionchain.toJson(), this).execute();
     }

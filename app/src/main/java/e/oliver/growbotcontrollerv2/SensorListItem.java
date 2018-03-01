@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class SensorListItem {
 
-    private String id;
+    private Integer id;
     private String title;
     private String unit;
 
@@ -21,7 +21,7 @@ public class SensorListItem {
         SensorListItem s = new SensorListItem();
         // Deserialize json into object fields
         try {
-            s.id = id.toString();
+            s.id = id;
             s.title = jsonObject.getString("tit");
             s.unit = jsonObject.getString("unit");
         } catch (JSONException e) {
@@ -54,7 +54,7 @@ public class SensorListItem {
         return sensorlist;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

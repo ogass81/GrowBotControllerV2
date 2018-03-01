@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class TriggerCategoryListItem {
 
-    private String id;
+    private Integer id;
 
     private String title;
     private String sensor;
@@ -23,7 +23,7 @@ public class TriggerCategoryListItem {
         TriggerCategoryListItem item = new TriggerCategoryListItem();
         // Deserialize json into object fields
         try {
-            item.id = id.toString();
+            item.id = id;
             item.title = jsonObject.getString("tit");
             item.sensor = jsonObject.getString("src");
             item.type = jsonObject.getInt("typ");
@@ -59,7 +59,7 @@ public class TriggerCategoryListItem {
         return list;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

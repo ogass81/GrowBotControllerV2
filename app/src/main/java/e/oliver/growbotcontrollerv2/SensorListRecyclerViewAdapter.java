@@ -36,7 +36,7 @@ public class SensorListRecyclerViewAdapter extends RecyclerView.Adapter<SensorLi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
+        holder.mIdView.setText(mValues.get(position).getId().toString());
         holder.mContentView.setText(mValues.get(position).getTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

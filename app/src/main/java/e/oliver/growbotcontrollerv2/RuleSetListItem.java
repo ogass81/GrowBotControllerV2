@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 
 public class RuleSetListItem {
-    private String id;
+    private Integer id;
     private String title;
     private Boolean active;
 
@@ -20,7 +20,7 @@ public class RuleSetListItem {
         RuleSetListItem rs = new RuleSetListItem();
         // Deserialize json into object fields
         try {
-            rs.id = id.toString();
+            rs.id = id;
             rs.title = jsonObject.getString("tit");
             rs.active = jsonObject.getBoolean("act");
         } catch (JSONException e) {
@@ -53,7 +53,7 @@ public class RuleSetListItem {
         return rulesetlist;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

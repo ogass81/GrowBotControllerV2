@@ -44,8 +44,8 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
     Calendar myCalendar = Calendar.getInstance();
     View context;
     // TODO: Rename and change types of parameters
-    private String mTriggerID;
-    private String mTriggerCat;
+    private Integer mTriggerID;
+    private Integer mTriggerCat;
     private Integer mTriggerType;
     private OnTriggerDetailsFragmentInteractionListener mListener;
 
@@ -72,17 +72,17 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTriggerID = getArguments().getString("id");
-            mTriggerCat = getArguments().getString("cat");
+            mTriggerID = getArguments().getInt("id");
+            mTriggerCat = getArguments().getInt("cat");
             mTriggerType = getArguments().getInt("type");
         }
 
-        String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat + "/" + mTriggerID;
+        String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat.toString() + "/" + mTriggerID.toString();
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat + "/" + mTriggerID;
+        String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat.toString() + "/" + mTriggerID.toString();
         System.out.println("TriggersDetailsFragment->saveToBot:" + trigger.toJson());
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", trigger.toJson(), this).execute();
     }

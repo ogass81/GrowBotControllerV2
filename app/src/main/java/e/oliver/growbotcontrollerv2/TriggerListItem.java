@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class TriggerListItem {
 
-    private String id;
-    private String cat;
+    private Integer id;
+    private Integer cat;
     private String title;
     private Boolean active;
     private Integer type;
@@ -23,8 +23,8 @@ public class TriggerListItem {
         TriggerListItem item = new TriggerListItem();
         // Deserialize json into object fields
         try {
-            item.id = id.toString();
-            item.cat = cat.toString();
+            item.id = id;
+            item.cat = cat;
             item.title = jsonObject.getString("tit");
             item.type = jsonObject.getInt("typ");
             item.active = jsonObject.getBoolean("act");
@@ -63,7 +63,7 @@ public class TriggerListItem {
         return type;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -83,7 +83,7 @@ public class TriggerListItem {
         this.active = active;
     }
 
-    public String getCat() {
+    public Integer getCat() {
         return cat;
     }
 

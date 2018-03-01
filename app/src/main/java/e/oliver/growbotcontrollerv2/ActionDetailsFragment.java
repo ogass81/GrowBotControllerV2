@@ -28,7 +28,7 @@ public class ActionDetailsFragment extends Fragment implements AsyncRestResponse
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    private String mActionID;
+    private Integer mActionID;
     private ActionDetails action;
 
     private OnActionDetailsFragmentInteractionListener mListener;
@@ -55,16 +55,15 @@ public class ActionDetailsFragment extends Fragment implements AsyncRestResponse
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mActionID = getArguments().getString("id");
-            System.out.println("Action ID: " + mActionID.toString());
+            mActionID = getArguments().getInt("id");
         }
 
-        String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID;
+        String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID.toString();
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID;
+        String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID.toString();
         System.out.println("ActionsDetailsFragment->saveToBot:" + action.toJson());
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", action.toJson(), this).execute();
     }

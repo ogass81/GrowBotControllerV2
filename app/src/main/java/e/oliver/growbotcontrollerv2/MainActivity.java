@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = TriggerCategoryListFragment.class;
         } else if (id == R.id.nav_ruleset) {
             fragmentClass = RuleSetListFragment.class;
+
+        } else if (id == R.id.nav_socket) {
+            fragmentClass = SocketListFragment.class;
         }
 
         try {
@@ -127,7 +130,7 @@ public class MainActivity extends AppCompatActivity
 
 
         Bundle bundle = new Bundle();
-        bundle.putString("id", item.getId());
+        bundle.putInt("id", item.getId());
         bundle.putString("range", "avg");
 
         //set Fragmentclass Arguments
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity
 
 
         Bundle bundle = new Bundle();
-        bundle.putString("id", item.getId());
+        bundle.putInt("id", item.getId());
 
         //set Fragmentclass Arguments
         fragment = new RuleSetDetailsFragment();
@@ -170,7 +173,7 @@ public class MainActivity extends AppCompatActivity
 
 
         Bundle bundle = new Bundle();
-        bundle.putString("cat", item.getId());
+        bundle.putInt("cat", item.getId());
 
         //set Fragmentclass Arguments
         fragment = new TriggerListFragment();
@@ -188,8 +191,8 @@ public class MainActivity extends AppCompatActivity
 
 
         Bundle bundle = new Bundle();
-        bundle.putString("id", item.getId());
-        bundle.putString("cat", item.getCat());
+        bundle.putInt("id", item.getId());
+        bundle.putInt("cat", item.getCat());
         bundle.putInt("type", item.getType());
 
         //set Fragmentclass Arguments
@@ -211,7 +214,7 @@ public class MainActivity extends AppCompatActivity
 
 
         Bundle bundle = new Bundle();
-        bundle.putString("id", item.getId().toString());
+        bundle.putInt("id", item.getId());
 
         //set Fragmentclass Arguments
         fragment = new ActionChainDetailsFragment();
@@ -232,7 +235,7 @@ public class MainActivity extends AppCompatActivity
 
 
         Bundle bundle = new Bundle();
-        bundle.putString("id", item.getId());
+        bundle.putInt("id", item.getId());
 
         //set Fragmentclass Arguments
         fragment = new SocketDetailsFragment();

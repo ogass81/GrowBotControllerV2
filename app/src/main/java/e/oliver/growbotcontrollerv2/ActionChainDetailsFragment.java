@@ -87,8 +87,6 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         View view = inflater.inflate(R.layout.fragment_actionchain_details, container, false);
 
         //OG: Update Memory model of ActionChain
@@ -179,7 +177,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
 
             //Seperator Line
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.FILL_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             params2.setMargins(0, (int) (10 * Resources.getSystem().getDisplayMetrics().density), 0, 0);
@@ -187,7 +185,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
             TextView line = new TextView(getContext());
             line.setLayoutParams(params2);
             line.setBackgroundColor(Color.parseColor("#c0c0c0"));
-            line.setHeight(1);
+            line.setHeight(2);
             layout.addView(line);
         }
         return view;

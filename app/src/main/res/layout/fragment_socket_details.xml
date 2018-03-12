@@ -46,11 +46,59 @@
                 android:layout_marginTop="10dp"
                 android:background="#c0c0c0" />
 
+            <TextView
+                android:id="@+id/label_tolerance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line1"
+                android:text="Tolerance" />
+
+            <e.oliver.growbotcontrollerv2.ProgressSeekerBar
+                android:id="@+id/value_tolerance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label_tolerance"
+                android:layout_marginTop="10dp"
+                android:max="100" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/value_tolerance"
+                android:layout_marginTop="10dp"
+                android:background="#c0c0c0" />
+
+            <TextView
+                android:id="@+id/label_repeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line2"
+                android:text="Repeat" />
+
+            <e.oliver.growbotcontrollerv2.ProgressSeekerBar
+                android:id="@+id/value_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label_repeat"
+                android:layout_marginTop="10dp"
+                android:max="100" />
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/value_repeat"
+                android:layout_marginTop="10dp"
+                android:background="#c0c0c0" />
+
             <LinearLayout
                 android:id="@+id/sets"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/line1"
+                android:layout_below="@+id/line3"
                 android:orientation="vertical">
 
             </LinearLayout>
@@ -73,20 +121,45 @@
                 android:layout_marginTop="10dp"
                 android:background="#c0c0c0" />
 
+            <Switch
+                android:id="@+id/value_learn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/line9"
+                android:text="Learning Mode" />
+
+            <View
+                android:id="@+id/line10"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/value_learn"
+                android:layout_marginTop="10dp"
+                android:background="#c0c0c0" />
+
+            <Button
+                android:id="@+id/button_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/line10"
+                android:text="Reset" />
 
             <Button
                 android:id="@+id/button_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/line9"
+                android:layout_below="@+id/line10"
                 android:text="Save" />
 
             <TextView
                 android:id="@+id/server_response"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true" />
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/button_reset" />
 
         </RelativeLayout>
 

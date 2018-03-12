@@ -30,10 +30,10 @@ public class SocketDetails {
             item.title = jsonObject.getString("tit");
             item.active = jsonObject.getBoolean("act");
 
-            item.title = jsonObject.getString("tol");
-            item.active = jsonObject.getBoolean("rep");
+            item.tolerance = jsonObject.getInt("tol");
+            item.repeat = jsonObject.getInt("rep");
 
-            //more
+
             JSONArray cast = jsonObject.getJSONArray("val");
 
             for (int i = 0; i < cast.length(); i++) {
@@ -57,7 +57,6 @@ public class SocketDetails {
             for (int i = 0; i < cast.length(); i++) {
                 item.protocol.add(cast.getInt(i));
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -140,8 +139,8 @@ public class SocketDetails {
         try {
             jsonObject.put("tit", title.toString());
             jsonObject.put("act", active.toString());
-            jsonObject.put("tol", title.toString());
-            jsonObject.put("rep", active.toString());
+            jsonObject.put("tol", tolerance.toString());
+            jsonObject.put("rep", repeat.toString());
 
             JSONArray parameter = new JSONArray();
 

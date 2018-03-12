@@ -52,7 +52,6 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/line1"
                 android:orientation="vertical">
-
             </LinearLayout>
 
 

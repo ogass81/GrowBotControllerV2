@@ -5,6 +5,7 @@ INJECTED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidMa
 INJECTED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:2:1-31:12
 INJECTED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:2:1-31:12
 MERGED from [com.android.support:design:26.1.0] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\5a39555fb118056328bc3e4ecaa756c6\AndroidManifest.xml:17:1-31:12
+MERGED from [com.github.florent37:expansionpanel:1.1.1] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\expansionpanel-1.1.1.aar\a8b2d948d98b9e5085f69c0b932bd7cf\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\db305cadc2ffd85e0faa138a3c5aa850\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\cb8eb41bbd6a3603743009a0406a6d7d\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\5850b807b53fcfa4c86c28b3e7095522\AndroidManifest.xml:17:1-28:12
@@ -123,6 +124,8 @@ INJECTED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidMa
 INJECTED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml
 MERGED from [com.android.support:design:26.1.0] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\5a39555fb118056328bc3e4ecaa756c6\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:design:26.1.0] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\5a39555fb118056328bc3e4ecaa756c6\AndroidManifest.xml:21:5-23:62
+MERGED from [com.github.florent37:expansionpanel:1.1.1] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\expansionpanel-1.1.1.aar\a8b2d948d98b9e5085f69c0b932bd7cf\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.florent37:expansionpanel:1.1.1] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\expansionpanel-1.1.1.aar\a8b2d948d98b9e5085f69c0b932bd7cf\AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\db305cadc2ffd85e0faa138a3c5aa850\AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\db305cadc2ffd85e0faa138a3c5aa850\AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\oliver\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\cb8eb41bbd6a3603743009a0406a6d7d\AndroidManifest.xml:5:5-7:41

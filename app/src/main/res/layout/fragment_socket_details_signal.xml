@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/label_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Code" />
+
+            <EditText
+                android:id="@+id/value_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:gravity="right"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/label_delay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delay" />
+
+            <EditText
+                android:id="@+id/value_delay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:gravity="right"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/label_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Length" />
+
+            <EditText
+                android:id="@+id/value_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:gravity="right"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/label_protocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protocol" />
+
+            <EditText
+                android:id="@+id/value_protocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/value_length"
+                android:ems="8"
+                android:gravity="right"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

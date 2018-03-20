@@ -222,24 +222,24 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
 
             //Header
             ExpansionHeader expansionHeader = new ExpansionHeader(getActivity());
-            expansionHeader.setPadding(dpToPx(getActivity(), 16), dpToPx(getActivity(), 8), dpToPx(getActivity(), 16), dpToPx(getActivity(), 8));
+            expansionHeader.setPadding(dpToPx(getActivity(), 2), dpToPx(getActivity(), 8), dpToPx(getActivity(), 2), dpToPx(getActivity(), 8));
 
             RelativeLayout header_layout = new RelativeLayout(getActivity());
             expansionHeader.addView(header_layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); //equivalent to addView(linearLayout)
 
             //Image
-            final ImageView expansionIndicator = new AppCompatImageView(getActivity());
+            ImageView expansionIndicator = new AppCompatImageView(getActivity());
             expansionIndicator.setImageResource(R.drawable.ic_expand_more_black_24dp);
-            final RelativeLayout.LayoutParams imageLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams imageLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             imageLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             imageLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
             header_layout.addView(expansionIndicator, imageLayoutParams);
 
             //label
-            final TextView text = new TextView(getActivity());
+            TextView text = new TextView(getActivity());
             text.setText("Signal " + index);
 
-            final RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             textLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             textLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
 
@@ -251,24 +251,14 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
 
             //Body
             ExpansionLayout expansionLayout = new ExpansionLayout(getActivity());
+            View signal = inflater.inflate(R.layout.fragment_socket_details_signal, container, false);
 
-            LinearLayout body_layout = new LinearLayout(getActivity());
-            body_layout.setOrientation(LinearLayout.VERTICAL);
-            expansionLayout.setPadding(dpToPx(getActivity(), 32), dpToPx(getActivity(), 2), dpToPx(getActivity(), 16), dpToPx(getActivity(), 2));
-            expansionLayout.addView(body_layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); //equivalent to addView(linearLayout)
+            expansionLayout.setPadding(dpToPx(getActivity(), 16), dpToPx(getActivity(), 2), dpToPx(getActivity(), 16), dpToPx(getActivity(), 2));
+            expansionLayout.addView(signal, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); //equivalent to addView(linearLayout)
 
-            //Content
             //Code
-            LinearLayout code_layout = new LinearLayout(getContext());
-            code_layout.setOrientation(LinearLayout.HORIZONTAL);
-
-            TextView code_label = new TextView(getContext());
-            code_label.setText("Code");
-            EditText code_value = new EditText(getContext());
+            EditText code_value = signal.findViewById(R.id.value_code);
             code_value.setId(1000 + i);
-            code_layout.addView(code_label);
-            code_layout.addView(code_value);
-
 
             code_value.addTextChangedListener(new TextWatcher() {
 
@@ -282,16 +272,9 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                 }
             });
-            body_layout.addView(code_layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
 
             //Delay
-            LinearLayout delay_layout = new LinearLayout(getContext());
-            delay_layout.setOrientation(LinearLayout.HORIZONTAL);
-
-            TextView delay_label = new TextView(getContext());
-            delay_label.setText("Delay");
-            EditText delay_value = new EditText(getContext());
+            EditText delay_value = signal.findViewById(R.id.value_delay);
             delay_value.setId(2000 + i);
 
             delay_value.addTextChangedListener(new TextWatcher() {
@@ -307,17 +290,8 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
                 }
             });
 
-            delay_layout.addView(delay_label);
-            delay_layout.addView(delay_value);
-            body_layout.addView(delay_layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
             //Tolerance
-            LinearLayout length_layout = new LinearLayout(getContext());
-            length_layout.setOrientation(LinearLayout.HORIZONTAL);
-
-            TextView length_label = new TextView(getContext());
-            length_label.setText("Length");
-            EditText length_value = new EditText(getContext());
+            EditText length_value = signal.findViewById(R.id.value_length);
             length_value.setId(3000 + i);
 
             length_value.addTextChangedListener(new TextWatcher() {
@@ -333,17 +307,8 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
                 }
             });
 
-            length_layout.addView(length_label);
-            length_layout.addView(length_value);
-            body_layout.addView(length_layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
             //Protocol
-            LinearLayout protocol_layout = new LinearLayout(getContext());
-            protocol_layout.setOrientation(LinearLayout.HORIZONTAL);
-
-            TextView protocol_label = new TextView(getContext());
-            protocol_label.setText("Protocol");
-            EditText protocol_value = new EditText(getContext());
+            EditText protocol_value = signal.findViewById(R.id.value_protocol);
             protocol_value.setId(4000 + i);
 
             protocol_value.addTextChangedListener(new TextWatcher() {
@@ -359,17 +324,13 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
                 }
             });
 
-            protocol_layout.addView(protocol_label);
-            protocol_layout.addView(protocol_value);
-            body_layout.addView(protocol_layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
             dynamic_container.addView(expansionLayout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
             expansionHeader.setExpansionLayout(expansionLayout);
 
             //Seperator Line
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.FILL_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             params2.setMargins(0, (int) (10 * Resources.getSystem().getDisplayMetrics().density), 0, 0);

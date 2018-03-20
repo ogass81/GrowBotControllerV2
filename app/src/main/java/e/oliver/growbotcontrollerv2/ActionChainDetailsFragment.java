@@ -220,8 +220,6 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
     public void processFinish(int response_code, String response_message, JSONObject output) {
 
         if (response_code == 200 && output != null) {
-
-
             try {
 
                 if (output.getString("obj").contentEquals("ACTIONCHAIN")) {

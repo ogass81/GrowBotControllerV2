@@ -22,15 +22,37 @@ import com.jjoe64.graphview.series.DataPoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OnSensorDetailsFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link SensorDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+class SensorLabelFormatter extends DefaultLabelFormatter {
+    ArrayList<SensorValue> origin;
+
+    public SensorLabelFormatter(ArrayList<SensorValue> origin) {
+        this.origin = origin;
+    }
+
+    public SensorLabelFormatter(NumberFormat xFormat, NumberFormat yFormat, ArrayList<SensorValue> origin) {
+        super(xFormat, yFormat);
+        this.origin = origin;
+    }
+
+    @Override
+    public String formatLabel(double value, boolean isValueX) {
+        if (isValueX) return origin.get((int) value).getLabel();
+        else return super.formatLabel(value, isValueX);
+    }
+}
+
 public class SensorDetailsFragment extends Fragment implements AsyncRestResponse {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,8 +72,6 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment SensorDetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -206,29 +226,17 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                 TextView value_up = getView().findViewById(R.id.value_upperthreshold);
                 value_up.setText(sensor.getUpper_threshold());
 
-                if (output.getString("range").contentEquals("AVG")) {
+                if (output.getString("scp").contentEquals("AVG")) {
                     GraphView graph = getView().findViewById(R.id.graph);
 
-                    BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
-                            new DataPoint(0, sensor.avg_values.get("last")),
-                            new DataPoint(1, sensor.avg_values.get("10s")),
-                            new DataPoint(2, sensor.avg_values.get("20s")),
-                            new DataPoint(3, sensor.avg_values.get("30s")),
-                            new DataPoint(4, sensor.avg_values.get("1min")),
-                            new DataPoint(5, sensor.avg_values.get("2min")),
-                            new DataPoint(6, sensor.avg_values.get("5min")),
-                            new DataPoint(7, sensor.avg_values.get("15min")),
-                            new DataPoint(8, sensor.avg_values.get("30min")),
-                            new DataPoint(9, sensor.avg_values.get("1h")),
-                            new DataPoint(10, sensor.avg_values.get("2h")),
-                            new DataPoint(11, sensor.avg_values.get("3h")),
-                            new DataPoint(12, sensor.avg_values.get("4h")),
-                            new DataPoint(13, sensor.avg_values.get("6h")),
-                            new DataPoint(14, sensor.avg_values.get("12h")),
-                            new DataPoint(15, sensor.avg_values.get("1d")),
-                            new DataPoint(16, sensor.avg_values.get("2d")),
-                            new DataPoint(17, sensor.avg_values.get("1w")),
-                            new DataPoint(18, sensor.avg_values.get("2w"))});
+                    BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>();
+                    Integer element_count = sensor.avg_values.size();
+                    Integer counter = 0;
+
+                    for (SensorValue curInstance : sensor.avg_values) {
+                        series.appendData(new DataPoint(counter, curInstance.getY_value()), false, element_count);
+                        counter++;
+                    }
                     graph.addSeries(series);
 
                     // styling
@@ -253,79 +261,7 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                     graph.getViewport().setMinY(Integer.parseInt(sensor.getMin_val()));
                     graph.getViewport().setMaxY(Integer.parseInt(sensor.getMax_val()));
 
-                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-                        @Override
-                        public String formatLabel(double value, boolean isValueX) {
-                            if (isValueX) {
-                                String x_label = "";
-
-                                switch ((int) value) {
-                                    case 0:
-                                        x_label = "last";
-                                        break;
-                                    case 1:
-                                        x_label = "10s";
-                                        break;
-                                    case 2:
-                                        x_label = "20s";
-                                        break;
-                                    case 3:
-                                        x_label = "30s";
-                                        break;
-                                    case 4:
-                                        x_label = "1min";
-                                        break;
-                                    case 5:
-                                        x_label = "2min";
-                                        break;
-                                    case 6:
-                                        x_label = "5min";
-                                        break;
-                                    case 7:
-                                        x_label = "15min";
-                                        break;
-                                    case 8:
-                                        x_label = "30min";
-                                        break;
-                                    case 9:
-                                        x_label = "1h";
-                                        break;
-                                    case 10:
-                                        x_label = "2h";
-                                        break;
-                                    case 11:
-                                        x_label = "3h";
-                                        break;
-                                    case 12:
-                                        x_label = "4h";
-                                        break;
-                                    case 13:
-                                        x_label = "6h";
-                                        break;
-                                    case 14:
-                                        x_label = "12h";
-                                        break;
-                                    case 15:
-                                        x_label = "1d";
-                                        break;
-                                    case 16:
-                                        x_label = "2d";
-                                        break;
-                                    case 17:
-                                        x_label = "1w";
-                                        break;
-                                    case 18:
-                                        x_label = "2w";
-                                        break;
-                                }
-                                // show normal x values
-                                return x_label;
-                            } else {
-                                // show currency for y values
-                                return super.formatLabel(value, isValueX) + sensor.getUnit();
-                            }
-                        }
-                    });
+                    graph.getGridLabelRenderer().setLabelFormatter(new SensorLabelFormatter(sensor.avg_values));
 
 
                 } else if (output.getString("range").contentEquals("MIN")) {

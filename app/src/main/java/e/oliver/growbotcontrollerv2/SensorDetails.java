@@ -5,11 +5,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Iterator;
 
 /**
  * Created by ogass on 05.07.2017.
  */
+
+class SensorValue {
+    private String label;
+    private Integer y_value;
+
+    public SensorValue(String label, Integer y_value) {
+        this.label = label;
+        this.y_value = y_value;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public Integer getY_value() {
+        return y_value;
+    }
+
+    public void setY_value(Integer y_value) {
+        this.y_value = y_value;
+    }
+}
 
 public class SensorDetails {
 
@@ -18,7 +44,9 @@ public class SensorDetails {
     ArrayList<Integer> day_values = new ArrayList<Integer>();
     ArrayList<Integer> month_values = new ArrayList<Integer>();
     ArrayList<Integer> year_values = new ArrayList<Integer>();
-    Hashtable<String, Integer> avg_values = new Hashtable<String, Integer>();
+    ArrayList<SensorValue> avg_values = new ArrayList<SensorValue>();
+
+
     private String id;
     private String title;
     private String unit;
@@ -52,45 +80,26 @@ public class SensorDetails {
     }
 
 
-    public Integer fromAvg(JSONObject jsonObject) {
+    public Boolean fromAvg(JSONObject jsonObject) {
         try {
-            JSONObject a_values = jsonObject.getJSONObject("avg");
-            try {
-                avg_values.put("last", a_values.getInt("last"));
-                avg_values.put("10s", a_values.getInt("10s"));
-                avg_values.put("20s", a_values.getInt("20s"));
-                avg_values.put("30s", a_values.getInt("30s"));
-                avg_values.put("1min", a_values.getInt("1min"));
-                avg_values.put("2min", a_values.getInt("2min"));
-                avg_values.put("5min", a_values.getInt("5min"));
-                avg_values.put("15min", a_values.getInt("15min"));
-                avg_values.put("30min", a_values.getInt("30min"));
-                avg_values.put("1h", a_values.getInt("1h"));
-                avg_values.put("2h", a_values.getInt("2h"));
-                avg_values.put("3h", a_values.getInt("3h"));
-                avg_values.put("4h", a_values.getInt("4h"));
-                avg_values.put("6h", a_values.getInt("6h"));
-                avg_values.put("12h", a_values.getInt("12h"));
-                avg_values.put("1d", a_values.getInt("1d"));
-                avg_values.put("2d", a_values.getInt("2d"));
-                avg_values.put("1w", a_values.getInt("1w"));
-                avg_values.put("2w", a_values.getInt("2w"));
+            JSONObject a_values = jsonObject.getJSONObject("avg_vals");
 
-                System.out.println(avg_values.size());
-            } catch (JSONException e) {
-                e.printStackTrace();
+            Iterator<?> keys = a_values.keys();
+
+            while (keys.hasNext()) {
+                String key = (String) keys.next();
+                avg_values.add(new SensorValue(key, a_values.getInt(key)));
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
-            return 0;
+            return true;
         }
-        return avg_values.size();
+        return avg_values.isEmpty();
     }
 
     public Integer fromMin(JSONObject jsonObject) {
         try {
-            JSONArray min_values = jsonObject.getJSONArray("min");
+            JSONArray min_values = jsonObject.getJSONArray("minute");
             try {
                 if (min_values != null && min_values.length() > 0) {
                     for (int j = 0; j < min_values.length(); j++) {
@@ -185,7 +194,7 @@ public class SensorDetails {
             e.printStackTrace();
             return 0;
         }
-        return avg_values.size();
+        return year_values.size();
     }
 
     public JSONObject toJson() {

@@ -32,7 +32,8 @@ public final class R {
   public static final class array {
     public static final int boolop=0x7f030000;
     public static final int interval=0x7f030001;
-    public static final int relop=0x7f030002;
+    public static final int range=0x7f030002;
+    public static final int relop=0x7f030003;
   }
   public static final class attr {
     /**
@@ -3844,24 +3845,25 @@ public final class R {
     public static final int value_length=0x7f0900f9;
     public static final int value_lowerthreshold=0x7f0900fa;
     public static final int value_protocol=0x7f0900fb;
-    public static final int value_relop=0x7f0900fc;
-    public static final int value_repeat=0x7f0900fd;
-    public static final int value_rule=0x7f0900fe;
-    public static final int value_startdate=0x7f0900ff;
-    public static final int value_starttime=0x7f090100;
-    public static final int value_threshold=0x7f090101;
-    public static final int value_time=0x7f090102;
-    public static final int value_title=0x7f090103;
-    public static final int value_tolerance=0x7f090104;
-    public static final int value_trigger1=0x7f090105;
-    public static final int value_trigger2=0x7f090106;
-    public static final int value_trigger3=0x7f090107;
-    public static final int value_upperthreshold=0x7f090108;
-    public static final int view_offset_helper=0x7f090109;
-    public static final int visible=0x7f09010a;
-    public static final int withText=0x7f09010b;
-    public static final int wrap=0x7f09010c;
-    public static final int wrap_content=0x7f09010d;
+    public static final int value_range=0x7f0900fc;
+    public static final int value_relop=0x7f0900fd;
+    public static final int value_repeat=0x7f0900fe;
+    public static final int value_rule=0x7f0900ff;
+    public static final int value_startdate=0x7f090100;
+    public static final int value_starttime=0x7f090101;
+    public static final int value_threshold=0x7f090102;
+    public static final int value_time=0x7f090103;
+    public static final int value_title=0x7f090104;
+    public static final int value_tolerance=0x7f090105;
+    public static final int value_trigger1=0x7f090106;
+    public static final int value_trigger2=0x7f090107;
+    public static final int value_trigger3=0x7f090108;
+    public static final int value_upperthreshold=0x7f090109;
+    public static final int view_offset_helper=0x7f09010a;
+    public static final int visible=0x7f09010b;
+    public static final int withText=0x7f09010c;
+    public static final int wrap=0x7f09010d;
+    public static final int wrap_content=0x7f09010e;
   }
   public static final class integer {
     public static final int abc_config_activityDefaultDur=0x7f0a0000;

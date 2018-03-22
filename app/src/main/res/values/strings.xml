@@ -45,4 +45,13 @@
         <item>7 days</item>
         <item>14 days</item>
     </string-array>
+    <string-array name="range">
+        <item>Average</item>
+        <item>Last Minute</item>
+        <item>Last Hour</item>
+        <item>Last Day</item>
+        <item>Last Month</item>
+        <item>Last Year</item>
+        <item>All</item>
+    </string-array>
 </resources>

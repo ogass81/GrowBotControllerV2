@@ -78,7 +78,6 @@ public class SensorDetails {
         return s;
     }
 
-
     public Boolean updateAvg(JSONObject jsonObject) {
         this.avg_values.clear();
 

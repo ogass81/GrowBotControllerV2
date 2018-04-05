@@ -148,7 +148,6 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         if (mTriggerType == 0) {
             context = inflater.inflate(R.layout.fragment_trigger_details_timer, container, false);
 
-
             //Sensor Trigger
         } else {
             context = inflater.inflate(R.layout.fragment_trigger_details_comp, container, false);

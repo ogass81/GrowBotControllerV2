@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">GrowBotControllerV2</string>
+    <string name="app_name">GrowAI</string>
     <string name="error_field_required">Enter valid IP address</string>
     <string name="error_invalid_ip">IP address is not valid.</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">GrowAI</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -53,5 +53,9 @@
         <item>Last Month</item>
         <item>Last Year</item>
         <item>All</item>
+    </string-array>
+    <string-array name="config">
+        <item>Active</item>
+        <item>Default</item>
     </string-array>
 </resources>

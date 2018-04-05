@@ -68,7 +68,6 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            System.out.println("LoginActivity->login()");
             RestClient client = (RestClient) new RestClient(ipaddress, password, "GET", null, this).execute();
         }
     }
@@ -76,20 +75,9 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
     public void processFinish(int response_code, String response_message, JSONObject output) {
         if (response_code == 200 && output != null) {
             try {
+                Settings.getInstance().fromJson(output);
                 Settings.getInstance().setClient_ip(ipaddress_ui.getText().toString());
                 Settings.getInstance().setClient_secret(password_ui.getText().toString());
-                Settings.getInstance().setActions_Num(output.getInt("actions_num"));
-                Settings.getInstance().setActionsChains_Num(output.getInt("actionschains_num"));
-                Settings.getInstance().setActionsChains_Length(output.getInt("actionschains_length"));
-                Settings.getInstance().setRulesets_Num(output.getInt("rulesets_num"));
-                Settings.getInstance().setTrigger_Sets(output.getInt("trigger_sets"));
-                Settings.getInstance().setTrigger_Types(output.getInt("trigger_types"));
-                Settings.getInstance().setSensor_Num(output.getInt("sensor_num"));
-                Settings.getInstance().setTask_Queue_Length(output.getInt("task_queue_length"));
-                Settings.getInstance().setActionchain_Task_Maxduration(output.getInt("actionchain_task_maxduration"));
-                Settings.getInstance().setTask_Parallel_Sec(output.getInt("task_parallel_sec"));
-                Settings.getInstance().setRC_Sockets_Num(output.getInt("rc_sockets_num"));
-                Settings.getInstance().setRC_Signals_Num(output.getInt("rc_signals_num"));
 
                 Intent intent = new Intent(this, MainActivity.class);
                 this.startActivity(intent);

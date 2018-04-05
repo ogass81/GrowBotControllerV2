@@ -2,6 +2,7 @@ package e.oliver.growbotcontrollerv2;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,10 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SensorListFragment.OnSensorListFragmentInteractionListener, SensorDetailsFragment.OnSensorDetailsFragmentInteractionListener, RuleSetListFragment.OnRuleSetListFragmentInteractionListener, RuleSetDetailsFragment.OnRuleSetDetailsFragmentInteractionListener, TriggerCategoryListFragment.OnTriggerCategoryListFragmentInteractionListener, TriggerListFragment.OnTriggerListFragmentInteractionListener, TriggerDetailsFragment.OnTriggerDetailsFragmentInteractionListener, ActionChainListFragment.OnActionChainListFragmentInteractionListener, ActionChainDetailsFragment.OnActionChainDetailsFragmentInteractionListener, SocketListFragment.OnSocketListFragmentInteractionListener, SocketDetailsFragment.OnSocketDetailsFragmentInteractionListener, ActionListFragment.OnActionListFragmentInteractionListener, ActionDetailsFragment.OnActionDetailsFragmentInteractionListener {
+        implements SettingsFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, SensorListFragment.OnSensorListFragmentInteractionListener, SensorDetailsFragment.OnSensorDetailsFragmentInteractionListener, RuleSetListFragment.OnRuleSetListFragmentInteractionListener, RuleSetDetailsFragment.OnRuleSetDetailsFragmentInteractionListener, TriggerCategoryListFragment.OnTriggerCategoryListFragmentInteractionListener, TriggerListFragment.OnTriggerListFragmentInteractionListener, TriggerDetailsFragment.OnTriggerDetailsFragmentInteractionListener, ActionChainListFragment.OnActionChainListFragmentInteractionListener, ActionChainDetailsFragment.OnActionChainDetailsFragmentInteractionListener, SocketListFragment.OnSocketListFragmentInteractionListener, SocketDetailsFragment.OnSocketDetailsFragmentInteractionListener, ActionListFragment.OnActionListFragmentInteractionListener, ActionDetailsFragment.OnActionDetailsFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,20 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.inflateHeaderView(R.layout.nav_header_main);
+
+        TextView server_ip = header.findViewById(R.id.value_ip);
+        server_ip.setText(Settings.getInstance().getClient_ip());
+
+        TextView server_version = header.findViewById(R.id.value_version);
+        server_version.setText(Settings.getInstance().getFirmware_version());
+
+        TextView compile_date = header.findViewById(R.id.value_compiledate);
+        compile_date.setText(Settings.getInstance().getFirmware_date());
+
+        TextView compile_time = header.findViewById(R.id.value_compiletime);
+        compile_time.setText(Settings.getInstance().getFirmware_time());
     }
 
     @Override
@@ -57,11 +74,32 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Class fragmentClass = null;
+        Fragment fragment = null;
+        Bundle parameters = new Bundle();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            fragmentClass = SettingsFragment.class;
+            parameters.putString("config", "active");
         }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        fragment.setArguments(parameters);
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("List").commit();
+
+        // Set action bar title
+        setTitle(item.getTitle());
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
 
         return super.onOptionsItemSelected(item);
     }
@@ -86,7 +124,6 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         Bundle bundle = new Bundle();
         Class fragmentClass = null;
-        System.out.println("MainActivity->NavID: " + id);
 
         if (id == R.id.nav_info) {
             fragmentClass = InfoFragment.class;
@@ -256,6 +293,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onActionDetailsFragmentInteraction(Button button) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

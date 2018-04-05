@@ -113,7 +113,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_socket_details, container, false);
 
-        //OG: Update Memory model of ActionChain
+        //Title
         EditText box = view.findViewById(R.id.value_title);
         box.addTextChangedListener(new TextWatcher() {
 
@@ -189,31 +189,27 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
             }
         });
 
-
-        //OG: Set save button
+        //Set save button
         Button save_button = view.findViewById(R.id.button_save);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveToBot();
-                System.out.println("Save");
             }
         });
 
-        //OG: Set save button
+        //Set Reset button
         Button reset_button = view.findViewById(R.id.button_reset);
         reset_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetSignal();
-                System.out.println("Reset");
+                getData();
             }
         });
 
 
         //Create dynamic number of UI Elements for Actions
-
-
         LinearLayout dynamic_container = view.findViewById(R.id.sets);
 
         for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
@@ -388,7 +384,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
             active.setChecked(socket.getActive());
 
             //Set Signal
-            for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
+            for (int i = 0; i < Settings.getInstance().getRC_Signals_Num(); i++) {
                 TextView code_value = getView().findViewById(1000 + i);
                 code_value.setText(socket.getSignal().get(i).toString());
 

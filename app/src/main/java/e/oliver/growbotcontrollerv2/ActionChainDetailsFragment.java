@@ -126,7 +126,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
 
         //Create dynamic number of UI Elements for Actions
         LinearLayout layout = view.findViewById(R.id.sets);
-        for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
+        for (int i = 0; i < Settings.getInstance().getActionschains_length(); i++) {
 
             //Label
             TextView label = new TextView(getContext());
@@ -152,7 +152,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
             seekbar.setProgress(1);
             seekbar.setLayoutParams(params1);
 
-            seekbar.setMax(Settings.getInstance().getActionchain_Task_Maxduration());
+            seekbar.setMax(Settings.getInstance().getActionchain_task_maxduration());
 
             final int index = i;
 
@@ -238,7 +238,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
                     active.setChecked(actionchain.getActive());
 
                     //Set Seeker
-                    for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
+                    for (int i = 0; i < Settings.getInstance().getActionschains_length(); i++) {
                         SeekBar seekbar1 = getActivity().findViewById(2000 + i);
                         seekbar1.setProgress(actionchain.getAction_par().get(i), false);
                     }
@@ -248,7 +248,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
                     action = ActionSpinnerListItem.fromJson(listJSON);
 
                     //Set Spinner
-                    for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
+                    for (int i = 0; i < Settings.getInstance().getActionschains_length(); i++) {
                         //Populate Action Spinner 1
                         Spinner spinner = getActivity().findViewById(1000 + i);
 

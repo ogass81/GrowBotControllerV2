@@ -92,11 +92,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMAN);
 
         TextView date = getView().findViewById(R.id.value_startdate);
-        date.setText(sdf.format(myCalendar.getTime()));
-
-        trigger.setStart_day(myCalendar.get(Calendar.DAY_OF_MONTH));
-        trigger.setStart_month(myCalendar.get(Calendar.MONTH));
-        trigger.setStart_year(myCalendar.get(Calendar.YEAR));
+        date.setText(sdf.format(trigger.getStarttime().getTime()));
     }
 
     private void updateEndDate() {
@@ -104,13 +100,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMAN);
 
         TextView date = getView().findViewById(R.id.value_enddate);
-        date.setText(sdf.format(myCalendar.getTime()));
-        System.out.println("Update Month Before Hour: " + trigger.getStart_hour());
-
-        trigger.setEnd_day(myCalendar.get(Calendar.DAY_OF_MONTH));
-        trigger.setEnd_month(myCalendar.get(Calendar.MONTH));
-        trigger.setEnd_year(myCalendar.get(Calendar.YEAR));
-        System.out.println("Update Before After Hour: " + trigger.getStart_hour());
+        date.setText(sdf.format(trigger.getEndtime().getTime()));
     }
 
     private void updateStartTime() {
@@ -118,10 +108,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMAN);
 
         TextView date = getView().findViewById(R.id.value_starttime);
-        date.setText(sdf.format(myCalendar.getTime()));
-
-        trigger.setStart_hour(myCalendar.get(Calendar.HOUR_OF_DAY));
-        trigger.setStart_minute(myCalendar.get(Calendar.MINUTE));
+        date.setText(sdf.format(trigger.getStarttime().getTime()));
     }
 
     private void updateEndTime() {
@@ -129,10 +116,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMAN);
 
         TextView date = getView().findViewById(R.id.value_endtime);
-        date.setText(sdf.format(myCalendar.getTime()));
-
-        trigger.setEnd_hour(myCalendar.get(Calendar.HOUR_OF_DAY));
-        trigger.setEnd_minute(myCalendar.get(Calendar.MINUTE));
+        date.setText(sdf.format(trigger.getEndtime().getTime()));
     }
 
     @Override
@@ -147,9 +131,104 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         //Time Trigger
         if (mTriggerType == 0) {
             context = inflater.inflate(R.layout.fragment_trigger_details_timer, container, false);
+            //Setup Picker
+            //Start Date
+            final DatePickerDialog.OnDateSetListener startdatepicker = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    // TODO Auto-generated method stub
+                    trigger.getStarttime().set(Calendar.YEAR, year);
+                    trigger.getStarttime().set(Calendar.MONTH, monthOfYear);
+                    trigger.getStarttime().set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    updateStartDate();
+                }
 
-            //Sensor Trigger
-        } else {
+            };
+
+            TextView startdate = context.findViewById(R.id.value_startdate);
+            startdate.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new DatePickerDialog(getActivity(), startdatepicker, trigger.getStarttime().get(Calendar.YEAR), trigger.getStarttime().get(Calendar.MONTH), trigger.getStarttime().get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+
+            //Start Time
+            final TimePickerDialog.OnTimeSetListener starttimepicker = new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hour, int minute) {
+                    // TODO Auto-generated method stub
+                    trigger.getStarttime().set(Calendar.HOUR_OF_DAY, hour);
+                    trigger.getStarttime().set(Calendar.MINUTE, minute);
+                    updateStartTime();
+                }
+
+            };
+
+            TextView starttime = context.findViewById(R.id.value_starttime);
+            starttime.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new TimePickerDialog(getActivity(), starttimepicker, trigger.getStarttime().get(Calendar.HOUR), trigger.getStarttime().get(Calendar.MINUTE), true).show();
+                }
+            });
+
+
+            //End Date
+            final DatePickerDialog.OnDateSetListener enddatepicker = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    // TODO Auto-generated method stub
+                    trigger.getEndtime().set(Calendar.YEAR, year);
+                    trigger.getEndtime().set(Calendar.MONTH, monthOfYear);
+                    trigger.getEndtime().set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    updateEndDate();
+                }
+
+            };
+
+            TextView enddate = context.findViewById(R.id.value_enddate);
+            enddate.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new DatePickerDialog(getActivity(), enddatepicker, trigger.getEndtime().get(Calendar.YEAR), trigger.getEndtime().get(Calendar.MONTH), trigger.getEndtime().get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+
+
+            //End Time
+            final TimePickerDialog.OnTimeSetListener endtimepicker = new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hour, int minute) {
+                    // TODO Auto-generated method stub
+                    trigger.getEndtime().set(Calendar.HOUR_OF_DAY, hour);
+                    trigger.getEndtime().set(Calendar.MINUTE, minute);
+                    updateEndTime();
+                }
+
+            };
+
+            TextView endtime = context.findViewById(R.id.value_endtime);
+            endtime.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new TimePickerDialog(getActivity(), endtimepicker, trigger.getEndtime().get(Calendar.HOUR), trigger.getEndtime().get(Calendar.MINUTE), true).show();
+                }
+            });
+
+        }
+        //Sensor Trigger
+        else {
             context = inflater.inflate(R.layout.fragment_trigger_details_comp, container, false);
 
             //Populate RelOp Spinner
@@ -172,7 +251,6 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                 }
             });
 
-            //OG: Add Listener to UI Elements
             //Threshold
             textbox = context.findViewById(R.id.value_threshold);
             textbox.addTextChangedListener(new TextWatcher() {
@@ -244,101 +322,6 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             }
         });
 
-        //Setup Picker
-        //Start Date
-        final DatePickerDialog.OnDateSetListener startdatepicker = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateStartDate();
-            }
-
-        };
-
-        TextView startdate = context.findViewById(R.id.value_startdate);
-        startdate.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(getActivity(), startdatepicker, trigger.getStart_year(), trigger.getStart_month(), trigger.getStart_day()).show();
-            }
-        });
-
-        //Start Time
-        final TimePickerDialog.OnTimeSetListener starttimepicker = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hour, int minute) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.HOUR_OF_DAY, hour);
-                myCalendar.set(Calendar.MINUTE, minute);
-                updateStartTime();
-            }
-
-        };
-
-        TextView starttime = context.findViewById(R.id.value_starttime);
-        starttime.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new TimePickerDialog(getActivity(), starttimepicker, trigger.getStart_hour(), trigger.getStart_minute(), true).show();
-            }
-        });
-
-
-        //End Date
-        final DatePickerDialog.OnDateSetListener enddatepicker = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateEndDate();
-            }
-
-        };
-
-        TextView enddate = context.findViewById(R.id.value_enddate);
-        enddate.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(getActivity(), enddatepicker, trigger.getEnd_year(), trigger.getEnd_month(), trigger.getEnd_day()).show();
-            }
-        });
-
-
-        //End Time
-        final TimePickerDialog.OnTimeSetListener endtimepicker = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hour, int minute) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.HOUR_OF_DAY, hour);
-                myCalendar.set(Calendar.MINUTE, minute);
-                updateEndTime();
-            }
-
-        };
-
-        TextView endtime = context.findViewById(R.id.value_endtime);
-        endtime.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new TimePickerDialog(getActivity(), endtimepicker, trigger.getEnd_hour(), trigger.getEnd_minute(), true).show();
-            }
-        });
-
 
         return context;
 
@@ -388,15 +371,14 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             Spinner interval = getView().findViewById(R.id.value_interval);
             interval.setSelection(trigger.getInterval());
 
-            myCalendar.set(trigger.getStart_year(), trigger.getStart_month(), trigger.getStart_day(), trigger.getStart_hour(), trigger.getStart_minute());
-            updateStartDate();
-            updateStartTime();
+            if (trigger.getType() == 0) {
 
-            myCalendar.set(trigger.getEnd_year(), trigger.getEnd_month(), trigger.getEnd_day(), trigger.getEnd_hour(), trigger.getEnd_minute());
-            updateEndDate();
-            updateEndTime();
+                updateStartDate();
+                updateStartTime();
 
-            if (trigger.getType() == 1) {
+                updateEndDate();
+                updateEndTime();
+            } else if (trigger.getType() == 1) {
                 Button source = getView().findViewById(R.id.value_rule);
                 source.setText(trigger.getSource());
 

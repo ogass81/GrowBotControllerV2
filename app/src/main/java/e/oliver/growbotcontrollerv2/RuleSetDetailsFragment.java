@@ -233,8 +233,8 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner.setAdapter(adapter);
 
                     //Set to position
-                    if (ruleset.getTset1_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat1_ptr() < Settings.getInstance().getTrigger_Types()) {
-                        spinner.setSelection(ruleset.getTcat1_ptr() * Settings.getInstance().getTrigger_Sets() + ruleset.getTset1_ptr(), false);
+                    if (ruleset.getTset1_ptr() < Settings.getInstance().getTrigger_sets() && ruleset.getTcat1_ptr() < Settings.getInstance().getTrigger_types()) {
+                        spinner.setSelection(ruleset.getTcat1_ptr() * Settings.getInstance().getTrigger_sets() + ruleset.getTset1_ptr(), false);
                     } else {
                         spinner.setSelection(trigger.size() - 1, false);
                     }
@@ -267,8 +267,8 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner.setAdapter(adapter);
 
                     //Set to position
-                    if (ruleset.getTset2_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat2_ptr() < Settings.getInstance().getTrigger_Types()) {
-                        spinner.setSelection(ruleset.getTcat2_ptr() * Settings.getInstance().getTrigger_Sets() + ruleset.getTset2_ptr(), false);
+                    if (ruleset.getTset2_ptr() < Settings.getInstance().getTrigger_sets() && ruleset.getTcat2_ptr() < Settings.getInstance().getTrigger_types()) {
+                        spinner.setSelection(ruleset.getTcat2_ptr() * Settings.getInstance().getTrigger_sets() + ruleset.getTset2_ptr(), false);
                     } else {
                         spinner.setSelection(trigger.size() - 1, false);
                     }
@@ -298,8 +298,8 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner.setAdapter(adapter);
 
                     //Set to position
-                    if (ruleset.getTset3_ptr() < Settings.getInstance().getTrigger_Sets() && ruleset.getTcat3_ptr() < Settings.getInstance().getTrigger_Types()) {
-                        spinner.setSelection(ruleset.getTcat3_ptr() * Settings.getInstance().getTrigger_Sets() + ruleset.getTset3_ptr(), false);
+                    if (ruleset.getTset3_ptr() < Settings.getInstance().getTrigger_sets() && ruleset.getTcat3_ptr() < Settings.getInstance().getTrigger_types()) {
+                        spinner.setSelection(ruleset.getTcat3_ptr() * Settings.getInstance().getTrigger_sets() + ruleset.getTset3_ptr(), false);
                     } else {
                         spinner.setSelection(trigger.size() - 1, false);
                     }
@@ -335,7 +335,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner.setAdapter(adapter);
 
                     //Set to position
-                    if (ruleset.getChain_ptr() < Settings.getInstance().getActionsChains_Num()) {
+                    if (ruleset.getChain_ptr() < Settings.getInstance().getActionschains_num()) {
                         spinner.setSelection(ruleset.getChain_ptr(), false);
                     } else {
                         spinner.setSelection(actionchain.size() - 1, false);

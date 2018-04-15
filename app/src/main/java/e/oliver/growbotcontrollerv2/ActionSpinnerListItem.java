@@ -66,7 +66,7 @@ public class ActionSpinnerListItem {
             }
         }
         //Add None Element
-        ActionSpinnerListItem listitem = ActionSpinnerListItem.fromJson(Settings.getInstance().getActions_Num(), "None", true);
+        ActionSpinnerListItem listitem = ActionSpinnerListItem.fromJson(Settings.getInstance().getActions_num(), "None", true);
         list.add(listitem);
 
 

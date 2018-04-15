@@ -74,7 +74,7 @@ public class TriggerSpinnerListItem {
             }
         }
         //Add None Element
-        TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(Settings.getInstance().getTrigger_Sets(), Settings.getInstance().getTrigger_Types(), "", 1, "None", true);
+        TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(Settings.getInstance().getTrigger_sets(), Settings.getInstance().getTrigger_types(), "", 1, "None", true);
         list.add(listitem);
 
         return list;

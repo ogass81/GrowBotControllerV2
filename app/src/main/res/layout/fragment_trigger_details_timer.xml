@@ -12,8 +12,8 @@
         android:id="@+id/value_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_alignTop="@id/label_id"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/label_id" />
 
     <EditText
@@ -47,23 +47,23 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:clickable="true"
-        android:layout_below="@+id/label_startdate" />
+        android:layout_below="@+id/label_startdate"
+        android:clickable="true" />
 
     <TextView
         android:id="@+id/value_starttime"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@id/value_startdate"
-        android:layout_alignParentEnd="true" />
+        android:clickable="true" />
 
     <View
         android:id="@+id/line2"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/value_startdate"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/value_startdate"
         android:layout_marginTop="10dp"
         android:background="#c0c0c0" />
 
@@ -80,40 +80,23 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:clickable="true"
-        android:layout_below="@+id/label_enddate" />
+        android:layout_below="@+id/label_enddate"
+        android:clickable="true" />
 
     <TextView
         android:id="@+id/value_endtime"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@id/value_enddate"
-        android:layout_alignParentEnd="true"  />
+        android:clickable="true" />
 
     <View
         android:id="@+id/line3"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/value_enddate"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:background="#c0c0c0" />
-
-    <Switch
-        android:id="@+id/value_active"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/line3"
-        android:text="Active" />
-
-    <View
-        android:id="@+id/line4"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/value_active"
         android:layout_marginTop="10dp"
         android:background="#c0c0c0" />
 
@@ -122,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/line4"
+        android:layout_below="@+id/line3"
         android:text="Interval" />
 
     <Spinner
@@ -131,12 +114,30 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/label_interval" />
+
+    <View
+        android:id="@+id/line5"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/value_interval"
+        android:layout_marginTop="10dp"
+        android:background="#c0c0c0" />
+
+    <Switch
+        android:id="@+id/value_active"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/line5"
+        android:text="Active" />
+
     <View
         android:id="@+id/line6"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/value_interval"
+        android:layout_below="@+id/value_active"
         android:layout_marginTop="10dp"
         android:background="#c0c0c0" />
 

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -40,7 +41,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "config";
     private static final String ARG_PARAM2 = "param2";
-    Calendar myCalendar = Calendar.getInstance();
+
     // TODO: Rename and change types of parameters
     private String mConfig;
     private OnFragmentInteractionListener mListener;
@@ -80,7 +81,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        //Setup RelOp Spinner
+        //Setup Config Spinner
         Spinner spinner = view.findViewById(R.id.value_config);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.config, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -100,7 +101,6 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
                         mConfig = "active";
                         break;
                 }
-                getData();
             }
 
             @Override
@@ -164,9 +164,9 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                Settings.getInstance().getTime().set(Calendar.YEAR, year);
+                Settings.getInstance().getTime().set(Calendar.MONTH, monthOfYear);
+                Settings.getInstance().getTime().set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateDate();
             }
         };
@@ -186,8 +186,8 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute) {
                 // TODO Auto-generated method stub
-                myCalendar.set(Calendar.HOUR_OF_DAY, hour);
-                myCalendar.set(Calendar.MINUTE, minute);
+                Settings.getInstance().getTime().set(Calendar.HOUR_OF_DAY, hour);
+                Settings.getInstance().getTime().set(Calendar.MINUTE, minute);
                 updateTime();
             }
 
@@ -209,13 +209,19 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
             @Override
             public void onClick(View v) {
                 saveData();
-
                 //If change of active config update client secret
                 if (mConfig == "active") {
                     Settings.getInstance().setClient_secret(Settings.getInstance().getApisecret());
                 }
+            }
+        });
 
-                //getData();
+        //Setup load button
+        Button load_button = view.findViewById(R.id.button_load);
+        load_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
             }
         });
 
@@ -265,6 +271,12 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
     }
 
     public void saveData() {
+        Switch sync = getView().findViewById(R.id.value_sync);
+        if (sync.isChecked()) {
+            Settings.getInstance().getTimezone().setRawOffset(Calendar.getInstance().getTimeZone().getRawOffset());
+            TextView value_timezone = getView().findViewById(R.id.value_timezone);
+            value_timezone.setText(Settings.getInstance().getTimezone().getDisplayName());
+        }
         String uri = Settings.getInstance().getClient_ip() + "/setting/" + mConfig;
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", Settings.getInstance().toJson(), this).execute();
     }
@@ -279,12 +291,10 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
         String myFormat = "dd/MM/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMAN);
 
-        TextView date = getView().findViewById(R.id.value_date);
-        date.setText(sdf.format(myCalendar.getTime()));
+        System.out.println(Settings.getInstance().getTime().getTime());
 
-        Settings.getInstance().setDay(myCalendar.get(Calendar.DAY_OF_MONTH));
-        Settings.getInstance().setMonth(myCalendar.get(Calendar.MONTH));
-        Settings.getInstance().setYear(myCalendar.get(Calendar.YEAR));
+        TextView date = getView().findViewById(R.id.value_date);
+        date.setText(sdf.format(Settings.getInstance().getTime().getTime()));
     }
 
     private void updateTime() {
@@ -292,10 +302,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMAN);
 
         TextView date = getView().findViewById(R.id.value_time);
-        date.setText(sdf.format(myCalendar.getTime()));
-
-        Settings.getInstance().setHour(myCalendar.get(Calendar.HOUR_OF_DAY));
-        Settings.getInstance().setMinute(myCalendar.get(Calendar.MINUTE));
+        date.setText(sdf.format(Settings.getInstance().getTime().getTime()));
     }
 
 
@@ -330,9 +337,12 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
             value_apisecret.setText(Settings.getInstance().getApisecret());
 
             //Update Date Selector
-            myCalendar.set(Settings.getInstance().getYear(), Settings.getInstance().getMonth(), Settings.getInstance().getDay(), Settings.getInstance().getHour(), Settings.getInstance().getMinute());
             updateDate();
             updateTime();
+
+            //Timezone
+            TextView value_timezone = getView().findViewById(R.id.value_timezone);
+            value_timezone.setText(Settings.getInstance().getTimezone().getDisplayName());
         }
         TextView response = getView().findViewById(R.id.server_response);
         response.setText(response_code + " " + response_message);

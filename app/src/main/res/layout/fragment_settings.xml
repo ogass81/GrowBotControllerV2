@@ -77,7 +77,6 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textSize="14sp" />
-
             <View
                 android:id="@+id/line3"
                 android:layout_width="fill_parent"
@@ -88,11 +87,37 @@
                 android:background="#c0c0c0" />
 
             <TextView
+                android:id="@+id/label_apisecret"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line3"
+                android:text="API Secret" />
+
+            <EditText
+                android:id="@+id/value_apisecrect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/label_apisecret"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/value_apisecrect"
+                android:layout_marginTop="10dp"
+                android:background="#c0c0c0" />
+
+            <TextView
                 android:id="@+id/label_datetime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/line3"
+                android:layout_below="@+id/line4"
                 android:text="Time" />
 
             <TextView
@@ -111,8 +136,9 @@
                 android:layout_alignTop="@id/value_date"
                 android:clickable="true" />
 
+
             <View
-                android:id="@+id/line4"
+                android:id="@+id/line5"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentStart="true"
@@ -121,28 +147,35 @@
                 android:background="#c0c0c0" />
 
             <TextView
-                android:id="@+id/label_apisecret"
+                android:id="@+id/label_timezone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/line4"
-                android:text="API Secret" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/line5"
+                android:text="Timezone" />
 
-            <EditText
-                android:id="@+id/value_apisecrect"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/value_timezone"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/label_apisecret"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textSize="14sp" />
+                android:layout_below="@+id/label_timezone"
+                android:clickable="true" />
+
+            <Switch
+                android:id="@+id/value_sync"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label_timezone"
+                android:layout_toRightOf="@id/value_timezone"
+                android:text="Sync with phone" />
 
             <View
-                android:id="@+id/line5"
+                android:id="@+id/line6"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/value_apisecrect"
+                android:layout_below="@+id/value_timezone"
                 android:layout_marginTop="10dp"
                 android:background="#c0c0c0" />
 
@@ -151,17 +184,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/line5"
+                android:layout_below="@+id/line6"
                 android:text="Reset" />
-
             <Button
                 android:id="@+id/button_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/line5"
+                android:layout_below="@+id/line6"
                 android:text="Save" />
 
+            <Button
+                android:id="@+id/button_load"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line6"
+                android:layout_toLeftOf="@id/button_save"
+                android:text="Load" />
             <TextView
                 android:id="@+id/server_response"
                 android:layout_width="match_parent"

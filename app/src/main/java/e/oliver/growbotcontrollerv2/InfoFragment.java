@@ -74,13 +74,13 @@ public class InfoFragment extends Fragment {
         log.append(System.getProperty("line.separator"));
         log.append(Settings.getInstance().getClient_secret());
         log.append(System.getProperty("line.separator"));
-        log.append(Integer.toString(Settings.getInstance().getActionchain_Task_Maxduration()));
+        log.append(Integer.toString(Settings.getInstance().getActionchain_task_maxduration()));
         log.append(System.getProperty("line.separator"));
-        log.append(Integer.toString(Settings.getInstance().getActionsChains_Length()));
+        log.append(Integer.toString(Settings.getInstance().getActionschains_length()));
         log.append(System.getProperty("line.separator"));
-        log.append(Integer.toString(Settings.getInstance().getActionsChains_Num()));
+        log.append(Integer.toString(Settings.getInstance().getActionschains_num()));
         log.append(System.getProperty("line.separator"));
-        log.append(Integer.toString(Settings.getInstance().getActionchain_Task_Maxduration()));
+        log.append(Integer.toString(Settings.getInstance().getActions_num()));
         log.append(System.getProperty("line.separator"));
 
         return context;

@@ -212,7 +212,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
         //Create dynamic number of UI Elements for Actions
         LinearLayout dynamic_container = view.findViewById(R.id.sets);
 
-        for (int i = 0; i < Settings.getInstance().getActionsChains_Length(); i++) {
+        for (int i = 0; i < Settings.getInstance().getActionschains_length(); i++) {
 
             final int index = i;
 
@@ -384,7 +384,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
             active.setChecked(socket.getActive());
 
             //Set Signal
-            for (int i = 0; i < Settings.getInstance().getRC_Signals_Num(); i++) {
+            for (int i = 0; i < Settings.getInstance().getRc_signals_num(); i++) {
                 TextView code_value = getView().findViewById(1000 + i);
                 code_value.setText(socket.getSignal().get(i).toString());
 

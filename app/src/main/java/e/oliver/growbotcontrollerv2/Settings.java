@@ -207,7 +207,7 @@ public class Settings extends Application {
             jsonObject.put("api_secret", apisecret);
 
             jsonObject.put("time", time.getTimeInMillis() / 1000);
-            jsonObject.put("timezone", timezone.getRawOffset() / 1000);
+            jsonObject.put("timezone", timezone.getOffset(time.getTimeInMillis()) / 1000);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block

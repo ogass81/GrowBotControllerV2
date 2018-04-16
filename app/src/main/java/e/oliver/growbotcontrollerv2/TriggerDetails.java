@@ -34,9 +34,11 @@ public class TriggerDetails {
             item.source = jsonObject.getString("src");
 
             item.starttime = Calendar.getInstance();
+            item.starttime.setTimeZone(Settings.getInstance().getTimezone());
             item.starttime.setTimeInMillis(jsonObject.getLong("start_time") * 1000);
 
             item.endtime = Calendar.getInstance();
+            item.endtime.setTimeZone(Settings.getInstance().getTimezone());
             item.endtime.setTimeInMillis(jsonObject.getLong("end_time") * 1000);
 
             item.relop = jsonObject.getInt("relop");

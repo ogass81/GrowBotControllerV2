@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
-        implements SettingsFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, SensorListFragment.OnSensorListFragmentInteractionListener, SensorDetailsFragment.OnSensorDetailsFragmentInteractionListener, RuleSetListFragment.OnRuleSetListFragmentInteractionListener, RuleSetDetailsFragment.OnRuleSetDetailsFragmentInteractionListener, TriggerCategoryListFragment.OnTriggerCategoryListFragmentInteractionListener, TriggerListFragment.OnTriggerListFragmentInteractionListener, TriggerDetailsFragment.OnTriggerDetailsFragmentInteractionListener, ActionChainListFragment.OnActionChainListFragmentInteractionListener, ActionChainDetailsFragment.OnActionChainDetailsFragmentInteractionListener, SocketListFragment.OnSocketListFragmentInteractionListener, SocketDetailsFragment.OnSocketDetailsFragmentInteractionListener, ActionListFragment.OnActionListFragmentInteractionListener, ActionDetailsFragment.OnActionDetailsFragmentInteractionListener {
+        implements LogListFragment.OnLogListFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, SensorListFragment.OnSensorListFragmentInteractionListener, SensorDetailsFragment.OnSensorDetailsFragmentInteractionListener, RuleSetListFragment.OnRuleSetListFragmentInteractionListener, RuleSetDetailsFragment.OnRuleSetDetailsFragmentInteractionListener, TriggerCategoryListFragment.OnTriggerCategoryListFragmentInteractionListener, TriggerListFragment.OnTriggerListFragmentInteractionListener, TriggerDetailsFragment.OnTriggerDetailsFragmentInteractionListener, ActionChainListFragment.OnActionChainListFragmentInteractionListener, ActionChainDetailsFragment.OnActionChainDetailsFragmentInteractionListener, SocketListFragment.OnSocketListFragmentInteractionListener, SocketDetailsFragment.OnSocketDetailsFragmentInteractionListener, ActionListFragment.OnActionListFragmentInteractionListener, ActionDetailsFragment.OnActionDetailsFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity
         Integer id = item.getItemId();
         NavigationView navView = findViewById(R.id.nav_view);
         Menu menu = navView.getMenu();
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         menu.clear();
         navView.inflateMenu(R.menu.activity_main_drawer);
 
@@ -126,19 +127,38 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass = null;
 
         if (id == R.id.nav_info) {
+            menu.add(R.id.nav_info, 100, 0, "Device").setIcon(R.drawable.ic_developer_board_black_24dp);
+            menu.add(R.id.nav_info, 101, 0, "System Log").setIcon(R.drawable.ic_event_note_black_24dp);
+
             fragmentClass = InfoFragment.class;
+        }
+        //Device Info
+        else if (id == 100) {
+            fragmentClass = InfoFragment.class;
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        //Log
+        else if (id == 101) {
+            fragmentClass = LogListFragment.class;
+            drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_sensor) {
             fragmentClass = SensorListFragment.class;
+            drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_actionchain) {
             fragmentClass = ActionChainListFragment.class;
+            drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_trigger) {
             fragmentClass = TriggerCategoryListFragment.class;
+            drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_ruleset) {
             fragmentClass = RuleSetListFragment.class;
-
+            drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_socket) {
             fragmentClass = SocketListFragment.class;
+            drawer.closeDrawer(GravityCompat.START);
+
         }
+
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -156,8 +176,7 @@ public class MainActivity extends AppCompatActivity
         // Set action bar title
         setTitle(item.getTitle());
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
@@ -298,6 +317,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onLogListFragmentInteraction(LogListItem item) {
 
     }
 }

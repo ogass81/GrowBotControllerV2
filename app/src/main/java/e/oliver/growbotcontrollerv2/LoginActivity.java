@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ipaddress_ui = findViewById(R.id.ipaddress);
-        ipaddress_ui.setText("http://192.168.0.216");
+        ipaddress_ui.setText("http://192.168.0.232");
         password_ui = findViewById(R.id.password);
     }
 

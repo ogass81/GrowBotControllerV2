@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    card_view:cardCornerRadius="5dp"
+    card_view:cardCornerRadius="1dp"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,31 +13,35 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/label_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID" />
-
-        <TextView
             android:id="@+id/value_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/label_id"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/label_id" />
+            android:layout_marginStart="4dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/value_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/label_id"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/value_id" />
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/value_id"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/value_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/value_time"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/value_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_id" />
+            android:layout_below="@+id/value_id"
+            android:layout_marginStart="12dp" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

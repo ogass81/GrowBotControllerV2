@@ -3,7 +3,6 @@ package e.oliver.growbotcontrollerv2;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * A fragment representing a list of Items.
@@ -30,11 +31,16 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
     private static final String ARG_COLUMN_COUNT = "column-count";
     ArrayList<LogListItem> list = new ArrayList<LogListItem>();
     // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private int mStart = 0;
-    private int mCount = 10;
-    private int mLength = 0;
+    private int columncount = 1;
+    private int logpointer = 0;
+    private int packagesize = 15;
+    private int logcount = 0;
+
+    private int newestentry = 0;
+    private int oldestentry = 0;
+    
     private Boolean loading = false;
+    private int visibleThreshold = 3;
 
     //Listener for Item Interaction
     private OnLogListFragmentInteractionListener mListener;
@@ -54,7 +60,7 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            columncount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
         getData();
 
@@ -63,7 +69,7 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
     //Http Communication with GrowBot
     public void getData() {
         loading = true;
-        String uri = Settings.getInstance().getClient_ip() + "/log/" + mStart + "/" + mCount;
+        String uri = Settings.getInstance().getClient_ip() + "/log/" + logpointer + "/" + packagesize;
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
@@ -76,11 +82,8 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
 
         recyclerView = view.findViewById(R.id.list);
 
-        if (mColumnCount <= 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
         //OG: Create Adapter
         recyclerView.setAdapter(new LogListRecyclerViewAdapter(list, mListener));
 
@@ -89,15 +92,35 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+                int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                int lastVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+
+                System.out.println("Total Item Count:" + totalItemCount);
+                System.out.println("firstVisibleItem:" + firstVisibleItem);
+                System.out.println("lastVisibleItem:" + lastVisibleItem);
+                System.out.println("NewestEntry:" + newestentry);
+                System.out.println("OldestEntry:" + oldestentry);
+                System.out.println("Vector:" + dy);
+
                 if (loading == false) {
-                    if (dy < 0) {
-                        mStart += 10;
-                        if (mStart > mLength) mStart = mLength;
-                        System.out.println("Scrolling Up " + mStart);
+                    if (dy < 0 && (firstVisibleItem < visibleThreshold)) {
+                        newestentry += packagesize;
+                        logpointer = newestentry;
+                        System.out.println("Scrolling Up: Getting Data from ... " + logpointer);
+                        getData();
+
+                    } else if (dy > 0 && (totalItemCount <= (lastVisibleItem + visibleThreshold))) {
+                        logpointer = oldestentry;
+                        System.out.println("Scrolling Down: Getting Data from ... " + logpointer);
+                        getData();
                     } else {
-                        mStart -= 10;
-                        System.out.println("Scrolling Down " + mStart);
+                        System.out.println("Scrolling but enough items");
+
                     }
+                } else {
+                    System.out.println("Scrolling but loading");
                 }
             }
 
@@ -106,9 +129,8 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
-                    if (loading == false && mStart > 0) {
-                        System.out.println("Scrolling Stopped Getting Data for " + mStart);
-                        getData();
+                    if (loading == false && logpointer > 0) {
+                        // Do something
                     }
                 } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     // Do something
@@ -117,6 +139,34 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
                 }
             }
         });
+
+
+        /*
+        public void onScrolled(RecyclerView recyclerView,
+        int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+
+        totalItepackagesize = linearLayoutManager.getItepackagesize();
+        lastVisibleItem = linearLayoutManager
+        .findLastVisibleItemPosition();
+        if (!loading
+        && totalItepackagesize <= (lastVisibleItem + visibleThreshold)) {
+        // End has been reached
+        // Do something
+        if (onLoadMoreListener != null) {
+        onLoadMoreListener.onLoadMore();
+        }
+        loading = true;
+        }
+        }
+        });
+        }
+        }
+
+
+         */
+
+
 
 
         return view;
@@ -150,15 +200,34 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
         if (response_code == 200 && output != null) {
             loading = false;
             try {
-
-                mLength = output.getInt("num");
-                mStart = mLength;
-
                 JSONArray listJSON = output.getJSONArray("list");
 
-                list.addAll(LogListItem.fromJson(listJSON));
+                ArrayList<LogListItem> server_return = LogListItem.fromJson(listJSON);
+
+                Iterator iterator = server_return.iterator();
+
+                while (iterator.hasNext()) {
+                    LogListItem logitem = (LogListItem) iterator.next();
+                    if (!list.contains(logitem)) list.add(logitem);
+                }
+                Collections.sort(list, new SortbyId());
                 recyclerView.getAdapter().notifyDataSetChanged();
 
+                //Set bounderies
+
+                //Initialize newestentry on first load when everything is still 0
+                if (logcount == logpointer) {
+                    logcount = output.getInt("num");
+                    newestentry = logcount;
+                }
+                //Each refresh adjust length of logfile
+                else logcount = output.getInt("num");
+
+                //If newest entry went to far call it back
+                if (newestentry > logcount) newestentry = logcount;
+
+                //Oldest entry is newest entry minus size of array
+                oldestentry = newestentry - list.size();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

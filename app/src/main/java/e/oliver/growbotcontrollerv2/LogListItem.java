@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.Locale;
 
@@ -24,7 +24,6 @@ public class LogListItem {
     private Calendar time;
     private String source;
     private String message;
-    private Boolean active;
 
     // Decodes business json into business model object
     public static LogListItem fromJson(JSONObject jsonObject) {
@@ -77,13 +76,27 @@ public class LogListItem {
             }
 
             LogListItem listitem = LogListItem.fromJson(JSONitem);
-            if (listitem != null) {
+            if (listitem != null && !list.contains(listitem)) {
                 list.add(listitem);
             }
         }
-        Collections.reverse(list);
 
         return list;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LogListItem)) return false;
+
+        LogListItem that = (LogListItem) o;
+
+        return getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
     }
 
     public Hashtable<String, String> getParameters() {
@@ -106,10 +119,6 @@ public class LogListItem {
         return message;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
-
     public Calendar getTime() {
         return time;
     }
@@ -120,5 +129,13 @@ public class LogListItem {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMAN);
 
         return sdf.format(time.getTime());
+    }
+}
+
+class SortbyId implements Comparator<LogListItem> {
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(LogListItem a, LogListItem b) {
+        return b.getId() - a.getId();
     }
 }

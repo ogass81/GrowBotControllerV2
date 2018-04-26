@@ -25,8 +25,6 @@ public class LogListRecyclerViewAdapter extends RecyclerView.Adapter<LogListRecy
     public LogListRecyclerViewAdapter(ArrayList<LogListItem> items, OnLogListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
-
-
     }
 
     @Override
@@ -40,9 +38,8 @@ public class LogListRecyclerViewAdapter extends RecyclerView.Adapter<LogListRecy
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getId().toString());
-
-
         holder.mTimestampView.setText(mValues.get(position).getFormatedTime().toString());
+        holder.mSourceView.setText(mValues.get(position).getSource().toString());
 
         holder.mMessageView.setText((mValues.get(position).getMessage()));
 
@@ -68,6 +65,7 @@ public class LogListRecyclerViewAdapter extends RecyclerView.Adapter<LogListRecy
         public final View mView;
         public final TextView mIdView;
         public final TextView mTimestampView;
+        public final TextView mSourceView;
         public final TextView mMessageView;
 
 
@@ -78,6 +76,7 @@ public class LogListRecyclerViewAdapter extends RecyclerView.Adapter<LogListRecy
             mView = view;
             mIdView = view.findViewById(R.id.value_id);
             mTimestampView = view.findViewById(R.id.value_time);
+            mSourceView = view.findViewById(R.id.value_source);
             mMessageView = view.findViewById(R.id.value_msg);
         }
 

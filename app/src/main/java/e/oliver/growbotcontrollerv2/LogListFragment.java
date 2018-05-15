@@ -140,35 +140,6 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
             }
         });
 
-
-        /*
-        public void onScrolled(RecyclerView recyclerView,
-        int dx, int dy) {
-        super.onScrolled(recyclerView, dx, dy);
-
-        totalItepackagesize = linearLayoutManager.getItepackagesize();
-        lastVisibleItem = linearLayoutManager
-        .findLastVisibleItemPosition();
-        if (!loading
-        && totalItepackagesize <= (lastVisibleItem + visibleThreshold)) {
-        // End has been reached
-        // Do something
-        if (onLoadMoreListener != null) {
-        onLoadMoreListener.onLoadMore();
-        }
-        loading = true;
-        }
-        }
-        });
-        }
-        }
-
-
-         */
-
-
-
-
         return view;
     }
 

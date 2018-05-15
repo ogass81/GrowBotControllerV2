@@ -204,6 +204,15 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
         });
 
         //Setup save button
+        Button deletelog = view.findViewById(R.id.button_log);
+        deletelog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteLog();
+            }
+        });
+
+        //Setup save button
         Button save_button = view.findViewById(R.id.button_save);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,6 +247,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
 
         return view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -283,6 +293,11 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
 
     public void reset() {
         String uri = Settings.getInstance().getClient_ip() + "/setting/reset";
+        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+    }
+
+    public void deleteLog() {
+        String uri = Settings.getInstance().getClient_ip() + "/log/reset";
         RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
@@ -343,6 +358,10 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse {
             //Timezone
             TextView value_timezone = getView().findViewById(R.id.value_timezone);
             value_timezone.setText(Settings.getInstance().getTimezone().getDisplayName());
+
+            //Log
+            TextView value_logsize = getView().findViewById(R.id.value_log);
+            value_logsize.setText(Settings.getInstance().getLogsize().toString());
         }
         TextView response = getView().findViewById(R.id.server_response);
         response.setText(response_code + " " + response_message);

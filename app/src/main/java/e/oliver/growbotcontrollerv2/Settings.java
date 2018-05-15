@@ -39,6 +39,8 @@ public class Settings extends Application {
     private String wifi_SSID;
     private String wifi_pw;
     private String apisecret;
+    private Integer logsize;
+
     private Settings() {
     }
 
@@ -162,6 +164,11 @@ public class Settings extends Application {
     public String getFirmware_time() {
         return firmware_time;
     }
+
+    public Integer getLogsize() {
+        return logsize;
+    }
+
     public Boolean fromJson(JSONObject jsonObject) {
         try {
             // Deserialize Constants
@@ -191,6 +198,8 @@ public class Settings extends Application {
 
             this.timezone = TimeZone.getDefault();
             timezone.setRawOffset(jsonObject.getInt("timezone") * 1000);
+
+            this.logsize = jsonObject.getInt("log_size");
 
             return true;
         } catch (JSONException e) {

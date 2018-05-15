@@ -688,6 +688,10 @@
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\09cbc821791ae219b68aa804dd66747e\\res\\drawable\\notification_tile_bg.xml"
     },
     {
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_log_details.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_log_details.xml"
+    },
+    {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable-xhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
@@ -1742,6 +1746,10 @@
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_menu_overflow_material.xml.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_close_black_24dp.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable\\ic_close_black_24dp.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_tint_seek_thumb.xml.flat",

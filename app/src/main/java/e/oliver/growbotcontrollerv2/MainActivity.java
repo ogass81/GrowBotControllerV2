@@ -10,11 +10,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity
         implements LogListFragment.OnLogListFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, SensorListFragment.OnSensorListFragmentInteractionListener, SensorDetailsFragment.OnSensorDetailsFragmentInteractionListener, RuleSetListFragment.OnRuleSetListFragmentInteractionListener, RuleSetDetailsFragment.OnRuleSetDetailsFragmentInteractionListener, TriggerCategoryListFragment.OnTriggerCategoryListFragmentInteractionListener, TriggerListFragment.OnTriggerListFragmentInteractionListener, TriggerDetailsFragment.OnTriggerDetailsFragmentInteractionListener, ActionChainListFragment.OnActionChainListFragmentInteractionListener, ActionChainDetailsFragment.OnActionChainDetailsFragmentInteractionListener, SocketListFragment.OnSocketListFragmentInteractionListener, SocketDetailsFragment.OnSocketDetailsFragmentInteractionListener, ActionListFragment.OnActionListFragmentInteractionListener, ActionDetailsFragment.OnActionDetailsFragmentInteractionListener {
@@ -322,6 +329,64 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLogListFragmentInteraction(LogListItem item) {
+        // Initialize a new instance of LayoutInflater service
+        LayoutInflater inflater = getLayoutInflater();
+
+        // Inflate the custom layout/view
+        View customView = inflater.inflate(R.layout.fragment_log_details, null);
+
+                /*
+                    public PopupWindow (View contentView, int width, int height)
+                        Create a new non focusable popup window which can display the contentView.
+                        The dimension of the window must be passed to this constructor.
+
+                        The popup does not provide any background. This should be handled by
+                        the content view.
+
+                    Parameters
+                        contentView : the popup's content
+                        width : the popup's width
+                        height : the popup's height
+                */
+
+
+        TextView id = customView.findViewById(R.id.value_id);
+        id.setText(item.getId().toString());
+        TextView time = customView.findViewById(R.id.value_time);
+        time.setText(item.getFormatedTime().toString());
+        TextView value_source = customView.findViewById(R.id.value_source);
+        value_source.setText(item.getSource());
+        TextView value_msg = customView.findViewById(R.id.value_msg);
+        value_msg.setText(item.getMessage());
+        TextView value_vars = customView.findViewById(R.id.value_variables);
+        Set<String> keys = item.getParameters().keySet();
+        for (String key : keys) {
+            value_vars.append(key + " " + item.getParameters().get(key) + "\n");
+        }
+
+
+        // Initialize a new instance of popup window
+        final PopupWindow mPopupWindow = new PopupWindow(
+                customView,
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        mPopupWindow.setElevation(5.0f);
+
+        // Get a reference for the custom view close button
+        ImageButton closeButton = customView.findViewById(R.id.ib_close);
+
+        // Set a click listener for the popup window close button
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Dismiss the popup window
+                mPopupWindow.dismiss();
+            }
+        });
+
+        // Finally, show the popup window at the center location of root relative layout
+        mPopupWindow.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER, 0, 0);
 
     }
 }

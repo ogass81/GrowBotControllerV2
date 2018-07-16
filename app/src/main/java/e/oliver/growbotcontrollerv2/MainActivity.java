@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         TextView server_ip = header.findViewById(R.id.value_ip);
         server_ip.setText(Settings.getInstance().getClient_ip());
 
-        TextView server_version = header.findViewById(R.id.value_version);
+        TextView server_version = header.findViewById(R.id.value_task_frq);
         server_version.setText(Settings.getInstance().getFirmware_version());
 
         TextView compile_date = header.findViewById(R.id.value_compiledate);
@@ -56,6 +56,20 @@ public class MainActivity extends AppCompatActivity
 
         TextView compile_time = header.findViewById(R.id.value_compiletime);
         compile_time.setText(Settings.getInstance().getFirmware_time());
+
+        Fragment fragment = null;
+        Bundle bundle = new Bundle();
+        Class fragmentClass = InfoFragment.class;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("List").commit();
     }
 
     @Override

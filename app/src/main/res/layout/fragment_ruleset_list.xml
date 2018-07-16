@@ -3,23 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_margin">
 
     <TextView
         android:id="@+id/server_response"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
     android:name="e.oliver.growbotcontrollerv2.RuleSetFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
+
+        app:layoutManager="LinearLayoutManager"
     tools:context="e.oliver.growbotcontrollerv2.RuleSetFragment"
     tools:listitem="@layout/fragment_ruleset" />
 </LinearLayout>

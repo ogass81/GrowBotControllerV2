@@ -1,3 +1,8 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    android:padding="@dimen/fragment_margin">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID" />
+
     <TextView
         android:id="@+id/value_id"
         android:layout_width="wrap_content"
@@ -25,6 +31,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name" />
+
     <View
         android:id="@+id/line1"
         android:layout_width="fill_parent"
@@ -148,11 +155,12 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/line6"
         android:text="Save" />
+
     <TextView
         android:id="@+id/server_response"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>
-
+</ScrollView>
 

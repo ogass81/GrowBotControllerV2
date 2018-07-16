@@ -18,18 +18,18 @@ public class Settings extends Application {
     private String client_ip;
     private String client_secret;
     //Growbot Constants
-    private int actions_num;
-    private int actionschains_num;
-    private int actionschains_length;
-    private int rulesets_num;
-    private int trigger_sets;
-    private int trigger_types;
-    private int sensor_num;
-    private int task_queue_length;
-    private int actionchain_task_maxduration;
-    private int task_parallel_sec;
-    private int rc_sockets_num;
-    private int rc_signals_num;
+    private Integer actions_num;
+    private Integer actionschains_num;
+    private Integer actionschains_length;
+    private Integer rulesets_num;
+    private Integer trigger_sets;
+    private Integer trigger_types;
+    private Integer sensor_num;
+    private Integer task_queue_length;
+    private Integer actionchain_task_maxduration;
+    private Integer task_parallel_sec;
+    private Integer rc_sockets_num;
+    private Integer rc_signals_num;
     private String firmware_version;
     private String firmware_date;
     private String firmware_time;
@@ -40,6 +40,8 @@ public class Settings extends Application {
     private String wifi_pw;
     private String apisecret;
     private Integer logsize;
+    private Integer task_frq;
+    private Integer sensor_frq;
 
     private Settings() {
     }
@@ -105,51 +107,51 @@ public class Settings extends Application {
         this.timezone = timezone;
     }
 
-    public int getActions_num() {
+    public Integer getActions_num() {
         return actions_num;
     }
 
-    public int getActionschains_num() {
+    public Integer getActionschains_num() {
         return actionschains_num;
     }
 
-    public int getActionschains_length() {
+    public Integer getActionschains_length() {
         return actionschains_length;
     }
 
-    public int getRulesets_num() {
+    public Integer getRulesets_num() {
         return rulesets_num;
     }
 
-    public int getTrigger_sets() {
+    public Integer getTrigger_sets() {
         return trigger_sets;
     }
 
-    public int getTrigger_types() {
+    public Integer getTrigger_types() {
         return trigger_types;
     }
 
-    public int getSensor_num() {
+    public Integer getSensor_num() {
         return sensor_num;
     }
 
-    public int getTask_queue_length() {
+    public Integer getTask_queue_length() {
         return task_queue_length;
     }
 
-    public int getActionchain_task_maxduration() {
+    public Integer getActionchain_task_maxduration() {
         return actionchain_task_maxduration;
     }
 
-    public int getTask_parallel_sec() {
+    public Integer getTask_parallel_sec() {
         return task_parallel_sec;
     }
 
-    public int getRc_sockets_num() {
+    public Integer getRc_sockets_num() {
         return rc_sockets_num;
     }
 
-    public int getRc_signals_num() {
+    public Integer getRc_signals_num() {
         return rc_signals_num;
     }
 
@@ -167,6 +169,14 @@ public class Settings extends Application {
 
     public Integer getLogsize() {
         return logsize;
+    }
+
+    public Integer getTask_frq() {
+        return task_frq;
+    }
+
+    public Integer getSensor_frq() {
+        return sensor_frq;
     }
 
     public Boolean fromJson(JSONObject jsonObject) {
@@ -187,6 +197,8 @@ public class Settings extends Application {
             this.firmware_version = jsonObject.getString("firm_version");
             this.firmware_date = jsonObject.getString("firm_date");
             this.firmware_time = jsonObject.getString("firm_time");
+            this.task_frq = jsonObject.getInt("task_frq_sec");
+            this.sensor_frq = jsonObject.getInt("sens_frq_sec");
 
             // Deserialize variable Settings
             this.wifi_SSID = jsonObject.getString("wifi_SSID");

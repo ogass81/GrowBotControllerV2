@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_margin">
 
     <TextView
         android:id="@+id/server_response"
@@ -11,9 +11,9 @@
         android:text="TextView" />
 
     <TableLayout
+        android:id="@+id/table_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/table_wrapper">
+        android:layout_height="200dp">
 
         <TableRow
             android:layout_width="match_parent"

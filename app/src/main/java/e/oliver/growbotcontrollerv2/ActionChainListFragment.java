@@ -59,7 +59,7 @@ public class ActionChainListFragment extends Fragment implements AsyncRestRespon
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sensor_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_actionchain_list, container, false);
         Context context = view.getContext();
 
         recyclerView = view.findViewById(R.id.list);

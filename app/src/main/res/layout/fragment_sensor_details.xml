@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+    android:fitsSystemWindows="true"
+    android:padding="@dimen/fragment_margin">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -129,8 +125,9 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/graph"
                 android:layout_width="match_parent"
-                android:layout_height="200dip"
-                android:layout_below="@+id/value_range" />
+                android:layout_height="250dip"
+                android:layout_below="@+id/value_range"
+                android:layout_margin="3dp" />
             <View
                 android:id="@+id/line4"
                 android:layout_width="fill_parent"
@@ -164,8 +161,5 @@
                 android:layout_below="@+id/button_reset" />
 
         </RelativeLayout>
+</ScrollView>
 
-
-    </ScrollView>
-
-</RelativeLayout>

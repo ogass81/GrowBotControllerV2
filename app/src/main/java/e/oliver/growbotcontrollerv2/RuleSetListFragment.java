@@ -58,7 +58,7 @@ public class RuleSetListFragment extends Fragment implements AsyncRestResponse {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sensor_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_ruleset_list, container, false);
         Context context = view.getContext();
 
         recyclerView = view.findViewById(R.id.list);

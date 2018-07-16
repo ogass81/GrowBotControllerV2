@@ -5,28 +5,27 @@
     build-mode="COLD"
     density="xxhdpi"
     format="10"
-    ir-eligibility="REFLECTION_USED"
     plugin-version="3.0.1"
-    timestamp="1531774349472"
+    timestamp="1531775752334"
     token="-4574228954816811034"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="146" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="19" />
+        duration="0" />
     <task
         name="verifier"
-        duration="12" />
+        duration="0" />
 
     <artifact
-        location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-        type="SPLIT" />
+        location="C:\projects\android\GrowBotControllerV2-git\app\build\outputs\apk\debug\app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
@@ -104,20 +103,20 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1531773738421"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="C:\projects\android\GrowBotControllerV2-git\app\build\outputs\apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="REFLECTION_USED"
-        timestamp="1531774349472"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1531774608410"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1531775752334"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\projects\android\GrowBotControllerV2-git\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
 
 </instant-run>

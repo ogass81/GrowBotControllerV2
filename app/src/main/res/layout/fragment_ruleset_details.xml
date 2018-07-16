@@ -1,6 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:padding="@dimen/fragment_margin">
 
@@ -8,8 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
         <TextView
             android:id="@+id/label_id"
             android:layout_width="wrap_content"
@@ -21,7 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/label_id"
-            android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/label_id" />
 
         <EditText
@@ -30,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/label_id"
-            android:ems="10"
             android:inputType="textPersonName"
             android:text="Name" />
 
@@ -54,16 +50,13 @@
             android:id="@+id/value_trigger1"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_Rule1"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="9dp" />
+            android:layout_below="@+id/label_Rule1" />
 
         <Spinner
             android:id="@+id/value_boolop1"
-            android:layout_width="140dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/label_Rule1"
-            android:layout_marginStart="9dp"
             android:layout_toEndOf="@+id/value_trigger1" />
 
         <TextView
@@ -77,15 +70,13 @@
             android:id="@+id/value_trigger2"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_Rule2"
-            android:layout_marginStart="9dp" />
+            android:layout_below="@+id/label_Rule2" />
 
         <Spinner
             android:id="@+id/value_boolop2"
-            android:layout_width="140dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/label_Rule2"
-            android:layout_marginStart="9dp"
             android:layout_toEndOf="@+id/value_trigger2" />
 
         <TextView
@@ -93,15 +84,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/value_trigger2"
-            android:text="Rule 2" />
+            android:text="Rule 3" />
 
         <Spinner
             android:id="@+id/value_trigger3"
-            android:layout_width="240dp"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_Rule3"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="9dp" />
+            android:layout_below="@+id/label_Rule3" />
 
         <View
             android:id="@+id/line2"
@@ -121,11 +110,9 @@
 
         <Spinner
             android:id="@+id/value_actionchain"
-            android:layout_width="360dp"
+            android:layout_width="420dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_actionchain"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="9dp" />
+            android:layout_below="@+id/label_actionchain" />
 
         <View
             android:id="@+id/line3"
@@ -167,6 +154,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
-</RelativeLayout>
+    </RelativeLayout>
 
 </ScrollView>

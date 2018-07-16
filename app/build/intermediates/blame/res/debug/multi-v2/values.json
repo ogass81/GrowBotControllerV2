@@ -99,11 +99,11 @@
                 {
                     "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\values\\dimens.xml",
                     "from": {
-                        "startLines": "-1,-1,-1,5,6,4,-1,-1,-1",
-                        "startColumns": "-1,-1,-1,4,4,4,-1,-1,-1",
-                        "startOffsets": "-1,-1,-1,262,320,206,-1,-1,-1",
-                        "endColumns": "-1,-1,-1,56,45,54,-1,-1,-1",
-                        "endOffsets": "-1,-1,-1,314,361,256,-1,-1,-1"
+                        "startLines": "-1,-1,9,-1,-1,-1,-1,-1,10",
+                        "startColumns": "-1,-1,4,-1,-1,-1,-1,-1,4",
+                        "startOffsets": "-1,-1,477,-1,-1,-1,-1,-1,520",
+                        "endColumns": "-1,-1,41,-1,-1,-1,-1,-1,42",
+                        "endOffsets": "-1,-1,514,-1,-1,-1,-1,-1,558"
                     },
                     "to": {
                         "startLines": "671,672,721,725,726,727,738,739,755",

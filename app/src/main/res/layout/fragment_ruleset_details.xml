@@ -88,7 +88,7 @@
 
         <Spinner
             android:id="@+id/value_trigger3"
-            android:layout_width="260dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/label_Rule3" />
 
@@ -148,12 +148,13 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/line4"
             android:text="Save" />
-
         <TextView
             android:id="@+id/server_response"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/button_save" />
+
     </RelativeLayout>
 
 </ScrollView>

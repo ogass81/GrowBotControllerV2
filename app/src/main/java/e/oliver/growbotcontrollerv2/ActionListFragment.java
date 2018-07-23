@@ -52,15 +52,18 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
 
         }
-
-
         RestClient client = (RestClient) new RestClient(Settings.getInstance().getClient_ip() + "/action", Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+    }
+
+    public void executeAction(Integer action_id) {
+        String uri = Settings.getInstance().getClient_ip() + "/action/" + action_id.toString() + "/execute";
+        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sensor_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_action_list, container, false);
         Context context = view.getContext();
 
         recyclerView = view.findViewById(R.id.list);
@@ -80,12 +83,12 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnActionListFragmentInteractionListener) {
-            mListener = (OnActionListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnActionListFragmentInteractionListener");
-        }
+        mListener = new OnActionListFragmentInteractionListener() {
+            @Override
+            public void onActionListFragmentInteraction(ActionListItem item) {
+                executeAction(item.getId());
+            }
+        };
     }
 
     @Override

@@ -8,21 +8,26 @@
     <TextView
         android:id="@+id/id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/text_margin"
+        android:gravity="center_vertical|center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/text_margin"
+        android:gravity="center_vertical|center_horizontal"
         android:textAppearance="?attr/textAppearanceListItem" />
 
-    <TextView
-        android:id="@+id/active"
+    <Button
+        android:id="@+id/execute"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="false"
+        android:elevation="0dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Run"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 </LinearLayout>

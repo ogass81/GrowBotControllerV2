@@ -88,17 +88,17 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
 
     public void resetSignal() {
         String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/reset";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", socket.toJson(), this).execute();
+        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void learninOn() {
         String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/learn_on";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", socket.toJson(), this).execute();
+        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void learninOff() {
         String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/learn_off";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", socket.toJson(), this).execute();
+        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
     public void saveToBot() {

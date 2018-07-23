@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,20 +30,17 @@ public class ActionListRecyclerViewAdapter extends RecyclerView.Adapter<ActionLi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_ruleset, parent, false);
+                .inflate(R.layout.fragment_action, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
+        holder.mIdView.setText(mValues.get(position).getId().toString());
         holder.mTitleView.setText(mValues.get(position).getTitle());
 
-        if (mValues.get(position).getActive()) holder.mActiveView.setText("Active");
-        else holder.mActiveView.setText("Disabled");
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.mButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -63,7 +61,8 @@ public class ActionListRecyclerViewAdapter extends RecyclerView.Adapter<ActionLi
         public final View mView;
         public final TextView mIdView;
         public final TextView mTitleView;
-        public final TextView mActiveView;
+        public final Button mButtonView;
+
 
         public ActionListItem mItem;
 
@@ -72,7 +71,7 @@ public class ActionListRecyclerViewAdapter extends RecyclerView.Adapter<ActionLi
             mView = view;
             mIdView = view.findViewById(R.id.id);
             mTitleView = view.findViewById(R.id.title);
-            mActiveView = view.findViewById(R.id.active);
+            mButtonView = view.findViewById(R.id.execute);
         }
 
         @Override

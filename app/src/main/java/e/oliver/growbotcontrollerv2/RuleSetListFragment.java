@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -17,28 +18,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnRuleSetListFragmentInteractionListener}
- * interface.
- */
-public class RuleSetListFragment extends Fragment implements AsyncRestResponse {
+public class RuleSetListFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     ArrayList<RuleSetListItem> list = new ArrayList<RuleSetListItem>();
+    ProgressBar loadingbar;
+    TextView response;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private int counter = 0;
     //Listener for Item Interaction
     private OnRuleSetListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
+    //Loading Bar
+    private Integer loading = 0;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+
     public RuleSetListFragment() {
     }
 
@@ -55,6 +50,21 @@ public class RuleSetListFragment extends Fragment implements AsyncRestResponse {
 
     }
 
+    public void getData() {
+        if (loading == 0) {
+            //Load Sequence Data
+            String uri = Settings.getInstance().getClient_ip() + "/ruleset";
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,6 +80,14 @@ public class RuleSetListFragment extends Fragment implements AsyncRestResponse {
         }
         //OG: Create Adapter
         recyclerView.setAdapter(new RuleSetListRecyclerViewAdapter(list, mListener));
+
+        //Initiate Loading Bar
+        loadingbar = view.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+        response = view.findViewById(R.id.server_response);
+
+        //Initial Data Load
+        getData();
 
         return view;
     }
@@ -95,14 +113,20 @@ public class RuleSetListFragment extends Fragment implements AsyncRestResponse {
 
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
+        //Check open web calls
+        loading--;
+        if (loading == 0) {
+            loadingbar.setVisibility(View.GONE);
+        } else System.out.println("INFO: Open web calls " + loading);
 
-        TextView response = getView().findViewById(R.id.server_response);
-        response.setText(response_code + " " + response_message);
+        //Server Response
+        response.setText(response_code + " " + response_message + "\r\n");
 
         if (response_code == 200 && output != null) {
             try {
                 JSONArray listJSON = output.getJSONArray("list");
 
+                if (!list.isEmpty()) list.clear();
                 list.addAll(RuleSetListItem.fromJson(listJSON));
                 recyclerView.getAdapter().notifyDataSetChanged();
 
@@ -112,6 +136,11 @@ public class RuleSetListFragment extends Fragment implements AsyncRestResponse {
         } else {
             System.out.println("RuleSetsListFragment->processFinish: no elements");
         }
+    }
+
+    @Override
+    public void onFragmentResume() {
+        getData();
     }
 
     /**

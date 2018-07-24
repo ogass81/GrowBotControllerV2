@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -17,17 +18,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnTriggerListFragmentInteractionListener}
- * interface.
- */
-public class TriggerListFragment extends Fragment implements AsyncRestResponse {
+public class TriggerListFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     ArrayList<TriggerListItem> list = new ArrayList<TriggerListItem>();
+    ProgressBar loadingbar;
+    TextView response;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private int counter = 0;
@@ -35,11 +32,9 @@ public class TriggerListFragment extends Fragment implements AsyncRestResponse {
     private OnTriggerListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
     private Integer mCategoryID;
+    //Loading Bar
+    private Integer loading = 0;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public TriggerListFragment() {
     }
 
@@ -53,9 +48,19 @@ public class TriggerListFragment extends Fragment implements AsyncRestResponse {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             mCategoryID = getArguments().getInt("cat");
         }
+    }
 
+    public void getData() {
+        if (loading == 0) {
+            //Load Sequence Data
+            String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mCategoryID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
 
-        RestClient client = (RestClient) new RestClient(Settings.getInstance().getClient_ip() + "/trigger/" + mCategoryID.toString(), Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     @Override
@@ -73,6 +78,14 @@ public class TriggerListFragment extends Fragment implements AsyncRestResponse {
         }
         //OG: Create Adapter
         recyclerView.setAdapter(new TriggerListRecyclerViewAdapter(list, mListener));
+
+        //Initiate Loading Bar
+        loadingbar = view.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+        response = view.findViewById(R.id.server_response);
+
+        //Initial Data Load
+        getData();
 
         return view;
     }
@@ -99,13 +112,20 @@ public class TriggerListFragment extends Fragment implements AsyncRestResponse {
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
 
-        TextView response = getView().findViewById(R.id.server_response);
-        response.setText(response_code + " " + response_message);
+        //Check open web calls
+        loading--;
+        if (loading == 0) {
+            loadingbar.setVisibility(View.GONE);
+        } else System.out.println("INFO: Open web calls " + loading);
+
+        //Server Response
+        response.setText(response_code + " " + response_message + "\r\n");
 
         if (response_code == 200 && output != null) {
             try {
                 JSONArray listJSON = output.getJSONArray("list");
 
+                if (!list.isEmpty()) list.clear();
                 list.addAll(TriggerListItem.fromJson(mCategoryID, listJSON));
                 recyclerView.getAdapter().notifyDataSetChanged();
 
@@ -115,6 +135,11 @@ public class TriggerListFragment extends Fragment implements AsyncRestResponse {
         } else {
             System.out.println("TriggersListFragment->processFinish: no elements");
         }
+    }
+
+    @Override
+    public void onFragmentResume() {
+
     }
 
     /**

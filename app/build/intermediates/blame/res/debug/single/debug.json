@@ -1632,10 +1632,6 @@
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\color-v23\\abc_btn_colored_text_material.xml"
     },
     {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_blank.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_blank.xml"
-    },
-    {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable-mdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
@@ -1922,10 +1918,6 @@
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_tooltip_frame_light.xml.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable\\tooltip_frame_light.xml"
-    },
-    {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_home.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_home.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_text_select_handle_left_mtrl_dark.png.flat",

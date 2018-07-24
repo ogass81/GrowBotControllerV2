@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,14 +29,6 @@ import org.json.JSONObject;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link SensorDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 
 class SensorLabelFormatter extends DefaultLabelFormatter {
     ArrayList<SensorValue> origin;
@@ -56,28 +49,24 @@ class SensorLabelFormatter extends DefaultLabelFormatter {
     }
 }
 
-public class SensorDetailsFragment extends Fragment implements AsyncRestResponse {
+public class SensorDetailsFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
+    ProgressBar loadingbar;
+    TextView response;
     // TODO: Rename and change types of parameters
     private Integer mSensorID;
     private String mRange;
     private SensorDetails sensor;
-
     private OnSensorDetailsFragmentInteractionListener mListener;
+    //Loading Bar
+    private Integer loading = 0;
 
     public SensorDetailsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment SensorDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SensorDetailsFragment newInstance() {
         SensorDetailsFragment fragment = new SensorDetailsFragment();
         return fragment;
@@ -90,50 +79,88 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
             mSensorID = getArguments().getInt("id");
             mRange = getArguments().getString("range");
         }
-        getData();
     }
 
     public void getData() {
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange;
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange;
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void setLowerThreshold() {
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/lower";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
-        getData();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/lower";
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange;
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void setUpperThreshold() {
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/upper";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
-        getData();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/upper";
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange;
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void resetBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/reset";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/reset";
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString();
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", sensor.toJson(), this).execute();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", sensor.toJson(), this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         View view = inflater.inflate(R.layout.fragment_sensor_details, container, false);
+
         //OG: Set lower threshold button
         Button button = view.findViewById(R.id.button_set_low);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setLowerThreshold();
-                getData();
                 System.out.println("Button Low");
             }
         });
@@ -143,7 +170,6 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
             @Override
             public void onClick(View v) {
                 setUpperThreshold();
-                getData();
                 System.out.println("Button Up");
             }
         });
@@ -153,7 +179,6 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
             @Override
             public void onClick(View v) {
                 resetBot();
-                getData();
                 System.out.println("Reset");
             }
         });
@@ -253,7 +278,10 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
         });
         range.setSelection(0);
 
-
+        //Initiate Loading Bar
+        loadingbar = view.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+        response = view.findViewById(R.id.server_response);
 
         return view;
 
@@ -285,6 +313,14 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
 
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
+        //Check open web calls
+        loading--;
+        if (loading == 0) {
+            loadingbar.setVisibility(View.GONE);
+        } else System.out.println("INFO: Open web calls " + loading);
+
+        //Server Response
+        response.append(response_code + " " + response_message + "\r\n");
 
         if (response_code == 200 && output != null) {
             try {
@@ -566,10 +602,12 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
             } catch (JSONException e) {
 
             }
-
-            TextView response = getView().findViewById(R.id.server_response);
-            response.setText(response_code + " " + response_message + "\r\n");
         }
+    }
+
+    @Override
+    public void onFragmentResume() {
+        getData();
     }
 
 

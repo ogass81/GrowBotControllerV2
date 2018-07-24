@@ -18,7 +18,7 @@ import org.json.JSONObject;
  * Use the {@link InfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InfoFragment extends Fragment implements AsyncRestResponse {
+public class InfoFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     //private static final String ARG_PARAM1 = "param1";
@@ -130,6 +130,11 @@ public class InfoFragment extends Fragment implements AsyncRestResponse {
         }
         TextView response = getView().findViewById(R.id.server_response);
         response.setText(response_code + " " + response_message);
+    }
+
+    @Override
+    public void onFragmentResume() {
+
     }
 
 

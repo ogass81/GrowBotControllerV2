@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
         Bundle bundle = new Bundle();
-        Class fragmentClass = InfoFragment.class;
+        Class fragmentClass = LogListFragment.class;
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(getListener());
         fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack("List").commit();
     }
 
@@ -80,6 +81,22 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    private FragmentManager.OnBackStackChangedListener getListener() {
+        FragmentManager.OnBackStackChangedListener result = new FragmentManager.OnBackStackChangedListener() {
+            public void onBackStackChanged() {
+                FragmentManager manager = getFragmentManager();
+
+                if (manager != null) {
+                    FragmentBackNavigationRefresh currFrag = (FragmentBackNavigationRefresh) manager.findFragmentById(R.id.main_content);
+
+                    currFrag.onFragmentResume();
+                }
+            }
+        };
+
+        return result;
     }
 
     @Override
@@ -148,19 +165,23 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass = null;
 
         if (id == R.id.nav_info) {
-            menu.add(R.id.nav_info, 100, 0, "Device").setIcon(R.drawable.ic_developer_board_black_24dp);
-            menu.add(R.id.nav_info, 101, 0, "System Log").setIcon(R.drawable.ic_event_note_black_24dp);
+            menu.add(R.id.nav_info, 100, 0, "System Log").setIcon(R.drawable.ic_event_note_black_24dp);
+            menu.add(R.id.nav_info, 101, 0, "Device").setIcon(R.drawable.ic_developer_board_black_24dp);
+            menu.add(R.id.nav_info, 102, 0, "Manual Control").setIcon(R.drawable.ic_touch_app_black_24dp);
 
-            fragmentClass = InfoFragment.class;
-        }
-        //Device Info
-        else if (id == 100) {
-            fragmentClass = InfoFragment.class;
-            drawer.closeDrawer(GravityCompat.START);
+            fragmentClass = LogListFragment.class;
         }
         //Log
-        else if (id == 101) {
+        else if (id == 100) {
             fragmentClass = LogListFragment.class;
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        //Device Info
+        else if (id == 101) {
+            fragmentClass = InfoFragment.class;
+            drawer.closeDrawer(GravityCompat.START);
+        } else if (id == 102) {
+            fragmentClass = ActionListFragment.class;
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_sensor) {
             fragmentClass = SensorListFragment.class;

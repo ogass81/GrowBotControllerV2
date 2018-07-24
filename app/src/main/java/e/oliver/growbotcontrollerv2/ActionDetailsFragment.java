@@ -10,42 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnActionDetailsFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ActionDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ActionDetailsFragment extends Fragment implements AsyncRestResponse {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    // TODO: Rename and change types of parameters
+public class ActionDetailsFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
+    ProgressBar loadingbar;
+    TextView response;
     private Integer mActionID;
     private ActionDetails action;
-
     private OnActionDetailsFragmentInteractionListener mListener;
+    private Integer loading = 0;
 
     public ActionDetailsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ActionDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ActionDetailsFragment newInstance() {
         ActionDetailsFragment fragment = new ActionDetailsFragment();
         return fragment;
@@ -57,15 +38,32 @@ public class ActionDetailsFragment extends Fragment implements AsyncRestResponse
         if (getArguments() != null) {
             mActionID = getArguments().getInt("id");
         }
+    }
 
-        String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID.toString();
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+    public void getData() {
+        if (loading == 0) {
+            //Load Sequence Data
+            String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID.toString();
-        System.out.println("ActionsDetailsFragment->saveToBot:" + action.toJson());
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", action.toJson(), this).execute();
+        if (loading == 0) {
+            //Save Sequence Data
+            String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", action.toJson(), this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     @Override
@@ -100,6 +98,13 @@ public class ActionDetailsFragment extends Fragment implements AsyncRestResponse
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+        //Initiate Loading Bar
+        loadingbar = view.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+        response = view.findViewById(R.id.server_response);
+
+        //Initial Data Load
+        getData();
 
         return view;
 
@@ -132,17 +137,23 @@ public class ActionDetailsFragment extends Fragment implements AsyncRestResponse
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
 
+        //Check open web calls
+        loading--;
+        if (loading == 0) {
+            loadingbar.setVisibility(View.GONE);
+        } else System.out.println("INFO: Open web calls " + loading);
+
+        //Server Response
+        response.append(response_code + " " + response_message + "\r\n");
+
         if (response_code == 200 && output != null) {
             action = ActionDetails.fromJson(output);
         }
-        TextView response = getView().findViewById(R.id.server_response);
-        response.setText(response_code + " " + response_message);
+    }
 
-        TextView value_id = getView().findViewById(R.id.value_id);
-        value_id.setText(action.getId());
-
-        TextView value_title = getView().findViewById(R.id.value_title);
-        value_title.setText(action.getTitle());
+    @Override
+    public void onFragmentResume() {
+        getData();
     }
 
     /**

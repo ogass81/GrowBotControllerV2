@@ -23,10 +23,6 @@ public class ActionDetails {
             item.id = jsonObject.getString("id");
             item.title = jsonObject.getString("tit");
             item.active = jsonObject.getBoolean("vis");
-
-            //more
-
-
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

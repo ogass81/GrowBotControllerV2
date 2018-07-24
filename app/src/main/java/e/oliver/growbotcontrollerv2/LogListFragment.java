@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -19,37 +20,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnLogListFragmentInteractionListener}
- * interface.
- */
-public class LogListFragment extends Fragment implements AsyncRestResponse {
+
+public class LogListFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     ArrayList<LogListItem> list = new ArrayList<LogListItem>();
+    ProgressBar loadingbar;
+    TextView response;
     // TODO: Customize parameters
     private int columncount = 1;
     private int logpointer = 0;
     private int packagesize = 15;
     private int logcount = 0;
-
     private int newestentry = 0;
     private int oldestentry = 0;
-    
     private Boolean loading = false;
     private int visibleThreshold = 3;
-
     //Listener for Item Interaction
     private OnLogListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public LogListFragment() {
     }
 
@@ -62,15 +53,19 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
         if (getArguments() != null) {
             columncount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        getData();
-
     }
 
     //Http Communication with GrowBot
     public void getData() {
-        loading = true;
-        String uri = Settings.getInstance().getClient_ip() + "/log/" + logpointer + "/" + packagesize;
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+        if (loading == false) {
+            loading = true;
+            String uri = Settings.getInstance().getClient_ip() + "/log/" + logpointer + "/" + packagesize;
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
 
@@ -102,7 +97,6 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
                 System.out.println("lastVisibleItem:" + lastVisibleItem);
                 System.out.println("NewestEntry:" + newestentry);
                 System.out.println("OldestEntry:" + oldestentry);
-                System.out.println("Vector:" + dy);
 
                 if (loading == false) {
                     if (dy < 0 && (firstVisibleItem < visibleThreshold)) {
@@ -140,6 +134,15 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
             }
         });
 
+        //Initiate Loading Bar
+        loadingbar = view.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+
+        response = view.findViewById(R.id.server_response);
+
+        //Initial Data Load
+        getData();
+
         return view;
     }
 
@@ -164,12 +167,14 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
 
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
+        //Check open web calls
+        loading = false;
+        loadingbar.setVisibility(View.GONE);
 
-        TextView response = getView().findViewById(R.id.server_response);
-        response.setText(response_code + " " + response_message);
+        //Server Response
+        response.setText(response_code + " " + response_message + "\r\n");
 
         if (response_code == 200 && output != null) {
-            loading = false;
             try {
                 JSONArray listJSON = output.getJSONArray("list");
 
@@ -205,6 +210,11 @@ public class LogListFragment extends Fragment implements AsyncRestResponse {
         } else {
             System.out.println("LogsListFragment->processFinish: no elements");
         }
+    }
+
+    @Override
+    public void onFragmentResume() {
+        getData();
     }
 
     /**

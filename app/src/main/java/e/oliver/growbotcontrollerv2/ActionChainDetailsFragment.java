@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -27,37 +28,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+public class ActionChainDetailsFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnActionChainDetailsFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ActionChainDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ActionChainDetailsFragment extends Fragment implements AsyncRestResponse {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    // TODO: Rename and change types of parameters
+    ProgressBar loadingbar;
+    TextView response;
     private Integer mActionChainID;
     private ActionChainDetails actionchain;
     private ArrayList<ActionSpinnerListItem> action = new ArrayList<ActionSpinnerListItem>();
-
     private OnActionChainDetailsFragmentInteractionListener mListener;
+    private Integer loading = 0;
 
     public ActionChainDetailsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment ActionChainDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ActionChainDetailsFragment newInstance() {
         ActionChainDetailsFragment fragment = new ActionChainDetailsFragment();
         return fragment;
@@ -69,21 +53,42 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
         if (getArguments() != null) {
             mActionChainID = getArguments().getInt("id");
         }
+    }
 
-        String uri = Settings.getInstance().getClient_ip() + "/actionchain/" + mActionChainID.toString();
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+    public void getData() {
+        if (loading == 0) {
+            //Load Sequence Data
+            String uri = Settings.getInstance().getClient_ip() + "/actionchain/" + mActionChainID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
 
-        uri = Settings.getInstance().getClient_ip() + "/action";
-        client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            //Load available Actions
+            uri = Settings.getInstance().getClient_ip() + "/action";
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/actionchain/" + mActionChainID.toString();
-        System.out.println("ActionChainsDetailsFragment->saveToBot:" + actionchain.toJson());
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", actionchain.toJson(), this).execute();
+        if (loading == 0) {
+            //Save Sequence Data
+            String uri = Settings.getInstance().getClient_ip() + "/actionchain/" + mActionChainID.toString();
+            System.out.println("ActionChainsDetailsFragment->saveToBot:" + actionchain.toJson());
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", actionchain.toJson(), this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     @Override
+    //Initiate UI Elements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -113,7 +118,6 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
             }
         });
 
-        //OG: Set save button
         Button button = view.findViewById(R.id.button_save);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +145,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
 
             //Progress Seekbar
             LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.FILL_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             params1.setMargins((int) (10 * Resources.getSystem().getDisplayMetrics().density), 0, (int) (10 * Resources.getSystem().getDisplayMetrics().density), 0);
@@ -177,7 +181,7 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
 
             //Seperator Line
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.FILL_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             params2.setMargins(0, (int) (10 * Resources.getSystem().getDisplayMetrics().density), 0, 0);
@@ -188,6 +192,15 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
             line.setHeight(2);
             layout.addView(line);
         }
+        //Initiate Loading Bar
+        loadingbar = view.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+        response = view.findViewById(R.id.server_response);
+
+        //Initial Data Load
+        getData();
+
+
         return view;
 
     }
@@ -218,6 +231,14 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
 
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
+        //Check open web calls
+        loading--;
+        if (loading == 0) {
+            loadingbar.setVisibility(View.GONE);
+        } else System.out.println("INFO: Open web calls " + loading);
+
+        //Server Response
+        response.append(response_code + " " + response_message + "\r\n");
 
         if (response_code == 200 && output != null) {
             try {
@@ -263,14 +284,6 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
                         //Set to position
                         spinner.setSelection(actionchain.getAction_ptr().get(i), false);
 
-                        /*
-                        if (actionchain.getAction_ptr().get(i) < Settings.getInstance().getActions_Num()) {
-                            spinner.setSelection(actionchain.getAction_ptr().get(i), false);
-                        } else {
-                            spinner.setSelection(actionchain.getAction_ptr().size() - 1, false);
-                        }
-                        */
-
                         //Set Listener
                         final int index = i;
 
@@ -286,16 +299,16 @@ public class ActionChainDetailsFragment extends Fragment implements AsyncRestRes
                             }
                         });
                     }
-
-
                 }
             } catch (JSONException e) {
 
             }
-
-            TextView response = getView().findViewById(R.id.server_response);
-            response.append(response_code + " " + response_message + "\r\n");
         }
+    }
+
+    @Override
+    public void onFragmentResume() {
+        getData();
     }
 
     /**

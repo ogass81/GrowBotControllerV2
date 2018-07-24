@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/fragment_margin">
+
     <TextView
         android:id="@+id/server_response"
         android:layout_width="match_parent"
@@ -12,13 +12,21 @@
         android:text="TextView" />
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="e.oliver.growbotcontrollerv2.ActionFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="e.oliver.growbotcontrollerv2.ActionListFragment"
-    tools:listitem="@layout/fragment_action" />
-</LinearLayout>
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/list"
+        android:name="e.oliver.growbotcontrollerv2.ActionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/server_response"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="e.oliver.growbotcontrollerv2.ActionListFragment"
+        tools:listitem="@layout/fragment_action" />
+
+    <ProgressBar
+        android:id="@+id/loadingbar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

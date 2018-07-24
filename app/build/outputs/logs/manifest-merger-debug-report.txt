@@ -93,15 +93,15 @@ MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\oliver\.gradle\cache
 	android:label
 		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:13:9-41
 	android:windowSoftInputMode
-		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:16:9-51
+		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:17:9-51
 	android:roundIcon
-		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:14:9-54
+		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:14:9-53
 	android:icon
 		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:12:9-43
 	android:allowBackup
 		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:11:9-35
 	android:theme
-		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:17:9-40
+		ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:16:9-40
 activity#e.oliver.growbotcontrollerv2.LoginActivity
 ADDED from C:\projects\android\GrowBotControllerV2-git\app\src\main\AndroidManifest.xml:18:9-24:20
 	android:name

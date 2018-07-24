@@ -70,6 +70,13 @@
         android:text="Save"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
+    <ProgressBar
+        android:id="@+id/loadingbar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
 </LinearLayout>
 
 

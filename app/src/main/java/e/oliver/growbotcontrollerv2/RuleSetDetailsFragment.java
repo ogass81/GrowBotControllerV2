@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -23,41 +24,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnRuleSetDetailsFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RuleSetDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class RuleSetDetailsFragment extends Fragment implements AsyncRestResponse {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    // TODO: Rename and change types of parameters
+public class RuleSetDetailsFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
+    ProgressBar loadingbar;
+    TextView response;
     private Integer mRuleSetID;
     private RuleSetDetails ruleset;
     private ArrayList<TriggerSpinnerListItem> trigger = new ArrayList<TriggerSpinnerListItem>();
     private ArrayList<ActionChainSpinnerListItem> actionchain = new ArrayList<ActionChainSpinnerListItem>();
-    private String response_message = "";
-
     private OnRuleSetDetailsFragmentInteractionListener mListener;
+    //Loading Bar
+    private Integer loading = 0;
 
     public RuleSetDetailsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RuleSetDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RuleSetDetailsFragment newInstance() {
         RuleSetDetailsFragment fragment = new RuleSetDetailsFragment();
         return fragment;
@@ -70,29 +51,42 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
             mRuleSetID = getArguments().getInt("id");
 
         }
-
-        String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID.toString();
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
-
-        uri = Settings.getInstance().getClient_ip() + "/trigger/all";
-        client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
-
-        uri = Settings.getInstance().getClient_ip() + "/actionchain";
-        client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
     }
 
+    public void getData() {
+        if (loading == 0) {
+            //Load Sequence Data
+            String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            uri = Settings.getInstance().getClient_ip() + "/trigger/all";
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            uri = Settings.getInstance().getClient_ip() + "/actionchain";
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
+    }
+
+
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID.toString();
-        System.out.println("RuleSetsDetailsFragment->saveToBot:" + ruleset.toJson());
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", ruleset.toJson(), this).execute();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", ruleset.toJson(), this).execute();
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         View view = inflater.inflate(R.layout.fragment_ruleset_details, container, false);
 
         //OG: Set save button
@@ -119,6 +113,13 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+        //Initiate Loading Bar
+        loadingbar = view.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+        response = view.findViewById(R.id.server_response);
+
+        //Initial Data Load
+        getData();
 
         return view;
 
@@ -150,9 +151,16 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
 
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
+        //Check open web calls
+        loading--;
+        if (loading == 0) {
+            loadingbar.setVisibility(View.GONE);
+        } else System.out.println("INFO: Open web calls " + loading);
+
+        //Server Response
+        response.append(response_code + " " + response_message + "\r\n");
+
         if (response_code == 200 && output != null) {
-
-
             try {
 
                 if (output.getString("obj").contentEquals("RULESET")) {
@@ -358,10 +366,12 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
             } catch (JSONException e) {
 
             }
-
-            TextView response = getView().findViewById(R.id.server_response);
-            response.append(response_code + " " + response_message + "\r\n");
         }
+    }
+
+    @Override
+    public void onFragmentResume() {
+        getData();
     }
 
     /**

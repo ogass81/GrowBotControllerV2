@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -27,42 +28,24 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnTriggerDetailsFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TriggerDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class TriggerDetailsFragment extends Fragment implements AsyncRestResponse {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
+public class TriggerDetailsFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
     TriggerDetails trigger;
     Calendar myCalendar = Calendar.getInstance();
     View context;
+    ProgressBar loadingbar;
+    TextView response;
     // TODO: Rename and change types of parameters
     private Integer mTriggerID;
     private Integer mTriggerCat;
     private Integer mTriggerType;
     private OnTriggerDetailsFragmentInteractionListener mListener;
-
+    //Loading Bar
+    private Integer loading = 0;
 
     public TriggerDetailsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TriggerDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TriggerDetailsFragment newInstance() {
         TriggerDetailsFragment fragment = new TriggerDetailsFragment();
         return fragment;
@@ -76,15 +59,27 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             mTriggerCat = getArguments().getInt("cat");
             mTriggerType = getArguments().getInt("type");
         }
+    }
 
-        String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat.toString() + "/" + mTriggerID.toString();
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+    public void getData() {
+        if (loading == 0) {
+            //Load Sequence Data
+            String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat.toString() + "/" + mTriggerID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat.toString() + "/" + mTriggerID.toString();
-        System.out.println("TriggersDetailsFragment->saveToBot:" + trigger.toJson());
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", trigger.toJson(), this).execute();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat.toString() + "/" + mTriggerID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", trigger.toJson(), this).execute();
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     private void updateStartDate() {
@@ -322,6 +317,13 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             }
         });
 
+        //Initiate Loading Bar
+        loadingbar = context.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+        response = context.findViewById(R.id.server_response);
+
+        //Initial Data Load
+        getData();
 
         return context;
 
@@ -353,11 +355,17 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
 
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
+        //Check open web calls
+        loading--;
+        if (loading == 0) {
+            loadingbar.setVisibility(View.GONE);
+        } else System.out.println("INFO: Open web calls " + loading);
+
+        //Server Response
+        response.append(response_code + " " + response_message + "\r\n");
 
         if (response_code == 200 && output != null) {
             trigger = TriggerDetails.fromJson(output);
-            TextView response = getView().findViewById(R.id.server_response);
-            response.setText(response_code + " " + response_message);
 
             TextView value_id = getView().findViewById(R.id.value_id);
             value_id.setText(trigger.getId());
@@ -389,6 +397,11 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                 threshold.setText(Integer.toString(trigger.getThreshold()));
             }
         }
+    }
+
+    @Override
+    public void onFragmentResume() {
+        getData();
     }
 
     /**

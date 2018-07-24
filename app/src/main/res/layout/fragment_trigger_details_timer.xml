@@ -3,164 +3,172 @@
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
     android:padding="@dimen/fragment_margin">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/label_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID" />
-
-    <TextView
-        android:id="@+id/value_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/label_id"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/label_id" />
-
-    <EditText
-        android:id="@+id/value_title"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/label_id"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <View
-        android:id="@+id/line1"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_alignBottom="@+id/value_title"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:background="#c0c0c0" />
+        <TextView
+            android:id="@+id/label_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID" />
 
-    <TextView
-        android:id="@+id/label_startdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/line1"
-        android:text="Start Date" />
+        <TextView
+            android:id="@+id/value_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/label_id"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/label_id" />
 
-    <TextView
-        android:id="@+id/value_startdate"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/label_startdate"
-        android:clickable="true" />
+        <EditText
+            android:id="@+id/value_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/label_id"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
 
-    <TextView
-        android:id="@+id/value_starttime"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@id/value_startdate"
-        android:clickable="true" />
+        <View
+            android:id="@+id/line1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@+id/value_title"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
 
-    <View
-        android:id="@+id/line2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/value_startdate"
-        android:layout_marginTop="10dp"
-        android:background="#c0c0c0" />
+        <TextView
+            android:id="@+id/label_startdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/line1"
+            android:text="Start Date" />
 
-    <TextView
-        android:id="@+id/label_enddate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/line2"
-        android:text="End Date" />
+        <TextView
+            android:id="@+id/value_startdate"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/label_startdate"
+            android:clickable="true" />
 
-    <TextView
-        android:id="@+id/value_enddate"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/label_enddate"
-        android:clickable="true" />
+        <TextView
+            android:id="@+id/value_starttime"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/value_startdate"
+            android:clickable="true" />
 
-    <TextView
-        android:id="@+id/value_endtime"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@id/value_enddate"
-        android:clickable="true" />
+        <View
+            android:id="@+id/line2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/value_startdate"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
 
-    <View
-        android:id="@+id/line3"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/value_enddate"
-        android:layout_marginTop="10dp"
-        android:background="#c0c0c0" />
+        <TextView
+            android:id="@+id/label_enddate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/line2"
+            android:text="End Date" />
 
-    <TextView
-        android:id="@+id/label_interval"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/line3"
-        android:text="Interval" />
+        <TextView
+            android:id="@+id/value_enddate"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/label_enddate"
+            android:clickable="true" />
 
-    <Spinner
-        android:id="@+id/value_interval"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/label_interval" />
+        <TextView
+            android:id="@+id/value_endtime"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/value_enddate"
+            android:clickable="true" />
 
-    <View
-        android:id="@+id/line5"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/value_interval"
-        android:layout_marginTop="10dp"
-        android:background="#c0c0c0" />
+        <View
+            android:id="@+id/line3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/value_enddate"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
 
-    <Switch
-        android:id="@+id/value_active"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/line5"
-        android:text="Active" />
+        <TextView
+            android:id="@+id/label_interval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/line3"
+            android:text="Interval" />
 
-    <View
-        android:id="@+id/line6"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/value_active"
-        android:layout_marginTop="10dp"
-        android:background="#c0c0c0" />
+        <Spinner
+            android:id="@+id/value_interval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/label_interval" />
 
-    <Button
-        android:id="@+id/button_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/line6"
-        android:text="Save" />
+        <View
+            android:id="@+id/line5"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/value_interval"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
 
-    <TextView
-        android:id="@+id/server_response"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-</RelativeLayout>
+        <Switch
+            android:id="@+id/value_active"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/line5"
+            android:text="Active" />
+
+        <View
+            android:id="@+id/line6"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/value_active"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/line6"
+            android:text="Save" />
+
+        <TextView
+            android:id="@+id/server_response"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+        <ProgressBar
+            android:id="@+id/loadingbar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 </ScrollView>
 

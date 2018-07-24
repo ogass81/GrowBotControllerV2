@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -28,37 +29,24 @@ import com.github.florent37.expansionpanel.ExpansionLayout;
 import org.json.JSONObject;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnSocketDetailsFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SocketDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SocketDetailsFragment extends Fragment implements AsyncRestResponse {
+public class SocketDetailsFragment extends Fragment implements AsyncRestResponse, FragmentBackNavigationRefresh {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
+    ProgressBar loadingbar;
+    TextView response;
+    boolean learning = false;
     // TODO: Rename and change types of parameters
     private Integer mSocketID;
     private SocketDetails socket;
-
     private OnSocketDetailsFragmentInteractionListener mListener;
+    //Loading Bar
+    private Integer loading = 0;
 
     public SocketDetailsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SocketDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SocketDetailsFragment newInstance() {
         SocketDetailsFragment fragment = new SocketDetailsFragment();
         return fragment;
@@ -78,33 +66,79 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
         if (getArguments() != null) {
             mSocketID = getArguments().getInt("id");
         }
-        getData();
     }
 
     public void getData() {
-        String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void resetSignal() {
-        String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/reset";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/reset";
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void learninOn() {
-        String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/learn_on";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+        if (loading == 0) {
+            learning = true;
+            String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/learn_on";
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void learninOff() {
-        String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/learn_off";
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+        if (loading == 0) {
+            learning = false;
+            String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/learn_off";
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     public void saveToBot() {
-        String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
-        System.out.println("SocketsDetailsFragment->saveToBot:" + socket.toJson());
-        RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", socket.toJson(), this).execute();
+        if (loading == 0) {
+            if (!learning) {
+                String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
+                RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", socket.toJson(), this).execute();
+                loading++;
+
+                response.setText("");
+                loadingbar.setVisibility(View.VISIBLE);
+            } else System.out.println("ERROR: Cannot save to bot when Learning Mode is On");
+
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }
 
     @Override
@@ -184,7 +218,6 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
                     learninOn();
                 } else {
                     learninOff();
-                    getData();
                 }
             }
         });
@@ -337,6 +370,14 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
             line.setHeight(2);
             dynamic_container.addView(line);
         }
+        //Initiate Loading Bar
+        loadingbar = view.findViewById(R.id.loadingbar);
+        loadingbar.setVisibility(View.GONE);
+        response = view.findViewById(R.id.server_response);
+
+        //Initial Data Load
+        getData();
+
         return view;
     }
 
@@ -366,12 +407,17 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
 
     @Override
     public void processFinish(int response_code, String response_message, JSONObject output) {
+        //Check open web calls
+        loading--;
+        if (loading == 0) {
+            loadingbar.setVisibility(View.GONE);
+        } else System.out.println("INFO: Open web calls " + loading);
+
+        //Server Response
+        response.append(response_code + " " + response_message + "\r\n");
 
         if (response_code == 200 && output != null) {
             socket = SocketDetails.fromJson(output);
-
-            TextView response = getView().findViewById(R.id.server_response);
-            response.setText(response_code + " " + response_message);
 
             TextView value_id = getView().findViewById(R.id.value_id);
             value_id.setText(socket.getId().toString());
@@ -385,7 +431,6 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
 
             //Set Signal
             for (int i = 0; i < Settings.getInstance().getRc_signals_num().intValue(); i++) {
-                System.out.println(i);
                 TextView code_value = getView().findViewById(1000 + i);
                 code_value.setText(socket.getSignal().get(i).toString());
 
@@ -399,6 +444,11 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
                 protocol_value.setText(socket.getProtocol().get(i).toString());
             }
         }
+    }
+
+    @Override
+    public void onFragmentResume() {
+        getData();
     }
 
     /**

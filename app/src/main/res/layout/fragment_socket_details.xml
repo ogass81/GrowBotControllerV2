@@ -159,6 +159,12 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/button_reset" />
 
+            <ProgressBar
+                android:id="@+id/loadingbar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
     </ScrollView>

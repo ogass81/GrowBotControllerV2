@@ -6,18 +6,16 @@
     android:padding="@dimen/fragment_margin">
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/text_margin"
         android:gravity="center_vertical|center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="150dp"
+        android:layout_width="180dp"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/text_margin"
         android:gravity="center_vertical|center_horizontal"
         android:textAppearance="?attr/textAppearanceListItem" />
 

@@ -37,8 +37,8 @@ public class ActionListRecyclerViewAdapter extends RecyclerView.Adapter<ActionLi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mTitleView.setText(mValues.get(position).getTitle());
+        holder.mGroupView.setText(mValues.get(position).getGroup_title());
+        holder.mTitleView.setText(mValues.get(position).getTitle() + " " + mValues.get(position).getParameter());
 
         holder.mButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class ActionListRecyclerViewAdapter extends RecyclerView.Adapter<ActionLi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        public final TextView mGroupView;
         public final TextView mTitleView;
         public final Button mButtonView;
 
@@ -69,7 +69,7 @@ public class ActionListRecyclerViewAdapter extends RecyclerView.Adapter<ActionLi
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.id);
+            mGroupView = view.findViewById(R.id.group);
             mTitleView = view.findViewById(R.id.title);
             mButtonView = view.findViewById(R.id.execute);
         }

@@ -15,6 +15,7 @@ public class SensorListItem {
     private Integer id;
     private String title;
     private String unit;
+    private Integer type;
 
     // Decodes business json into business model object
     public static SensorListItem fromJson(Integer id, JSONObject jsonObject) {
@@ -23,6 +24,7 @@ public class SensorListItem {
         try {
             s.id = id;
             s.title = jsonObject.getString("tit");
+            s.type = jsonObject.getInt("typ");
             s.unit = jsonObject.getString("unit");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -74,12 +76,7 @@ public class SensorListItem {
         this.unit = unit;
     }
 
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
-
-        //tbd
-
-        return jsonObject;
+    public Integer getType() {
+        return type;
     }
-
 }

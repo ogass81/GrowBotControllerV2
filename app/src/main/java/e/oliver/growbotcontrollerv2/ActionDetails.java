@@ -10,8 +10,8 @@ import org.json.JSONObject;
 public class ActionDetails {
     private String id;
     private String title;
+    private Integer pair;
     private Boolean active;
-    private int type;
 
     //more
 
@@ -22,6 +22,7 @@ public class ActionDetails {
         try {
             item.id = jsonObject.getString("id");
             item.title = jsonObject.getString("tit");
+            item.pair = jsonObject.getInt("pair");
             item.active = jsonObject.getBoolean("vis");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -49,12 +50,6 @@ public class ActionDetails {
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
-
-        return jsonObject;
     }
 
 }

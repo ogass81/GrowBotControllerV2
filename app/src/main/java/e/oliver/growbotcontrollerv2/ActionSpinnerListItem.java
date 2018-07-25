@@ -12,34 +12,56 @@ import java.util.ArrayList;
 
 public class ActionSpinnerListItem {
 
-    private String id;
+    private Integer id;
     private String title;
     private Boolean active;
-    private Integer type;
+    private String group_title;
+
+    //not always
+    private String antagonist_title;
+    private String parameter;
 
     // Decodes business json into business model object
     public static ActionSpinnerListItem fromJson(Integer id, JSONObject jsonObject) {
         ActionSpinnerListItem item = new ActionSpinnerListItem();
         // Deserialize json into object fields
         try {
-            item.id = id.toString();
+            item.id = id;
             item.title = jsonObject.getString("tit");
+            item.group_title = jsonObject.getString("grp");
             item.active = jsonObject.getBoolean("vis");
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
-        // Return new object
+
+        try {
+            item.antagonist_title = jsonObject.getString("anta");
+        } catch (JSONException e) {
+            System.out.println("INFO: No antagonist action");
+            item.antagonist_title = "";
+        }
+
+        try {
+            item.parameter = jsonObject.getString("par");
+        } catch (JSONException e) {
+            System.out.println("INFO: No parameter");
+            item.parameter = "";
+            // Return new object
+        }
+
         return item;
     }
 
     // Decodes business json into business model object
-    public static ActionSpinnerListItem fromJson(Integer id, String title, Boolean active) {
+    public static ActionSpinnerListItem fromJson(Integer id, String group_title, String title, String parameter, Boolean active) {
         ActionSpinnerListItem item = new ActionSpinnerListItem();
         // Deserialize json into object fields
 
-        item.id = id.toString();
+        item.id = id;
         item.title = title;
+        item.group_title = group_title;
+        item.parameter = parameter;
         item.active = active;
 
         // Return new object
@@ -66,14 +88,14 @@ public class ActionSpinnerListItem {
             }
         }
         //Add None Element
-        ActionSpinnerListItem listitem = ActionSpinnerListItem.fromJson(Settings.getInstance().getActions_num(), "None", true);
+        ActionSpinnerListItem listitem = ActionSpinnerListItem.fromJson(Settings.getInstance().getActions_num(), "-", "none", "-", true);
         list.add(listitem);
 
 
         return list;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -81,32 +103,24 @@ public class ActionSpinnerListItem {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public String getGroup_title() {
+        return group_title;
+    }
+
+    public String getAntagonist_title() {
+        return antagonist_title;
+    }
+
+    public String getParameter() {
+        return parameter;
     }
 
     @Override
     public String toString() {
-        return title;
-    }
-
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("tit", title.toString());
-            jsonObject.put("vis", active.toString());
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return jsonObject;
+        return group_title + " " + title + " " + parameter;
     }
 }

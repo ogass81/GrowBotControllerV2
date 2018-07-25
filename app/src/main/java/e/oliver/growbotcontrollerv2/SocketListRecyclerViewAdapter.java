@@ -29,14 +29,14 @@ public class SocketListRecyclerViewAdapter extends RecyclerView.Adapter<SocketLi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_ruleset, parent, false);
+                .inflate(R.layout.fragment_socket, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId().toString());
+        holder.mIdView.setText("Signal " + mValues.get(position).getId().toString());
         holder.mTitleView.setText(mValues.get(position).getTitle());
 
         if (mValues.get(position).getActive()) holder.mActiveView.setText("Active");

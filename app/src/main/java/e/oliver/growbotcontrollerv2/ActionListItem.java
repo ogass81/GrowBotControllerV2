@@ -15,7 +15,11 @@ public class ActionListItem {
     private Integer id;
     private String title;
     private Boolean active;
-    private Integer type;
+    private String group_title;
+
+    //not always
+    private String antagonist_title;
+    private String parameter;
 
     // Decodes business json into business model object
     public static ActionListItem fromJson(Integer id, JSONObject jsonObject) {
@@ -24,11 +28,27 @@ public class ActionListItem {
         try {
             item.id = id;
             item.title = jsonObject.getString("tit");
+            item.group_title = jsonObject.getString("grp");
             item.active = jsonObject.getBoolean("vis");
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
+
+        try {
+            item.antagonist_title = jsonObject.getString("anta");
+        } catch (JSONException e) {
+            System.out.println("INFO: No antagonist action");
+            item.antagonist_title = "";
+        }
+
+        try {
+            item.parameter = jsonObject.getString("par");
+        } catch (JSONException e) {
+            System.out.println("INFO: No parameter");
+            item.parameter = "";
+        }
+
         // Return new object
         return item;
     }
@@ -76,20 +96,16 @@ public class ActionListItem {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
-        return title;
+    public String getGroup_title() {
+        return group_title;
     }
 
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("tit", title.toString());
-            jsonObject.put("vis", active.toString());
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return jsonObject;
+    public String getParameter() {
+        return parameter;
     }
+
+    public String getAntagonist_title() {
+        return antagonist_title;
+    }
+
 }

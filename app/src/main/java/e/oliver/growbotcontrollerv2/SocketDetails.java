@@ -18,8 +18,8 @@ public class SocketDetails {
     private Integer id;
     private String title;
     private Boolean active;
-    private Integer tolerance;
     private Integer repeat;
+
 
     // Decodes business json into business model object
     public static SocketDetails fromJson(JSONObject jsonObject) {
@@ -30,7 +30,6 @@ public class SocketDetails {
             item.title = jsonObject.getString("tit");
             item.active = jsonObject.getBoolean("act");
 
-            item.tolerance = jsonObject.getInt("tol");
             item.repeat = jsonObject.getInt("rep");
 
 
@@ -64,14 +63,6 @@ public class SocketDetails {
         }
         // Return new object
         return item;
-    }
-
-    public Integer getTolerance() {
-        return tolerance;
-    }
-
-    public void setTolerance(Integer tolerance) {
-        this.tolerance = tolerance;
     }
 
     public Integer getRepeat() {
@@ -139,7 +130,6 @@ public class SocketDetails {
         try {
             jsonObject.put("tit", title.toString());
             jsonObject.put("act", active.toString());
-            jsonObject.put("tol", tolerance.toString());
             jsonObject.put("rep", repeat.toString());
 
             JSONArray parameter = new JSONArray();

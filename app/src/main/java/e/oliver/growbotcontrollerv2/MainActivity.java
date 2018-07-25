@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity
 
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
+        bundle.putInt("type", item.getType());
         bundle.putString("range", "avg");
 
         //set Fragmentclass Arguments

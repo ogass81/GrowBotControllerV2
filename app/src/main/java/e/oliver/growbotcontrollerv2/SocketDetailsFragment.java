@@ -162,25 +162,6 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
             }
         });
 
-        //Tolerance
-        ProgressSeekerBar tolerance = view.findViewById(R.id.value_tolerance);
-        tolerance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int j, boolean b) {
-                socket.setTolerance(j);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
         //Repeat
         ProgressSeekerBar repeat = view.findViewById(R.id.value_repeat);
         repeat.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -424,6 +405,9 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
 
             TextView value_title = getView().findViewById(R.id.value_title);
             value_title.setText(socket.getTitle());
+
+            ProgressSeekerBar repeat = getView().findViewById(R.id.value_repeat);
+            repeat.setProgress(socket.getRepeat());
 
             //Set Active
             Switch active = getView().findViewById(R.id.value_active);

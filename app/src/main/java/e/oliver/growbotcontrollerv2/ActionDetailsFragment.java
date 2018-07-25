@@ -57,7 +57,7 @@ public class ActionDetailsFragment extends Fragment implements AsyncRestResponse
         if (loading == 0) {
             //Save Sequence Data
             String uri = Settings.getInstance().getClient_ip() + "/action/" + mActionID.toString();
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", action.toJson(), this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", null, this).execute();
             loading++;
 
             response.setText("");

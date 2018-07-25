@@ -55,6 +55,7 @@ public class SensorDetails {
     private Integer max_val;
     private Integer lower_threshold;
     private Integer upper_threshold;
+    private Integer type;
 
     // Decodes business json into business model object
     public static SensorDetails fromJson(JSONObject jsonObject) {
@@ -63,6 +64,7 @@ public class SensorDetails {
         try {
             s.id = jsonObject.getString("id");
             s.title = jsonObject.getString("tit");
+            s.type = jsonObject.getInt("typ");
             s.unit = jsonObject.getString("unit");
             s.nan_val = jsonObject.getInt("nan");
             s.min_val = jsonObject.getInt("min");
@@ -282,5 +284,9 @@ public class SensorDetails {
 
     public void setUpper_threshold(Integer upper_threshold) {
         this.upper_threshold = upper_threshold;
+    }
+
+    public Integer getType() {
+        return type;
     }
 }

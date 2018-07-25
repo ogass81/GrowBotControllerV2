@@ -57,6 +57,7 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     TextView response;
     // TODO: Rename and change types of parameters
     private Integer mSensorID;
+    private Integer mType;
     private String mRange;
     private SensorDetails sensor;
     private OnSensorDetailsFragmentInteractionListener mListener;
@@ -78,6 +79,7 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
         if (getArguments() != null) {
             mSensorID = getArguments().getInt("id");
             mRange = getArguments().getString("range");
+            mType = getArguments().getInt("type");
         }
     }
 
@@ -153,27 +155,79 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_sensor_details, container, false);
+        View view;
+        Button button;
+        //no Threshold
+        if (mType == 0 || mType == 1) {
+            view = inflater.inflate(R.layout.fragment_sensor_details_nthresh, container, false);
+        }
+        //with Threshold
+        else {
+            view = inflater.inflate(R.layout.fragment_sensor_details_thresh, container, false);
 
-        //OG: Set lower threshold button
-        Button button = view.findViewById(R.id.button_set_low);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setLowerThreshold();
-                System.out.println("Button Low");
-            }
-        });
-        //OG: Set upper  threshold button
-        button = view.findViewById(R.id.button_set_up);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUpperThreshold();
-                System.out.println("Button Up");
-            }
-        });
-        //OG: Set save button
+            //OG: Update Memory model of Sensor
+            EditText box = view.findViewById(R.id.value_lowerthreshold);
+
+            box.addTextChangedListener(new TextWatcher() {
+
+                public void afterTextChanged(Editable s) {
+                    sensor.setLower_threshold(Integer.parseInt(s.toString()));
+                }
+
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+            });
+
+            box = view.findViewById(R.id.value_upperthreshold);
+
+            box.addTextChangedListener(new TextWatcher() {
+
+                public void afterTextChanged(Editable s) {
+                    sensor.setUpper_threshold(Integer.parseInt(s.toString()));
+                }
+
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+            });
+
+            //OG: Set lower threshold button
+            button = view.findViewById(R.id.button_set_low);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setLowerThreshold();
+                    System.out.println("Button Low");
+                }
+            });
+            //OG: Set upper  threshold button
+            button = view.findViewById(R.id.button_set_up);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setUpperThreshold();
+                    System.out.println("Button Up");
+                }
+            });
+
+            //OG: Set save button
+            button = view.findViewById(R.id.button_save);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveToBot();
+                    System.out.println("Save");
+                }
+            });
+        }
+
+
+        //OG: Set reset button
         button = view.findViewById(R.id.button_reset);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,48 +236,6 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                 System.out.println("Reset");
             }
         });
-
-        //OG: Set save button
-        button = view.findViewById(R.id.button_save);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveToBot();
-                System.out.println("Save");
-            }
-        });
-
-        //OG: Update Memory model of Sensor
-        EditText box = view.findViewById(R.id.value_lowerthreshold);
-
-        box.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-                sensor.setLower_threshold(Integer.parseInt(s.toString()));
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-        });
-
-        box = view.findViewById(R.id.value_upperthreshold);
-
-        box.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-                sensor.setUpper_threshold(Integer.parseInt(s.toString()));
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-        });
-
         //Select Range
         Spinner range = view.findViewById(R.id.value_range);
 
@@ -332,12 +344,14 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                 TextView value_title = getView().findViewById(R.id.value_title);
                 value_title.setText(sensor.getTitle());
 
-                TextView value_low = getView().findViewById(R.id.value_lowerthreshold);
-                value_low.setText(sensor.getLower_threshold().toString());
+                if (mType == 0 || mType == 1) {
+                } else {
+                    TextView value_low = getView().findViewById(R.id.value_lowerthreshold);
+                    value_low.setText(sensor.getLower_threshold().toString());
 
-                TextView value_up = getView().findViewById(R.id.value_upperthreshold);
-                value_up.setText(sensor.getUpper_threshold().toString());
-
+                    TextView value_up = getView().findViewById(R.id.value_upperthreshold);
+                    value_up.setText(sensor.getUpper_threshold().toString());
+                }
                 //Bind Graph
                 GraphView graph = getView().findViewById(R.id.graph);
 

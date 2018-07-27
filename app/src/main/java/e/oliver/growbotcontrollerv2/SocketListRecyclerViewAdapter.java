@@ -36,7 +36,7 @@ public class SocketListRecyclerViewAdapter extends RecyclerView.Adapter<SocketLi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Signal " + mValues.get(position).getId().toString());
+        holder.mIdView.setText(mValues.get(position).getId().toString());
         holder.mTitleView.setText(mValues.get(position).getTitle());
 
         if (mValues.get(position).getActive()) holder.mActiveView.setText("Active");

@@ -38,7 +38,7 @@ public class TriggerSpinnerListItem {
         return item;
     }
 
-    public static TriggerSpinnerListItem fromJson(Integer id, Integer cat, String src, Integer type, String title, Boolean active) {
+    public static TriggerSpinnerListItem fromJson(Integer id, Integer cat, String src, Integer type, String title, String source, Boolean active) {
         TriggerSpinnerListItem item = new TriggerSpinnerListItem();
         // Deserialize json into object fields
 
@@ -47,6 +47,7 @@ public class TriggerSpinnerListItem {
         item.source = src;
         item.type = type;
         item.title = title;
+        item.source = source;
         item.active = active;
 
         // Return new object
@@ -74,7 +75,7 @@ public class TriggerSpinnerListItem {
             }
         }
         //Add None Element
-        TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(Settings.getInstance().getTrigger_sets(), Settings.getInstance().getTrigger_types(), "", 1, "None", true);
+        TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(Settings.getInstance().getTrigger_sets(), Settings.getInstance().getTrigger_types(), "", 1, "no trigger", "no source", true);
         list.add(listitem);
 
         return list;
@@ -114,7 +115,7 @@ public class TriggerSpinnerListItem {
 
     @Override
     public String toString() {
-        return title + " - " + source;
+        return title + " (" + source + ")";
     }
 
     public JSONObject toJson() {

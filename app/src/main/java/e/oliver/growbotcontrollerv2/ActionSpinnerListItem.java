@@ -54,7 +54,7 @@ public class ActionSpinnerListItem {
     }
 
     // Decodes business json into business model object
-    public static ActionSpinnerListItem fromJson(Integer id, String group_title, String title, String parameter, Boolean active) {
+    public static ActionSpinnerListItem fromJson(Integer id, String group_title, String title, String parameter, String antagonist_title, Boolean active) {
         ActionSpinnerListItem item = new ActionSpinnerListItem();
         // Deserialize json into object fields
 
@@ -62,6 +62,7 @@ public class ActionSpinnerListItem {
         item.title = title;
         item.group_title = group_title;
         item.parameter = parameter;
+        item.antagonist_title = antagonist_title;
         item.active = active;
 
         // Return new object
@@ -88,7 +89,7 @@ public class ActionSpinnerListItem {
             }
         }
         //Add None Element
-        ActionSpinnerListItem listitem = ActionSpinnerListItem.fromJson(Settings.getInstance().getActions_num(), "-", "none", "-", true);
+        ActionSpinnerListItem listitem = ActionSpinnerListItem.fromJson(Settings.getInstance().getActions_num(), "none", "no action", "none", "no reverse Action", true);
         list.add(listitem);
 
 
@@ -121,6 +122,6 @@ public class ActionSpinnerListItem {
 
     @Override
     public String toString() {
-        return group_title + " " + title + " " + parameter;
+        return title + " (" + antagonist_title + ")";
     }
 }

@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -251,9 +252,9 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             textbox.addTextChangedListener(new TextWatcher() {
                 public void afterTextChanged(Editable s) {
                     try {
-                        trigger.setInterval(Integer.parseInt(s.toString()));
+                        trigger.setThreshold(Integer.parseInt(s.toString()));
                     } catch (NumberFormatException ex) {
-                        trigger.setInterval(0);
+                        trigger.setThreshold(0);
                     }
                 }
 
@@ -261,6 +262,25 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                 }
 
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+            });
+
+            //Tolerance
+            ProgressSeekerBar tolerance = context.findViewById(R.id.value_tolerance);
+            tolerance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int j, boolean b) {
+                    trigger.setTolerance(j);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
                 }
             });
         }
@@ -395,6 +415,9 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
 
                 TextView threshold = getView().findViewById(R.id.value_threshold);
                 threshold.setText(Integer.toString(trigger.getThreshold()));
+
+                ProgressSeekerBar tolerance = getView().findViewById(R.id.value_tolerance);
+                tolerance.setProgress(trigger.getTolerance());
             }
         }
     }

@@ -171,7 +171,11 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
             box.addTextChangedListener(new TextWatcher() {
 
                 public void afterTextChanged(Editable s) {
-                    sensor.setLower_threshold(Integer.parseInt(s.toString()));
+                    try {
+                        sensor.setLower_threshold(Integer.parseInt(s.toString()));
+                    } catch (RuntimeException r) {
+                        sensor.setLower_threshold(0);
+                    }
                 }
 
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -186,7 +190,11 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
             box.addTextChangedListener(new TextWatcher() {
 
                 public void afterTextChanged(Editable s) {
-                    sensor.setUpper_threshold(Integer.parseInt(s.toString()));
+                    try {
+                        sensor.setUpper_threshold(Integer.parseInt(s.toString()));
+                    } catch (RuntimeException r) {
+                        sensor.setUpper_threshold(0);
+                    }
                 }
 
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -397,8 +405,15 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                     graph.getViewport().setMinX(0);
                     graph.getViewport().setMaxX(4);
                     graph.getViewport().setYAxisBoundsManual(true);
-                    graph.getViewport().setMinY(sensor.getMin_val());
-                    graph.getViewport().setMaxY(sensor.getMax_val());
+
+                    //View Range
+                    if (sensor.getType() == 2) {
+                        graph.getViewport().setMinY(0);
+                        graph.getViewport().setMaxY(100);
+                    } else {
+                        graph.getViewport().setMinY(sensor.getMin_val());
+                        graph.getViewport().setMaxY(sensor.getMax_val());
+                    }
 
                     graph.getGridLabelRenderer().setLabelFormatter(new SensorLabelFormatter(sensor.avg_values));
                 } else if (output.getString("scp").contentEquals("MIN")) {

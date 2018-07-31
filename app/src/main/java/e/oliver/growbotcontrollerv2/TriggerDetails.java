@@ -20,6 +20,7 @@ public class TriggerDetails {
 
     private Integer relop;
     private Integer threshold;
+    private Integer tolerance;
     private Integer interval;
 
     // Decodes business json into business model object
@@ -42,6 +43,7 @@ public class TriggerDetails {
             item.endtime.setTimeInMillis(jsonObject.getLong("end_time") * 1000);
 
             item.relop = jsonObject.getInt("relop");
+            item.tolerance = jsonObject.getInt("tol");
             item.threshold = jsonObject.getInt("val");
             item.interval = jsonObject.getInt("intv");
 
@@ -123,6 +125,14 @@ public class TriggerDetails {
         this.active = active;
     }
 
+    public Integer getTolerance() {
+        return tolerance;
+    }
+
+    public void setTolerance(Integer tolerance) {
+        this.tolerance = tolerance;
+    }
+
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
         try {
@@ -134,6 +144,7 @@ public class TriggerDetails {
                 jsonObject.put("end_time", endtime.getTimeInMillis() / 1000);
             } else {
                 jsonObject.put("relop", relop.toString());
+                jsonObject.put("tol", tolerance.toString());
                 jsonObject.put("val", threshold.toString());
             }
             jsonObject.put("intv", interval.toString());

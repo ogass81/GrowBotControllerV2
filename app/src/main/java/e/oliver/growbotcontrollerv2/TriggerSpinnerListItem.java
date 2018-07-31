@@ -64,7 +64,7 @@ public class TriggerSpinnerListItem {
                 JSONArray triggerlist = category.getJSONArray("trig");
                 for (int j = 0; j < triggerlist.length(); j++) {
                     JSONObject JSONitem = triggerlist.getJSONObject(j);
-                    TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(i, j, category.getString("src"), category.getInt("typ"), JSONitem);
+                    TriggerSpinnerListItem listitem = TriggerSpinnerListItem.fromJson(j, i, category.getString("src"), category.getInt("typ"), JSONitem);
                     if (listitem != null) {
                         list.add(listitem);
                     }

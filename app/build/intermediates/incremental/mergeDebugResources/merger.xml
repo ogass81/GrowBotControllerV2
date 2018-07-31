@@ -2012,6 +2012,7 @@
         <item>Smaller</item>
         <item>Equal</item>
         <item>Greater</item>
+        <item>Not</item>
     </string-array><string-array name="boolop">
         <item>AND</item>
         <item>OR</item>

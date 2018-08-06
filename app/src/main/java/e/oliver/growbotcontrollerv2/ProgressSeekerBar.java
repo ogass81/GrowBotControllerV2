@@ -38,3 +38,4 @@ public class ProgressSeekerBar extends android.widget.SeekBar {
     }
 
 }
+

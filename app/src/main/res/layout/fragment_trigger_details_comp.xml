@@ -74,43 +74,74 @@
                 android:layout_marginStart="9dp"
                 android:layout_toEndOf="@+id/value_rule" />
 
-            <EditText
-                android:id="@+id/value_threshold"
+            <TextView
+                android:id="@+id/value_range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:ems="4"
                 android:inputType="textPersonName"
-                android:text="Value" />
+                android:text="" />
 
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/label_tolerance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/rule"
-            android:text="Tolerance (%)" />
-
-        <e.oliver.growbotcontrollerv2.ProgressSeekerBar
-            android:id="@+id/value_tolerance"
+        <RelativeLayout
+            android:id="@+id/rule_par"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_tolerance"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:max="25"
-            android:min="0" />
+            android:layout_below="@id/rule">
+
+            <TextView
+                android:id="@+id/label_threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="Threshold" />
+
+            <EditText
+                android:id="@+id/value_threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/label_threshold"
+                android:layout_centerVertical="true"
+                android:ems="4"
+                android:inputType="textPersonName"
+                android:text="Value" />
+
+            <TextView
+                android:id="@+id/label_tolerance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/value_threshold"
+                android:text="Tolerance (%)" />
+
+            <e.oliver.growbotcontrollerv2.NegativeProgressSeekerBar
+                android:id="@+id/value_tolerance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/value_threshold"
+                android:layout_below="@+id/label_tolerance"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_toRightOf="@id/value_threshold"
+                android:max="50"
+                android:min="0" />
+
+
+        </RelativeLayout>
+
 
         <View
             android:id="@+id/line2"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/value_tolerance"
+            android:layout_below="@+id/rule_par"
             android:layout_marginTop="10dp"
             android:background="#c0c0c0" />
 

@@ -84,7 +84,7 @@ public class RuleSetDetails {
     }
 
     public Integer getTset2_ptr() {
-        return tset1_ptr;
+        return tset2_ptr;
     }
 
     public void setTset2_ptr(Integer tset2_ptr) {
@@ -92,7 +92,7 @@ public class RuleSetDetails {
     }
 
     public Integer getTset3_ptr() {
-        return tset1_ptr;
+        return tset3_ptr;
     }
 
     public void setTset3_ptr(Integer tset3_ptr) {
@@ -145,12 +145,15 @@ public class RuleSetDetails {
             jsonObject.put("tit", title.toString());
             jsonObject.put("act", active.toString());
 
-            jsonObject.put("tset1_ptr", tset1_ptr.toString());
             jsonObject.put("tcat1_ptr", tcat1_ptr.toString());
-            jsonObject.put("tset2_ptr", tset2_ptr.toString());
+            jsonObject.put("tset1_ptr", tset1_ptr.toString());
+
             jsonObject.put("tcat2_ptr", tcat2_ptr.toString());
-            jsonObject.put("tset3_ptr", tset3_ptr.toString());
+            jsonObject.put("tset2_ptr", tset2_ptr.toString());
+
             jsonObject.put("tcat3_ptr", tcat3_ptr.toString());
+            jsonObject.put("tset3_ptr", tset3_ptr.toString());
+
             jsonObject.put("chain_ptr", chain_ptr.toString());
 
             JSONArray bp = new JSONArray();

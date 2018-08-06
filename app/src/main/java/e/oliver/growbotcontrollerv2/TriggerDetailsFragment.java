@@ -115,6 +115,51 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         date.setText(sdf.format(trigger.getEndtime().getTime()));
     }
 
+    private void updateInterval() {
+        TextView range_text = getView().findViewById(R.id.value_range);
+        TextView threshold_text = getView().findViewById(R.id.value_threshold);
+        NegativeProgressSeekerBar tolerance_text = getView().findViewById(R.id.value_tolerance);
+        Spinner relop = getView().findViewById(R.id.value_relop);
+
+        Float tolerance = 1.0f * tolerance_text.getProgress() - 25;
+        Float threshold = 0.0f;
+
+        try {
+            threshold = Float.parseFloat(threshold_text.getText().toString());
+        } catch (NumberFormatException e) {
+            threshold = 0.0f;
+        }
+
+        int operator = relop.getSelectedItemPosition();
+
+        switch (operator) {
+            case 0:
+                Float smaller_boundery = ((100.0f - tolerance) / 100.0f) * threshold;
+                range_text.setText(Float.toString(smaller_boundery));
+                break;
+            case 2:
+                Float greater_boundery = ((100.0f + tolerance) / 100.0f) * threshold;
+                range_text.setText(Float.toString(greater_boundery));
+                break;
+            case 1:
+            case 3:
+                Float lower_boundery = ((100.0f - tolerance) / 100.0f) * threshold;
+                Float upper_boundery = ((100.0f + tolerance) / 100.0f) * threshold;
+
+                String interval = "";
+
+                if (lower_boundery < upper_boundery) {
+                    interval = lower_boundery + " - " + upper_boundery;
+                } else if (lower_boundery == upper_boundery) {
+                    interval = lower_boundery.toString();
+                } else {
+                    interval = upper_boundery + " - " + lower_boundery;
+                }
+                range_text.setText(interval);
+                break;
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -239,6 +284,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     trigger.setRelop(i);
+                    updateInterval();
                 }
 
                 @Override
@@ -256,6 +302,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                     } catch (NumberFormatException ex) {
                         trigger.setThreshold(0);
                     }
+                    updateInterval();
                 }
 
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -266,11 +313,16 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             });
 
             //Tolerance
-            ProgressSeekerBar tolerance = context.findViewById(R.id.value_tolerance);
+            NegativeProgressSeekerBar tolerance = context.findViewById(R.id.value_tolerance);
+            tolerance.setProgress(25);
             tolerance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int j, boolean b) {
+                    if (j < 25) {
+                        j = 25 - j;
+                    } else j = j - 25;
                     trigger.setTolerance(j);
+                    updateInterval();
                 }
 
                 @Override
@@ -416,8 +468,8 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                 TextView threshold = getView().findViewById(R.id.value_threshold);
                 threshold.setText(Integer.toString(trigger.getThreshold()));
 
-                ProgressSeekerBar tolerance = getView().findViewById(R.id.value_tolerance);
-                tolerance.setProgress(trigger.getTolerance());
+                NegativeProgressSeekerBar tolerance = getView().findViewById(R.id.value_tolerance);
+                tolerance.setProgress(25 + trigger.getTolerance());
             }
         }
     }

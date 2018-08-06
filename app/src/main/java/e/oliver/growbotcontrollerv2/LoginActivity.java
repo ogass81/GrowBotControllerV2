@@ -1,6 +1,7 @@
 package e.oliver.growbotcontrollerv2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -23,9 +24,20 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         ipaddress_ui = findViewById(R.id.ipaddress);
-        ipaddress_ui.setText("http://192.168.0.232");
         password_ui = findViewById(R.id.password);
+
+        SharedPreferences sp = getSharedPreferences("grow_ai", 0);
+        String ipaddress = sp.getString("ip", "http://192.168.0.232");
+        String password = sp.getString("pw", "");
+
+        if (ipaddress != "") ipaddress_ui.setText(ipaddress);
+        else ipaddress_ui.setText("http://192.168.0.232");
+
+        if (password != "") ipaddress_ui.setText(password);
+        else password_ui.setText("");
+
     }
 
     //OG: tbd - check if textbox contains valid IP
@@ -78,6 +90,12 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
                 Settings.getInstance().fromJson(output);
                 Settings.getInstance().setClient_ip(ipaddress_ui.getText().toString());
                 Settings.getInstance().setClient_secret(password_ui.getText().toString());
+
+                SharedPreferences sp = getSharedPreferences("grow_ai", 0);
+                SharedPreferences.Editor sedt = sp.edit();
+                sedt.putString("ip", Settings.getInstance().getClient_ip());
+                sedt.putString("pw", Settings.getInstance().getClient_secret());
+                sedt.commit();
 
                 Intent intent = new Intent(this, MainActivity.class);
                 this.startActivity(intent);

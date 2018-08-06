@@ -255,6 +255,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
 
                             ruleset.setTcat1_ptr(trigger.get(i).getCat());
                             ruleset.setTset1_ptr(trigger.get(i).getId());
+                            System.out.println("Trigger 1:" + i + trigger.get(i).getCat() + trigger.get(i).getId());
                         }
 
                         @Override
@@ -286,6 +287,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             ruleset.setTcat2_ptr(trigger.get(i).getCat());
                             ruleset.setTset2_ptr(trigger.get(i).getId());
+                            System.out.println("Trigger 2:" + i + trigger.get(i).getCat() + trigger.get(i).getId());
                         }
 
                         @Override
@@ -317,6 +319,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             ruleset.setTcat3_ptr(trigger.get(i).getCat());
                             ruleset.setTset3_ptr(trigger.get(i).getId());
+                            System.out.println("Trigger 3:" + i + trigger.get(i).getCat() + trigger.get(i).getId());
                         }
 
                         @Override

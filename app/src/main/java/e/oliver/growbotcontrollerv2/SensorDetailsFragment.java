@@ -453,8 +453,15 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                     graph.getViewport().setMinX(0);
                     graph.getViewport().setMaxX(6); //1/4 of all values
                     graph.getViewport().setYAxisBoundsManual(true);
-                    graph.getViewport().setMinY(sensor.getMin_val());
-                    graph.getViewport().setMaxY(sensor.getMax_val());
+
+                    //View Range
+                    if (sensor.getType() == 2) {
+                        graph.getViewport().setMinY(0);
+                        graph.getViewport().setMaxY(100);
+                    } else {
+                        graph.getViewport().setMinY(sensor.getMin_val());
+                        graph.getViewport().setMaxY(sensor.getMax_val());
+                    }
 
                     graph.getGridLabelRenderer().setLabelFormatter(new SensorLabelFormatter(sensor.minute_values));
                 } else if (output.getString("scp").contentEquals("HOUR")) {
@@ -494,8 +501,15 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                     graph.getViewport().setMinX(0);
                     graph.getViewport().setMaxX(6); //1/4 of all values
                     graph.getViewport().setYAxisBoundsManual(true);
-                    graph.getViewport().setMinY(sensor.getMin_val());
-                    graph.getViewport().setMaxY(sensor.getMax_val());
+
+                    //View Range
+                    if (sensor.getType() == 2) {
+                        graph.getViewport().setMinY(0);
+                        graph.getViewport().setMaxY(100);
+                    } else {
+                        graph.getViewport().setMinY(sensor.getMin_val());
+                        graph.getViewport().setMaxY(sensor.getMax_val());
+                    }
 
                     graph.getGridLabelRenderer().setLabelFormatter(new SensorLabelFormatter(sensor.hour_values));
                 } else if (output.getString("scp").contentEquals("DAY")) {
@@ -535,8 +549,15 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                     graph.getViewport().setMinX(0);
                     graph.getViewport().setMaxX(6); //1/4 of all values
                     graph.getViewport().setYAxisBoundsManual(true);
-                    graph.getViewport().setMinY(sensor.getMin_val());
-                    graph.getViewport().setMaxY(sensor.getMax_val());
+
+                    //View Range
+                    if (sensor.getType() == 2) {
+                        graph.getViewport().setMinY(0);
+                        graph.getViewport().setMaxY(100);
+                    } else {
+                        graph.getViewport().setMinY(sensor.getMin_val());
+                        graph.getViewport().setMaxY(sensor.getMax_val());
+                    }
 
                     graph.getGridLabelRenderer().setLabelFormatter(new SensorLabelFormatter(sensor.day_values));
 
@@ -577,8 +598,15 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                     graph.getViewport().setMinX(0);
                     graph.getViewport().setMaxX(6); //1/4 of all values
                     graph.getViewport().setYAxisBoundsManual(true);
-                    graph.getViewport().setMinY(sensor.getMin_val());
-                    graph.getViewport().setMaxY(sensor.getMax_val());
+
+                    //View Range
+                    if (sensor.getType() == 2) {
+                        graph.getViewport().setMinY(0);
+                        graph.getViewport().setMaxY(100);
+                    } else {
+                        graph.getViewport().setMinY(sensor.getMin_val());
+                        graph.getViewport().setMaxY(sensor.getMax_val());
+                    }
 
                     graph.getGridLabelRenderer().setLabelFormatter(new SensorLabelFormatter(sensor.month_values));
 
@@ -619,8 +647,16 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                     graph.getViewport().setMinX(0);
                     graph.getViewport().setMaxX(6); //1/4 of all values
                     graph.getViewport().setYAxisBoundsManual(true);
-                    graph.getViewport().setMinY(sensor.getMin_val());
-                    graph.getViewport().setMaxY(sensor.getMax_val());
+
+                    //View Range
+                    if (sensor.getType() == 2) {
+                        graph.getViewport().setMinY(0);
+                        graph.getViewport().setMaxY(100);
+                    } else {
+
+                        graph.getViewport().setMinY(sensor.getMin_val());
+                        graph.getViewport().setMaxY(sensor.getMax_val());
+                    }
 
                     graph.getGridLabelRenderer().setLabelFormatter(new SensorLabelFormatter(sensor.year_values));
 

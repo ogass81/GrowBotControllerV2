@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="x86"
+    abi="arm64-v8a,armeabi-v7a,armeabi"
     api-level="27"
     build-mode="COLD"
     density="420dpi"
     format="10"
+    ir-eligibility="COMPATIBLE"
     plugin-version="3.0.1"
-    timestamp="1533845501360"
+    timestamp="1533846696353"
     token="-4574228954816811034"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="289" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="15" />
     <task
         name="verifier"
-        duration="0" />
+        duration="20" />
 
     <artifact
-        location="C:\projects\android\GrowBotControllerV2-git\app\build\outputs\apk\debug\app-debug.apk"
-        type="SPLIT_MAIN" />
+        location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1533842753557"
+        timestamp="1533846009445"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="C:\projects\android\GrowBotControllerV2-git\app\build\outputs\apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
         <artifact
             location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
@@ -67,11 +65,14 @@
         <artifact
             location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
+        <artifact
+            location="C:\projects\android\GrowBotControllerV2-git\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
         ir-eligibility="R_CLASS_CHANGE"
-        timestamp="1533845164390"
+        timestamp="1533846249846"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
@@ -86,25 +87,23 @@
             location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
             type="SPLIT" />
         <artifact
-            location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
             type="SPLIT" />
         <artifact
             location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
         <artifact
-            location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
-            type="SPLIT" />
+            location="C:\projects\android\GrowBotControllerV2-git\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
-        timestamp="1533845501360"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1533846696353"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="C:\projects\android\GrowBotControllerV2-git\app\build\outputs\apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
+            location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            type="SPLIT" />
     </build>
 
 </instant-run>

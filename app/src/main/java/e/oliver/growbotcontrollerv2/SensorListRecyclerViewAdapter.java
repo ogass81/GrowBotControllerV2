@@ -40,7 +40,7 @@ public class SensorListRecyclerViewAdapter extends RecyclerView.Adapter<SensorLi
 
         switch (mValues.get(position).getType()) {
             case 0:
-                holder.mImage.setImageResource(R.drawable.ic_av_timer_black_24dp);
+                holder.mImage.setImageResource(R.drawable.ic_whatshot_black_24dp);
                 break;
 
             case 1:

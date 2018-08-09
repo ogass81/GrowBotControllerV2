@@ -162,6 +162,7 @@ public class SensorDetails {
         return year_values.isEmpty();
     }
 
+
     //Helper Function
     public ArrayList<SensorValue> fromTimeSeries(JSONObject timeseries, Boolean discrete, Integer freq, Integer base_value, String unit) {
         ArrayList<SensorValue> values = new ArrayList<>();

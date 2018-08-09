@@ -36,9 +36,9 @@ public class NegativeProgressSeekerBar extends android.widget.SeekBar {
     private String getActualProgress() {
         String label;
         if (this.getProgress() < 25) {
-            label = "-" + 25 - this.getProgress() + "%";
+            label = "-" + (25 - this.getProgress()) + "%";
         } else
-            label = "+" + this.getProgress() - 25 + "%";
+            label = "+" + (this.getProgress() - 25) + "%";
         return label;
     }
 

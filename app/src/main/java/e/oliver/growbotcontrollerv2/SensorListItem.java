@@ -15,6 +15,7 @@ public class SensorListItem {
     private Integer id;
     private String title;
     private String unit;
+    private String current_value;
     private Integer type;
 
     // Decodes business json into business model object
@@ -26,6 +27,7 @@ public class SensorListItem {
             s.title = jsonObject.getString("tit");
             s.type = jsonObject.getInt("typ");
             s.unit = jsonObject.getString("unit");
+            s.current_value = jsonObject.getString("val");
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -54,6 +56,10 @@ public class SensorListItem {
         }
 
         return sensorlist;
+    }
+
+    public String getCurrent_value() {
+        return current_value;
     }
 
     public Integer getId() {

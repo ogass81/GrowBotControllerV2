@@ -36,7 +36,6 @@ public class SocketListRecyclerViewAdapter extends RecyclerView.Adapter<SocketLi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId().toString());
         holder.mTitleView.setText(mValues.get(position).getTitle());
 
         if (mValues.get(position).getActive()) holder.mActiveView.setText("Active");
@@ -61,7 +60,6 @@ public class SocketListRecyclerViewAdapter extends RecyclerView.Adapter<SocketLi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mTitleView;
         public final TextView mActiveView;
 
@@ -70,7 +68,6 @@ public class SocketListRecyclerViewAdapter extends RecyclerView.Adapter<SocketLi
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.id);
             mTitleView = view.findViewById(R.id.title);
             mActiveView = view.findViewById(R.id.active);
         }

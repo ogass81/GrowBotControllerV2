@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,8 +37,23 @@ public class SensorListRecyclerViewAdapter extends RecyclerView.Adapter<SensorLi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText(mValues.get(position).getTitle());
+
+        switch (mValues.get(position).getType()) {
+            case 0:
+                holder.mImage.setImageResource(R.drawable.ic_av_timer_black_24dp);
+                break;
+
+            case 1:
+                holder.mImage.setImageResource(R.drawable.ic_filter_drama_black_24dp);
+                break;
+
+            case 2:
+                holder.mImage.setImageResource(R.drawable.ic_local_florist_black_24dp);
+                break;
+        }
+
+        holder.mSensorName.setText(mValues.get(position).getTitle());
+        holder.mSensorValue.setText(mValues.get(position).getCurrent_value() + " " + mValues.get(position).getUnit());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,20 +80,22 @@ public class SensorListRecyclerViewAdapter extends RecyclerView.Adapter<SensorLi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final ImageView mImage;
+        public final TextView mSensorName;
+        public final TextView mSensorValue;
         public SensorListItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.id);
-            mContentView = view.findViewById(R.id.content);
+            mImage = view.findViewById(R.id.sensor_icon);
+            mSensorName = view.findViewById(R.id.sensor_name);
+            mSensorValue = view.findViewById(R.id.current_value);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mSensorName.getText() + "'";
         }
     }
 }

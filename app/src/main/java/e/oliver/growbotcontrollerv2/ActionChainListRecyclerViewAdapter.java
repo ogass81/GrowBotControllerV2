@@ -29,14 +29,13 @@ public class ActionChainListRecyclerViewAdapter extends RecyclerView.Adapter<Act
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_ruleset, parent, false);
+                .inflate(R.layout.fragment_actionchain, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId().toString());
         holder.mTitleView.setText(mValues.get(position).getTitle());
 
         if (mValues.get(position).getActive()) holder.mActiveView.setText("Active");
@@ -61,7 +60,6 @@ public class ActionChainListRecyclerViewAdapter extends RecyclerView.Adapter<Act
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mTitleView;
         public final TextView mActiveView;
 
@@ -70,7 +68,6 @@ public class ActionChainListRecyclerViewAdapter extends RecyclerView.Adapter<Act
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.id);
             mTitleView = view.findViewById(R.id.title);
             mActiveView = view.findViewById(R.id.active);
         }

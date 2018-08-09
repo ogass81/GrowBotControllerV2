@@ -47,6 +47,6 @@
             android:id="@+id/nav_ruleset"
             android:icon="@drawable/ic_playlist_add_check_black_24dp"
             android:orderInCategory="5"
-            android:title="Rule Set" />
+            android:title="Ruleset" />
     </group>
 </menu>

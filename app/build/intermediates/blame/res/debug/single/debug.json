@@ -120,10 +120,6 @@
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\layout\\select_dialog_multichoice_material.xml"
     },
     {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_compare_black_24dp.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable-hdpi\\ic_compare_black_24dp.xml"
-    },
-    {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_scrubber_track_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable-mdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
     },
@@ -134,6 +130,10 @@
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_list_selector_background_transition_holo_light.xml.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_get_app_black_24dp.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable\\ic_get_app_black_24dp.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_format_list_numbered_black_24dp.xml.flat",
@@ -158,10 +158,6 @@
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_support_simple_spinner_dropdown_item.xml.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\layout\\support_simple_spinner_dropdown_item.xml"
-    },
-    {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_menu_gallery.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable-hdpi\\ic_menu_gallery.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
@@ -360,10 +356,6 @@
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\f29d9c28036644b31fdc4921846ceafe\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_menu_camera.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable-hdpi\\ic_menu_camera.xml"
-    },
-    {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
@@ -414,6 +406,10 @@
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_star_black_36dp.png.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable-mdpi-v4\\abc_ic_star_black_36dp.png"
+    },
+    {
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_sensor_details_generic.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_sensor_details_generic.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_filter_drama_black_24dp.xml.flat",
@@ -560,8 +556,8 @@
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable-xxhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
     },
     {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_sensor_details_nthresh.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_sensor_details_nthresh.xml"
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_power_black_24dp.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable\\ic_power_black_24dp.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_menu_cut_mtrl_alpha.png.flat",
@@ -856,10 +852,6 @@
         "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_triggercategory.xml"
     },
     {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_settings_input_component_black_24dp.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable-hdpi\\ic_settings_input_component_black_24dp.xml"
-    },
-    {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_star_black_36dp.png.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable-xhdpi-v4\\abc_ic_star_black_36dp.png"
     },
@@ -1108,12 +1100,16 @@
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_vertical_align_top_black_24dp.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable\\ic_vertical_align_top_black_24dp.xml"
+    },
+    {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_search_url_text.xml.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\color\\abc_search_url_text.xml"
     },
     {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_menu_slideshow.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable-hdpi\\ic_menu_slideshow.xml"
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_sensor_details_height.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_sensor_details_height.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_lines_media.xml.flat",
@@ -1186,6 +1182,10 @@
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_touch_app_black_24dp.xml.flat",
         "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable\\ic_touch_app_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_unfold_more_black_24dp.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable\\ic_unfold_more_black_24dp.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_notification_icon_background.xml.flat",
@@ -1356,6 +1356,10 @@
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\layout\\abc_list_menu_item_layout.xml"
     },
     {
+        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_sensor_details_soil.xml.flat",
+        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_sensor_details_soil.xml"
+    },
+    {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_bar_up_container.xml.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\layout\\abc_action_bar_up_container.xml"
     },
@@ -1498,10 +1502,6 @@
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_abc_edit_text_material.xml.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable-v21\\abc_edit_text_material.xml"
-    },
-    {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_sensor_details_thresh.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\layout\\fragment_sensor_details_thresh.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_cab_background_top_material.xml.flat",
@@ -1942,10 +1942,6 @@
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_text_select_handle_left_mtrl_dark.png.flat",
         "source": "C:\\Users\\oliver\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\db305cadc2ffd85e0faa138a3c5aa850\\res\\drawable-xxxhdpi-v4\\abc_text_select_handle_left_mtrl_dark.png"
-    },
-    {
-        "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_access_time_black_24dp.xml.flat",
-        "source": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\src\\main\\res\\drawable\\ic_access_time_black_24dp.xml"
     },
     {
         "merged": "C:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_text_select_handle_middle_mtrl_dark.png.flat",

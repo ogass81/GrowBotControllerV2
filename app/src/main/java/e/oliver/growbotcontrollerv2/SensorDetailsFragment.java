@@ -157,16 +157,14 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
         // Inflate the layout for this fragment
         View view;
         Button button;
-        //no Threshold
-        if (mType == 0 || mType == 1) {
-            view = inflater.inflate(R.layout.fragment_sensor_details_nthresh, container, false);
-        }
-        //with Threshold
-        else {
-            view = inflater.inflate(R.layout.fragment_sensor_details_thresh, container, false);
+        EditText box;
+
+        //Soil Sensor
+        if (mType == 4) {
+            view = inflater.inflate(R.layout.fragment_sensor_details_soil, container, false);
 
             //OG: Update Memory model of Sensor
-            EditText box = view.findViewById(R.id.value_lowerthreshold);
+            box = view.findViewById(R.id.value_lowerthreshold);
 
             box.addTextChangedListener(new TextWatcher() {
 
@@ -232,6 +230,61 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                     System.out.println("Save");
                 }
             });
+        }
+        //with Threshold
+        else if (mType == 5) {
+            view = inflater.inflate(R.layout.fragment_sensor_details_height, container, false);
+
+            //OG: Update Memory model of Sensor
+            box = view.findViewById(R.id.value_lowerthreshold);
+
+            box.addTextChangedListener(new TextWatcher() {
+
+                public void afterTextChanged(Editable s) {
+                    try {
+                        sensor.setLower_threshold(Integer.parseInt(s.toString()));
+                    } catch (RuntimeException r) {
+                        sensor.setLower_threshold(0);
+                    }
+                }
+
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+            });
+
+            box = view.findViewById(R.id.value_upperthreshold);
+
+            box.addTextChangedListener(new TextWatcher() {
+
+                public void afterTextChanged(Editable s) {
+                    try {
+                        sensor.setUpper_threshold(Integer.parseInt(s.toString()));
+                    } catch (RuntimeException r) {
+                        sensor.setUpper_threshold(0);
+                    }
+                }
+
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+            });
+
+            //OG: Set save button
+            button = view.findViewById(R.id.button_save);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveToBot();
+                    System.out.println("Save");
+                }
+            });
+        } else {
+            view = inflater.inflate(R.layout.fragment_sensor_details_generic, container, false);
         }
 
 
@@ -352,14 +405,15 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                 TextView value_title = getView().findViewById(R.id.value_title);
                 value_title.setText(sensor.getTitle());
 
-                if (mType == 0 || mType == 1) {
-                } else {
+
+                if (mType == 4 || mType == 5) {
                     TextView value_low = getView().findViewById(R.id.value_lowerthreshold);
                     value_low.setText(sensor.getLower_threshold().toString());
 
                     TextView value_up = getView().findViewById(R.id.value_upperthreshold);
                     value_up.setText(sensor.getUpper_threshold().toString());
                 }
+
                 //Bind Graph
                 GraphView graph = getView().findViewById(R.id.graph);
 

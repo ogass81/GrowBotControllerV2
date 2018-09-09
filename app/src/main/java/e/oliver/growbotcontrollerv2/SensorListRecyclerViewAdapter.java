@@ -42,13 +42,24 @@ public class SensorListRecyclerViewAdapter extends RecyclerView.Adapter<SensorLi
             case 0:
                 holder.mImage.setImageResource(R.drawable.ic_whatshot_black_24dp);
                 break;
-
             case 1:
                 holder.mImage.setImageResource(R.drawable.ic_filter_drama_black_24dp);
                 break;
 
             case 2:
+                holder.mImage.setImageResource(R.drawable.ic_get_app_black_24dp);
+                break;
+            case 3:
+                holder.mImage.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                break;
+            case 4:
                 holder.mImage.setImageResource(R.drawable.ic_local_florist_black_24dp);
+                break;
+            case 5:
+                holder.mImage.setImageResource(R.drawable.ic_vertical_align_top_black_24dp);
+                break;
+            case 6:
+                holder.mImage.setImageResource(R.drawable.ic_power_black_24dp);
                 break;
         }
 

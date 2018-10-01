@@ -46,7 +46,7 @@ public class RuleSetListFragment extends Fragment implements AsyncRestResponse, 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        RestClient client = (RestClient) new RestClient(Settings.getInstance().getClient_ip() + "/ruleset", Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+        getData();
 
     }
 
@@ -54,7 +54,7 @@ public class RuleSetListFragment extends Fragment implements AsyncRestResponse, 
         if (loading == 0) {
             //Load Sequence Data
             String uri = Settings.getInstance().getClient_ip() + "/ruleset";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
 
             loading++;
 

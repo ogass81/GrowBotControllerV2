@@ -54,7 +54,7 @@ public class TriggerListFragment extends Fragment implements AsyncRestResponse, 
         if (loading == 0) {
             //Load Sequence Data
             String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mCategoryID.toString();
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");

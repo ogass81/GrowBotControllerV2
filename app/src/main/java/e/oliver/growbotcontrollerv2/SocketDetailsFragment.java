@@ -71,7 +71,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
     public void getData() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -83,11 +83,11 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
     public void resetSignal() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/reset";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
-            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -100,7 +100,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
         if (loading == 0) {
             learning = true;
             String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/learn_on";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -113,11 +113,11 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
         if (loading == 0) {
             learning = false;
             String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString() + "/learn_off";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
-            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -130,7 +130,7 @@ public class SocketDetailsFragment extends Fragment implements AsyncRestResponse
         if (loading == 0) {
             if (!learning) {
                 String uri = Settings.getInstance().getClient_ip() + "/rcsocket/" + mSocketID.toString();
-                RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", socket.toJson(), this).execute();
+                RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "PATCH", socket.toJson(), this).execute();
                 loading++;
 
                 response.setText("");

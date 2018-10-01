@@ -60,7 +60,7 @@ public class LogListFragment extends Fragment implements AsyncRestResponse, Frag
         if (loading == false) {
             loading = true;
             String uri = Settings.getInstance().getClient_ip() + "/log/" + logpointer + "/" + packagesize;
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
 
             response.setText("");
             loadingbar.setVisibility(View.VISIBLE);

@@ -1,1 +1,1 @@
-[{"outputType":{"type":"MERGED_MANIFESTS"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":1},"path":"AndroidManifest.xml","properties":{"packageId":"e.oliver.growbotcontrollerv2","split":"","minSdkVersion":"24"}}]
+[{"outputType":{"type":"MERGED_MANIFESTS"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":1},"path":"AndroidManifest.xml","properties":{"packageId":"e.oliver.growbotcontrollerv2","split":"","minSdkVersion":"26"}}]

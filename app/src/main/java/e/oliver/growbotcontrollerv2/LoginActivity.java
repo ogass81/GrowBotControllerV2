@@ -13,6 +13,7 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity implements AsyncRestResponse {
 
     EditText ipaddress_ui;
+    EditText user_ui;
     EditText password_ui;
     View focusview;
 
@@ -26,14 +27,19 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
         setContentView(R.layout.activity_login);
 
         ipaddress_ui = findViewById(R.id.ipaddress);
+        user_ui = findViewById(R.id.user);
         password_ui = findViewById(R.id.password);
 
         SharedPreferences sp = getSharedPreferences("grow_ai", 0);
-        String ipaddress = sp.getString("ip", "http://192.168.0.232");
+        String ipaddress = sp.getString("ip", "http://192.168.0.211");
+        String user = sp.getString("usr", "admin");
         String password = sp.getString("pw", "");
 
         if (ipaddress != "") ipaddress_ui.setText(ipaddress);
-        else ipaddress_ui.setText("http://192.168.0.232");
+        else ipaddress_ui.setText("http://192.168.0.211");
+
+        if (user != "") user_ui.setText(password);
+        else user_ui.setText("");
 
         if (password != "") ipaddress_ui.setText(password);
         else password_ui.setText("");
@@ -46,16 +52,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
         return IP.contains(".");
     }
 
-    //OG: tbd - check if password meets minimum requirements
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
-
     //OG: call when button for login selected
     public void login(View view) {
         //OG: read current Values from Textboxes
         String ipaddress = ipaddress_ui.getText().toString();
+        String user = user_ui.getText().toString();
         String password = password_ui.getText().toString();
 
         //OG: Flags
@@ -80,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            RestClient client = (RestClient) new RestClient(ipaddress, password, "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(ipaddress, user, password, "GET", null, this).execute();
         }
     }
 
@@ -89,7 +90,8 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
             try {
                 Settings.getInstance().fromJson(output);
                 Settings.getInstance().setClient_ip(ipaddress_ui.getText().toString());
-                Settings.getInstance().setClient_secret(password_ui.getText().toString());
+                Settings.getInstance().setHttp_user(user_ui.getText().toString());
+                Settings.getInstance().setHttp_password(password_ui.getText().toString());
 
                 SharedPreferences sp = getSharedPreferences("grow_ai", 0);
                 SharedPreferences.Editor sedt = sp.edit();

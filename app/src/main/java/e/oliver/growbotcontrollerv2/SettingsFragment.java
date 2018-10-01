@@ -127,14 +127,13 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+        //Setup Http User
+        EditText http_user = view.findViewById(R.id.value_http_user);
 
-        //Setup API Secret
-        EditText apisecret = view.findViewById(R.id.value_apisecrect);
-
-        apisecret.addTextChangedListener(new TextWatcher() {
+        http_user.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                Settings.getInstance().setApisecret(s.toString());
+                Settings.getInstance().setHttp_user(s.toString());
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -143,6 +142,23 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+
+        //Setup Http Password
+        EditText http_password = view.findViewById(R.id.value_http_password);
+
+        http_password.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                Settings.getInstance().setHttp_password(s.toString());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
 
         //Setup Date Time Selector
         //Date
@@ -272,7 +288,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
     public void getData() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/setting";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
 
             loading++;
 
@@ -286,7 +302,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
     public void loadData() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/setting/" + mConfig;
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
 
             loading++;
 
@@ -305,7 +321,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
                 value_timezone.setText(Settings.getInstance().getTimezone().getDisplayName());
             }
             String uri = Settings.getInstance().getClient_ip() + "/setting/" + mConfig;
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", Settings.getInstance().toJson(), this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "PATCH", Settings.getInstance().toJson(), this).execute();
 
             loading++;
 
@@ -319,7 +335,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
     public void reset() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/setting/reset";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
 
             loading++;
 
@@ -333,7 +349,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
     public void deleteLog() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/log/reset";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
 
             loading++;
 
@@ -400,8 +416,11 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
             TextView value_wifi_pw = getView().findViewById(R.id.value_password);
             value_wifi_pw.setText(Settings.getInstance().getWifi_pw());
 
-            TextView value_apisecret = getView().findViewById(R.id.value_apisecrect);
-            value_apisecret.setText(Settings.getInstance().getApisecret());
+            TextView value_http_user = getView().findViewById(R.id.value_http_user);
+            value_http_user.setText(Settings.getInstance().getHttp_password());
+
+            TextView value_http_password = getView().findViewById(R.id.value_http_password);
+            value_http_password.setText(Settings.getInstance().getHttp_password());
 
             //Update Date Selector
             updateDate();

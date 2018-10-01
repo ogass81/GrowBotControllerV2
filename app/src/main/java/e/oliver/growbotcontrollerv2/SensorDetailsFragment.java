@@ -86,7 +86,7 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     public void getData() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange;
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -98,11 +98,11 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     public void setLowerThreshold() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/lower";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange;
-            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -114,11 +114,11 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     public void setUpperThreshold() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/upper";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/" + mRange;
-            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -130,7 +130,7 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     public void resetBot() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString() + "/reset";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -142,7 +142,7 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
     public void saveToBot() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/sensor/" + mSensorID.toString();
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", sensor.toJson(), this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "PATCH", sensor.toJson(), this).execute();
             loading++;
 
             response.setText("");

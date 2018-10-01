@@ -66,7 +66,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
         if (loading == 0) {
             //Load Sequence Data
             String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat.toString() + "/" + mTriggerID.toString();
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -78,7 +78,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
     public void saveToBot() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/trigger/" + mTriggerCat.toString() + "/" + mTriggerID.toString();
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", trigger.toJson(), this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "PATCH", trigger.toJson(), this).execute();
         } else
             System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }

@@ -38,7 +38,9 @@ public class Settings extends Application {
     private TimeZone timezone;
     private String wifi_SSID;
     private String wifi_pw;
-    private String apisecret;
+    private String http_user;
+
+    private String http_password;
     private Integer logsize;
     private Integer task_frq;
     private Integer sensor_frq;
@@ -83,13 +85,28 @@ public class Settings extends Application {
     }
 
     public String getApisecret() {
-        return apisecret;
+        return http_password;
     }
 
     public void setApisecret(String apisecret) {
-        this.apisecret = apisecret;
+        this.http_password = apisecret;
     }
 
+    public String getHttp_user() {
+        return http_user;
+    }
+
+    public void setHttp_user(String http_user) {
+        this.http_user = http_user;
+    }
+
+    public String getHttp_password() {
+        return http_password;
+    }
+
+    public void setHttp_password(String http_password) {
+        this.http_password = http_password;
+    }
 
     public Calendar getTime() {
         return time;
@@ -203,7 +220,8 @@ public class Settings extends Application {
             // Deserialize variable Settings
             this.wifi_SSID = jsonObject.getString("wifi_SSID");
             this.wifi_pw = jsonObject.getString("wifi_pw");
-            this.apisecret = jsonObject.getString("api_secret");
+            this.http_user = jsonObject.getString("http_user");
+            this.http_password = jsonObject.getString("http_password");
 
             this.time = Calendar.getInstance();
             time.setTimeInMillis(jsonObject.getLong("time") * 1000);
@@ -225,7 +243,8 @@ public class Settings extends Application {
         try {
             jsonObject.put("wifi_SSID", wifi_SSID);
             jsonObject.put("wifi_pw", wifi_pw);
-            jsonObject.put("api_secret", apisecret);
+            jsonObject.put("http_user", http_user);
+            jsonObject.put("http_password", http_password);
 
             jsonObject.put("time", time.getTimeInMillis() / 1000);
             jsonObject.put("timezone", timezone.getOffset(time.getTimeInMillis()) / 1000);

@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * Created by ogass on 05.07.2017.
@@ -19,6 +21,7 @@ public class RestClient extends AsyncTask<Void, Integer, Boolean> {
     String serverReturn = "";
     //OG: input
     private String uri;
+    private String user = "";
     private String password = "";
     private String http_method = "";
     private JSONObject payload = null;
@@ -28,8 +31,9 @@ public class RestClient extends AsyncTask<Void, Integer, Boolean> {
     private JSONObject response_payload = null;
 
 
-    RestClient(String uri, String password, String http_method, JSONObject payload, AsyncRestResponse caller) {
+    RestClient(String uri, String user, String password, String http_method, JSONObject payload, AsyncRestResponse caller) {
         this.uri = uri;
+        this.user = user;
         this.password = password;
         this.http_method = http_method;
         this.payload = payload;
@@ -45,8 +49,14 @@ public class RestClient extends AsyncTask<Void, Integer, Boolean> {
         // Send data
         try {
             // Defined URL  where to send data
+// Add authorization header
+
             URL url = new URL(uri);
+
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            String encoded = Base64.getEncoder().encodeToString((user + ":" + password).getBytes(StandardCharsets.UTF_8));  //Java 8
+            connection.setRequestProperty("Authorization", "Basic " + encoded);
 
             //Retrieve Information
             if (http_method == "GET") {

@@ -6,24 +6,31 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="56dp"
+        android:orientation="vertical"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingRight="24dp"
+        android:paddingTop="56dp">
 
          <EditText android:id="@+id/ipaddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textUri"
-                android:hint="IP Address" />
+             android:hint="IP Address"
+             android:inputType="textUri" />
+
+        <EditText
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="User"
+            android:inputType="textPersonName" />
 
             <EditText android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Password"/>
+                android:hint="Password"
+                android:inputType="textPassword" />
 
 
         <android.support.v7.widget.AppCompatButton

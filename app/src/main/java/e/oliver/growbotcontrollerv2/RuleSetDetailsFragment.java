@@ -57,15 +57,15 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
         if (loading == 0) {
             //Load Sequence Data
             String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID.toString();
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             uri = Settings.getInstance().getClient_ip() + "/trigger/all";
-            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             uri = Settings.getInstance().getClient_ip() + "/actionchain";
-            client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -78,7 +78,7 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
     public void saveToBot() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/ruleset/" + mRuleSetID.toString();
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "PATCH", ruleset.toJson(), this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "PATCH", ruleset.toJson(), this).execute();
         } else
             System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
     }

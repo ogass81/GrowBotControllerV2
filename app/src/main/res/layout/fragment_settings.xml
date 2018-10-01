@@ -84,20 +84,36 @@
             android:background="#c0c0c0" />
 
         <TextView
-            android:id="@+id/label_apisecret"
+            android:id="@+id/label_http_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/line3"
-            android:text="API Secret" />
-
+            android:text="Http User" />
         <EditText
-            android:id="@+id/value_apisecrect"
+            android:id="@+id/value_http_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/label_apisecret"
+            android:layout_below="@+id/label_http_user"
             android:ems="10"
             android:inputType="textPersonName"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/label_http_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/value_http_user"
+            android:text="Http Password" />
+
+        <EditText
+            android:id="@+id/value_http_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/label_http_password"
+            android:ems="10"
+            android:inputType="textPassword"
             android:textSize="14sp" />
 
         <View
@@ -105,7 +121,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/value_apisecrect"
+            android:layout_below="@+id/value_http_password"
             android:layout_marginTop="10dp"
             android:background="#c0c0c0" />
 
@@ -132,8 +148,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/value_date"
             android:clickable="true" />
-
-
         <View
             android:id="@+id/line5"
             android:layout_width="fill_parent"

@@ -51,7 +51,7 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse, F
         if (loading == 0) {
             //Load Sequence Data
             String uri = Settings.getInstance().getClient_ip() + "/action";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");
@@ -64,7 +64,7 @@ public class ActionListFragment extends Fragment implements AsyncRestResponse, F
     public void executeAction(Integer action_id) {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/action/" + action_id.toString() + "/execute";
-            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_secret(), "GET", null, this).execute();
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getHttp_user(), Settings.getInstance().getHttp_password(), "GET", null, this).execute();
             loading++;
 
             response.setText("");

@@ -90,13 +90,14 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
             try {
                 Settings.getInstance().fromJson(output);
                 Settings.getInstance().setClient_ip(ipaddress_ui.getText().toString());
-                Settings.getInstance().setHttp_user(user_ui.getText().toString());
-                Settings.getInstance().setHttp_password(password_ui.getText().toString());
+                Settings.getInstance().setClient_user(user_ui.getText().toString());
+                Settings.getInstance().setClient_password(password_ui.getText().toString());
 
                 SharedPreferences sp = getSharedPreferences("grow_ai", 0);
                 SharedPreferences.Editor sedt = sp.edit();
                 sedt.putString("ip", Settings.getInstance().getClient_ip());
-                sedt.putString("pw", Settings.getInstance().getClient_secret());
+                sedt.putString("usr", Settings.getInstance().getClient_user());
+                sedt.putString("pw", Settings.getInstance().getClient_password());
                 sedt.commit();
 
                 Intent intent = new Intent(this, MainActivity.class);

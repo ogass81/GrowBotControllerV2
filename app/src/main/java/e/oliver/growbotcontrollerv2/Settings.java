@@ -16,7 +16,8 @@ public class Settings extends Application {
     private static final Settings ourInstance = new Settings();
     //Phone Settings
     private String client_ip;
-    private String client_secret;
+    private String client_user;
+    private String client_password;
     //Growbot Constants
     private Integer actions_num;
     private Integer actionschains_num;
@@ -39,7 +40,6 @@ public class Settings extends Application {
     private String wifi_SSID;
     private String wifi_pw;
     private String http_user;
-
     private String http_password;
     private Integer logsize;
     private Integer task_frq;
@@ -52,20 +52,28 @@ public class Settings extends Application {
         return ourInstance;
     }
 
+    public String getClient_user() {
+        return client_user;
+    }
+
+    public void setClient_user(String client_user) {
+        this.client_user = client_user;
+    }
+
+    public String getClient_password() {
+        return client_password;
+    }
+
+    public void setClient_password(String client_password) {
+        this.client_password = client_password;
+    }
+
     public String getClient_ip() {
         return client_ip;
     }
 
     public void setClient_ip(String client_ip) {
         this.client_ip = client_ip;
-    }
-
-    public String getClient_secret() {
-        return client_secret;
-    }
-
-    public void setClient_secret(String client_secret) {
-        this.client_secret = client_secret;
     }
 
     public String getWifi_SSID() {

@@ -331,10 +331,6 @@ public class SensorDetailsFragment extends Fragment implements AsyncRestResponse
                         getData();
                         break;
                     case 5:
-                        mRange = "date_year";
-                        getData();
-                        break;
-                    case 6:
                         mRange = "date_all";
                         getData();
                         break;

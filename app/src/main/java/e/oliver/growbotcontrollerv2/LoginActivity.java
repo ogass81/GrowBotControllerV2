@@ -39,11 +39,10 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
         else ipaddress_ui.setText("http://192.168.0.211");
 
         if (user != "") user_ui.setText(password);
-        else user_ui.setText("");
+        else user_ui.setText("admin");
 
         if (password != "") ipaddress_ui.setText(password);
         else password_ui.setText("");
-
     }
 
     //OG: tbd - check if textbox contains valid IP
@@ -94,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncRestRespons
                 Settings.getInstance().setClient_password(password_ui.getText().toString());
 
                 SharedPreferences sp = getSharedPreferences("grow_ai", 0);
+                sp.edit().clear().commit();
                 SharedPreferences.Editor sedt = sp.edit();
                 sedt.putString("ip", Settings.getInstance().getClient_ip());
                 sedt.putString("usr", Settings.getInstance().getClient_user());

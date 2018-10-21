@@ -13,11 +13,12 @@
         android:paddingRight="24dp"
         android:paddingTop="56dp">
 
-         <EditText android:id="@+id/ipaddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-             android:hint="IP Address"
-             android:inputType="textUri" />
+        <EditText
+            android:id="@+id/ipaddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="IP Address"
+            android:inputType="textUri" />
 
         <EditText
             android:id="@+id/user"
@@ -26,11 +27,12 @@
             android:hint="User"
             android:inputType="textPersonName" />
 
-            <EditText android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPersonName" />
 
 
         <android.support.v7.widget.AppCompatButton

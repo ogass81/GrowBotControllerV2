@@ -92,14 +92,6 @@ public class Settings extends Application {
         this.wifi_pw = wifi_pw;
     }
 
-    public String getApisecret() {
-        return http_password;
-    }
-
-    public void setApisecret(String apisecret) {
-        this.http_password = apisecret;
-    }
-
     public String getHttp_user() {
         return http_user;
     }
@@ -256,7 +248,6 @@ public class Settings extends Application {
 
             jsonObject.put("time", time.getTimeInMillis() / 1000);
             jsonObject.put("timezone", timezone.getOffset(time.getTimeInMillis()) / 1000);
-
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

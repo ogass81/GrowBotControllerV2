@@ -52,7 +52,6 @@
         <item>Last Hour</item>
         <item>Last Day</item>
         <item>Last Month</item>
-        <item>Last Year</item>
         <item>All</item>
     </string-array>
     <string-array name="config">

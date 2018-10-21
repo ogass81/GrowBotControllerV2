@@ -225,6 +225,10 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
                 if (mConfig == "active") {
                     Settings.getInstance().setClient_user(Settings.getInstance().getHttp_user());
                     Settings.getInstance().setClient_password(Settings.getInstance().getHttp_password());
+                    System.out.println(Settings.getInstance().getClient_user());
+                    System.out.println(Settings.getInstance().getClient_password());
+                    System.out.println(Settings.getInstance().getHttp_user());
+                    System.out.println(Settings.getInstance().getHttp_password());
                 }
             }
         });
@@ -324,6 +328,9 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
             String uri = Settings.getInstance().getClient_ip() + "/setting/" + mConfig;
             RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_user(), Settings.getInstance().getClient_password(), "PATCH", Settings.getInstance().toJson(), this).execute();
 
+            Settings.getInstance().setClient_user(Settings.getInstance().getHttp_user());
+            Settings.getInstance().setClient_password(Settings.getInstance().getHttp_password());
+
             loading++;
 
             response.setText("");
@@ -418,7 +425,7 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
             value_wifi_pw.setText(Settings.getInstance().getWifi_pw());
 
             TextView value_http_user = getView().findViewById(R.id.value_http_user);
-            value_http_user.setText(Settings.getInstance().getHttp_password());
+            value_http_user.setText(Settings.getInstance().getHttp_user());
 
             TextView value_http_password = getView().findViewById(R.id.value_http_password);
             value_http_password.setText(Settings.getInstance().getHttp_password());

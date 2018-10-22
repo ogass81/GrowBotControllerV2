@@ -127,6 +127,40 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
+
+        //Setup AP SSID
+        EditText aps_sid = view.findViewById(R.id.value_ap_SSID);
+
+        aps_sid.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                Settings.getInstance().setAp_SSID(s.toString());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        //Setup AP Password
+        EditText ap_pw = view.findViewById(R.id.value_ap_password);
+
+        ap_pw.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                Settings.getInstance().setAp_pw(s.toString());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+
         //Setup Http User
         EditText http_user = view.findViewById(R.id.value_http_user);
 
@@ -423,6 +457,12 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
 
             TextView value_wifi_pw = getView().findViewById(R.id.value_password);
             value_wifi_pw.setText(Settings.getInstance().getWifi_pw());
+
+            TextView value_ap_ssid = getView().findViewById(R.id.value_ap_SSID);
+            value_ap_ssid.setText(Settings.getInstance().getAp_SSID());
+
+            TextView value_ap_pw = getView().findViewById(R.id.value_ap_password);
+            value_ap_pw.setText(Settings.getInstance().getAp_pw());
 
             TextView value_http_user = getView().findViewById(R.id.value_http_user);
             value_http_user.setText(Settings.getInstance().getHttp_user());

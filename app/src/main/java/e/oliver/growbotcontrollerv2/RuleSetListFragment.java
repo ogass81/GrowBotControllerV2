@@ -46,8 +46,6 @@ public class RuleSetListFragment extends Fragment implements AsyncRestResponse, 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        getData();
-
     }
 
     public void getData() {

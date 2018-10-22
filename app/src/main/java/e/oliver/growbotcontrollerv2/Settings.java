@@ -39,6 +39,9 @@ public class Settings extends Application {
     private TimeZone timezone;
     private String wifi_SSID;
     private String wifi_pw;
+    private String ap_SSID;
+    private String ap_pw;
+
     private String http_user;
     private String http_password;
     private Integer logsize;
@@ -90,6 +93,22 @@ public class Settings extends Application {
 
     public void setWifi_pw(String wifi_pw) {
         this.wifi_pw = wifi_pw;
+    }
+
+    public String getAp_SSID() {
+        return ap_SSID;
+    }
+
+    public void setAp_SSID(String ap_SSID) {
+        this.ap_SSID = ap_SSID;
+    }
+
+    public String getAp_pw() {
+        return ap_pw;
+    }
+
+    public void setAp_pw(String ap_pw) {
+        this.ap_pw = ap_pw;
     }
 
     public String getHttp_user() {
@@ -220,6 +239,10 @@ public class Settings extends Application {
             // Deserialize variable Settings
             this.wifi_SSID = jsonObject.getString("wifi_SSID");
             this.wifi_pw = jsonObject.getString("wifi_pw");
+
+            this.ap_SSID = jsonObject.getString("ap_SSID");
+            this.ap_pw = jsonObject.getString("ap_pw");
+
             this.http_user = jsonObject.getString("http_user");
             this.http_password = jsonObject.getString("http_password");
 
@@ -243,6 +266,8 @@ public class Settings extends Application {
         try {
             jsonObject.put("wifi_SSID", wifi_SSID);
             jsonObject.put("wifi_pw", wifi_pw);
+            jsonObject.put("ap_SSID", ap_SSID);
+            jsonObject.put("ap_pw", ap_pw);
             jsonObject.put("http_user", http_user);
             jsonObject.put("http_password", http_password);
 

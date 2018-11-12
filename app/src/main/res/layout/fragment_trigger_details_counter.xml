@@ -1,0 +1,178 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    android:padding="@dimen/fragment_margin">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/label_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID" />
+
+        <TextView
+            android:id="@+id/value_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/label_id"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/label_id" />
+
+        <EditText
+            android:id="@+id/value_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/label_id"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@+id/value_title"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
+
+        <TextView
+            android:id="@+id/label_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/line1"
+            android:text="Rule" />
+
+        <RelativeLayout
+            android:id="@+id/rule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/label_rule">
+
+            <Button
+                android:id="@+id/value_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/value_threshold"
+                android:layout_alignParentStart="true"
+                android:text="Counter" />
+
+            <Spinner
+                android:id="@+id/value_relop"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="9dp"
+                android:layout_toEndOf="@+id/value_rule" />
+
+            <EditText
+                android:id="@+id/value_threshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="9dp"
+                android:layout_toEndOf="@+id/value_relop"
+                android:ems="6"
+                android:inputType="textPersonName"
+                android:text="Theshold" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/rule"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
+
+        <TextView
+            android:id="@+id/label_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line2"
+            android:text="Current Counter" />
+
+        <RelativeLayout
+            android:id="@+id/counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/label_counter">
+
+            <EditText
+                android:id="@+id/value_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:inputType="textPersonName"
+                android:text="Value" />
+
+            <Button
+                android:id="@+id/button_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentEnd="true"
+                android:text="Reset" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/counter"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
+
+        <Switch
+            android:id="@+id/value_active"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/line3"
+            android:text="Active" />
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/value_active"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/line4"
+            android:text="Save" />
+
+        <TextView
+            android:id="@+id/server_response"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+        <ProgressBar
+            android:id="@+id/loadingbar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</ScrollView>
+

@@ -127,7 +127,7 @@ public class SensorDetails {
             JSONArray values = jsonObject.getJSONArray("d_vals");
             Integer freq = jsonObject.getInt("frq");
 
-            this.day_values.addAll(fromTimeSeries(values, false, freq, 24, "h"));
+            this.day_values.addAll(fromTimeSeries(values, false, freq, 1440, "min"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -141,7 +141,7 @@ public class SensorDetails {
             JSONArray values = jsonObject.getJSONArray("m_vals");
             Integer freq = jsonObject.getInt("frq");
 
-            this.month_values.addAll(fromTimeSeries(values, false, freq, 28, "d"));
+            this.month_values.addAll(fromTimeSeries(values, false, freq, 1344, "h"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

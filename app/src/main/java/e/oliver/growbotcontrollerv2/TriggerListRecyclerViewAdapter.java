@@ -41,9 +41,14 @@ public class TriggerListRecyclerViewAdapter extends RecyclerView.Adapter<Trigger
             case 0:
                 holder.mImage.setImageResource(R.drawable.ic_av_timer_black_24dp);
                 break;
-
             case 1:
                 holder.mImage.setImageResource(R.drawable.ic_shuffle_black_24dp);
+                break;
+            case 2:
+                holder.mImage.setImageResource(R.drawable.ic_plus_one_black_24dp);
+                break;
+            case 3:
+                holder.mImage.setImageResource(R.drawable.ic_cached_black_24dp);
                 break;
         }
 

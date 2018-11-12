@@ -266,10 +266,29 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                     new TimePickerDialog(getActivity(), endtimepicker, trigger.getEndtime().get(Calendar.HOUR), trigger.getEndtime().get(Calendar.MINUTE), true).show();
                 }
             });
+            //Setup Interval Spinner Listener
+            spinner = context.findViewById(R.id.value_interval);
+            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.interval, android.R.layout.simple_spinner_item);
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // Apply the adapter to the spinner
+            spinner.setAdapter(adapter);
+            spinner.setSelection(0, false);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    trigger.setInterval(i);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
         }
         //Sensor Trigger
-        else {
+        else if (mTriggerType == 1) {
             context = inflater.inflate(R.layout.fragment_trigger_details_comp, container, false);
 
             //Populate RelOp Spinner
@@ -335,7 +354,112 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
 
                 }
             });
+
+            //Setup Interval Spinner Listener
+            spinner = context.findViewById(R.id.value_interval);
+            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.interval, android.R.layout.simple_spinner_item);
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // Apply the adapter to the spinner
+            spinner.setAdapter(adapter);
+            spinner.setSelection(0, false);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    trigger.setInterval(i);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
+        //Counter
+        else if (mTriggerType == 2) {
+            context = inflater.inflate(R.layout.fragment_trigger_details_counter, container, false);
+
+            //Populate RelOp Spinner
+            spinner = context.findViewById(R.id.value_relop);
+            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.relop, android.R.layout.simple_spinner_item);
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // Apply the adapter to the spinner
+            spinner.setAdapter(adapter);
+            spinner.setSelection(0, false);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    trigger.setRelop(i);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            //Threshold
+            textbox = context.findViewById(R.id.value_threshold);
+            textbox.addTextChangedListener(new TextWatcher() {
+                public void afterTextChanged(Editable s) {
+                    try {
+                        trigger.setThreshold(Integer.parseInt(s.toString()));
+                    } catch (NumberFormatException ex) {
+                        trigger.setThreshold(0);
+                    }
+                }
+
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+            });
+
+            //Counter
+            textbox = context.findViewById(R.id.value_counter);
+            textbox.addTextChangedListener(new TextWatcher() {
+                public void afterTextChanged(Editable s) {
+                    try {
+                        trigger.setCount(Integer.parseInt(s.toString()));
+                    } catch (NumberFormatException ex) {
+                        trigger.setCount(0);
+                    }
+                }
+
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+            });
+
+            //OG: Set reset counter button
+            button = context.findViewById(R.id.button_reset);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    trigger.setCount(0);
+                    TextView counter = getView().findViewById(R.id.value_counter);
+                    counter.setText(trigger.getCount().toString());
+                }
+            });
+        }
+        //Switch
+        else if (mTriggerType == 3) {
+            context = inflater.inflate(R.layout.fragment_trigger_details_switch, container, false);
+
+            //Setup Active Switch Listener
+            ui_switch = context.findViewById(R.id.value_current);
+            ui_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    trigger.setState(b);
+                }
+            });
+        }
+
         //Setup Active Switch Listener
         ui_switch = context.findViewById(R.id.value_active);
         ui_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -345,25 +469,6 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             }
         });
 
-        //Setup Interval Spinner Listener
-        spinner = context.findViewById(R.id.value_interval);
-        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.interval, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-        spinner.setSelection(0, false);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                trigger.setInterval(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         //OG: Set save button
         button = context.findViewById(R.id.button_save);
@@ -448,9 +553,6 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             Switch active = getView().findViewById(R.id.value_active);
             active.setChecked(trigger.getActive());
 
-            Spinner interval = getView().findViewById(R.id.value_interval);
-            interval.setSelection(trigger.getInterval());
-
             if (trigger.getType() == 0) {
 
                 updateStartDate();
@@ -458,6 +560,9 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
 
                 updateEndDate();
                 updateEndTime();
+
+                Spinner interval = getView().findViewById(R.id.value_interval);
+                interval.setSelection(trigger.getInterval());
             } else if (trigger.getType() == 1) {
                 Button source = getView().findViewById(R.id.value_rule);
                 source.setText(trigger.getSource());
@@ -470,6 +575,21 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
 
                 NegativeProgressSeekerBar tolerance = getView().findViewById(R.id.value_tolerance);
                 tolerance.setProgress(25 + trigger.getTolerance());
+
+                Spinner interval = getView().findViewById(R.id.value_interval);
+                interval.setSelection(trigger.getInterval());
+            } else if (trigger.getType() == 2) {
+                Spinner relop = getView().findViewById(R.id.value_relop);
+                relop.setSelection(trigger.getRelop());
+
+                TextView threshold = getView().findViewById(R.id.value_threshold);
+                threshold.setText(Integer.toString(trigger.getThreshold()));
+
+                TextView counter = getView().findViewById(R.id.value_counter);
+                counter.setText(trigger.getCount().toString());
+            } else if (trigger.getType() == 3) {
+                Switch current = getView().findViewById(R.id.value_current);
+                current.setChecked(trigger.getState());
             }
         }
     }

@@ -21,6 +21,8 @@ public class TriggerDetails {
     private Integer relop;
     private Integer threshold;
     private Integer tolerance;
+    private Integer count;
+    private Boolean state;
     private Integer interval;
 
     // Decodes business json into business model object
@@ -45,16 +47,52 @@ public class TriggerDetails {
             item.relop = jsonObject.getInt("relop");
             item.tolerance = jsonObject.getInt("tol");
             item.threshold = jsonObject.getInt("val");
+
+            if (item.type == 2) item.count = jsonObject.getInt("count");
+            if (item.type == 3) item.state = jsonObject.getBoolean("state");
+
             item.interval = jsonObject.getInt("intv");
 
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
+
         // Return new object
         return item;
     }
 
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("act", active.toString());
+            jsonObject.put("tit", title.toString());
+
+            if (type == 0) {
+                jsonObject.put("start_time", starttime.getTimeInMillis() / 1000);
+                jsonObject.put("end_time", endtime.getTimeInMillis() / 1000);
+                jsonObject.put("intv", interval.toString());
+            } else if (type == 1) {
+                jsonObject.put("relop", relop.toString());
+                jsonObject.put("tol", tolerance.toString());
+                jsonObject.put("val", threshold.toString());
+                jsonObject.put("intv", interval.toString());
+            } else if (type == 2) {
+                jsonObject.put("count", count.toString());
+                jsonObject.put("val", threshold.toString());
+            } else if (type == 3) {
+                jsonObject.put("state", state.toString());
+            }
+
+            //more
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
 
     public Calendar getStarttime() {
         return starttime;
@@ -133,29 +171,19 @@ public class TriggerDetails {
         this.tolerance = tolerance;
     }
 
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("act", active.toString());
-            jsonObject.put("tit", title.toString());
-
-            if (type == 0) {
-                jsonObject.put("start_time", starttime.getTimeInMillis() / 1000);
-                jsonObject.put("end_time", endtime.getTimeInMillis() / 1000);
-            } else {
-                jsonObject.put("relop", relop.toString());
-                jsonObject.put("tol", tolerance.toString());
-                jsonObject.put("val", threshold.toString());
-            }
-            jsonObject.put("intv", interval.toString());
-            //more
-
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return jsonObject;
+    public Integer getCount() {
+        return count;
     }
 
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
+    }
 }

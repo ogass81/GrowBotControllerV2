@@ -286,6 +286,17 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
                 //saveData();
             }
         });
+
+        //Setup Reset button
+        Button restart_button = view.findViewById(R.id.button_restart);
+        restart_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restart();
+                //getActivity().finishAndRemoveTask();
+            }
+        });
+
         //Initiate Loading Bar
         loadingbar = view.findViewById(R.id.loadingbar);
         loadingbar.setVisibility(View.GONE);
@@ -377,6 +388,20 @@ public class SettingsFragment extends Fragment implements AsyncRestResponse, Fra
     public void reset() {
         if (loading == 0) {
             String uri = Settings.getInstance().getClient_ip() + "/setting/reset";
+            RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_user(), Settings.getInstance().getClient_password(), "GET", null, this).execute();
+
+            loading++;
+
+            response.setText("");
+            loadingbar.setVisibility(View.VISIBLE);
+        } else
+            System.out.println("ERROR: GetData() aborted, pending network operations " + loading);
+
+    }
+
+    public void restart() {
+        if (loading == 0) {
+            String uri = Settings.getInstance().getClient_ip() + "/restart";
             RestClient client = (RestClient) new RestClient(uri, Settings.getInstance().getClient_user(), Settings.getInstance().getClient_password(), "GET", null, this).execute();
 
             loading++;

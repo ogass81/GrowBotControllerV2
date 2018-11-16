@@ -269,11 +269,19 @@
             android:background="#c0c0c0" />
 
         <Button
-            android:id="@+id/button_reset"
+            android:id="@+id/button_restart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/line8"
+            android:text="Restart" />
+
+        <Button
+            android:id="@+id/button_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line8"
+            android:layout_toRightOf="@id/button_restart"
             android:text="Reset" />
 
         <Button

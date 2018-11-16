@@ -16,6 +16,8 @@ public class RuleSetDetails {
     private Boolean active;
 
     private Integer tset1_ptr;
+
+
     private Integer tcat1_ptr;
     private Integer tset2_ptr;
     private Integer tcat2_ptr;
@@ -83,12 +85,28 @@ public class RuleSetDetails {
         this.tset1_ptr = tset1_ptr;
     }
 
+    public Integer getTcat1_ptr() {
+        return tcat1_ptr;
+    }
+
+    public void setTcat1_ptr(Integer tcat1_ptr) {
+        this.tcat1_ptr = tcat1_ptr;
+    }
+
     public Integer getTset2_ptr() {
         return tset2_ptr;
     }
 
     public void setTset2_ptr(Integer tset2_ptr) {
         this.tset2_ptr = tset2_ptr;
+    }
+
+    public Integer getTcat2_ptr() {
+        return tcat2_ptr;
+    }
+
+    public void setTcat2_ptr(Integer tcat2_ptr) {
+        this.tcat2_ptr = tcat2_ptr;
     }
 
     public Integer getTset3_ptr() {
@@ -99,24 +117,8 @@ public class RuleSetDetails {
         this.tset3_ptr = tset3_ptr;
     }
 
-    public Integer getTcat1_ptr() {
-        return tset1_ptr;
-    }
-
-    public void setTcat1_ptr(Integer tcat1_ptr) {
-        this.tcat1_ptr = tcat1_ptr;
-    }
-
-    public Integer getTcat2_ptr() {
-        return tset2_ptr;
-    }
-
-    public void setTcat2_ptr(Integer tcat2_ptr) {
-        this.tcat2_ptr = tcat2_ptr;
-    }
-
     public Integer getTcat3_ptr() {
-        return tset3_ptr;
+        return tcat3_ptr;
     }
 
     public void setTcat3_ptr(Integer tcat3_ptr) {

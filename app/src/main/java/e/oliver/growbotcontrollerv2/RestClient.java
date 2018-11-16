@@ -127,7 +127,11 @@ public class RestClient extends AsyncTask<Void, Integer, Boolean> {
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
 
-        System.out.println("RestClient->onPostExecute(): " + serverReturn);
+        System.out.println("\r\n\r\n");
+        System.out.println("RestClient=>: " + payload);
+        System.out.println("\r\n\r\n");
+        System.out.println("RestClient<=: " + serverReturn);
+        System.out.println("\r\n\r\n");
         caller.processFinish(response_code, response_message, response_payload);
     }
 }

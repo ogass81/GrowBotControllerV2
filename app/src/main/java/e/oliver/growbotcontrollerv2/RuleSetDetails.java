@@ -14,16 +14,13 @@ public class RuleSetDetails {
     private String id;
     private String title;
     private Boolean active;
-
+    private Boolean state;
     private Integer tset1_ptr;
-
-
     private Integer tcat1_ptr;
     private Integer tset2_ptr;
     private Integer tcat2_ptr;
     private Integer tset3_ptr;
     private Integer tcat3_ptr;
-
     private Integer chain_ptr;
     private ArrayList<Integer> boolop = new ArrayList<Integer>();
 
@@ -42,7 +39,7 @@ public class RuleSetDetails {
             rs.tset3_ptr = jsonObject.getInt("tset3_ptr");
             rs.tcat3_ptr = jsonObject.getInt("tcat3_ptr");
             rs.chain_ptr = jsonObject.getInt("chain_ptr");
-
+            rs.state = jsonObject.getBoolean("state");
             JSONArray cast = jsonObject.getJSONArray("bool");
 
             for (int i = 0; i < cast.length(); i++) {
@@ -55,6 +52,14 @@ public class RuleSetDetails {
         }
         // Return new object
         return rs;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
     }
 
     public String getId() {

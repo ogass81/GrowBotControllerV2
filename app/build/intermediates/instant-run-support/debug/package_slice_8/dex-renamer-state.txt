@@ -1,4 +1,4 @@
-#Thu Nov 15 15:54:44 CET 2018
+#Sun Nov 18 17:47:12 CET 2018
 base.0=C\:\\projects\\android\\GrowBotControllerV2-git\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\46
 path.0=classes.dex
 renamed.0=classes.dex

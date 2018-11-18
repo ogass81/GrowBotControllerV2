@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="arm64-v8a,armeabi-v7a,armeabi"
+    abi="x86"
     api-level="27"
     build-mode="FULL"
     density="420dpi"
     format="10"
     plugin-version="3.0.1"
-    timestamp="1542328438957"
+    timestamp="1542571855161"
     token="-4574228954816811034"
     verifier="FULL_BUILD_REQUESTED" >
 
@@ -62,7 +62,7 @@
 
     <build
         build-mode="FULL"
-        timestamp="1542328438957"
+        timestamp="1542571855161"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\projects\android\GrowBotControllerV2-git\app\build\intermediates\split-apk\debug\slices\slice_4.apk"

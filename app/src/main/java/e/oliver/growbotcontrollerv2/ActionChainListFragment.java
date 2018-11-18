@@ -119,7 +119,7 @@ public class ActionChainListFragment extends Fragment implements AsyncRestRespon
                 JSONArray listJSON = output.getJSONArray("list");
 
                 if (!list.isEmpty()) list.clear();
-                list.addAll(ActionChainListItem.fromJson(listJSON));
+                list.addAll(ActionChainListItem.fromJson(listJSON, false));
 
                 recyclerView.getAdapter().notifyDataSetChanged();
             } catch (JSONException e) {

@@ -175,6 +175,9 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     Switch active = getView().findViewById(R.id.value_active);
                     active.setChecked(ruleset.getActive());
 
+                    Switch state = getView().findViewById(R.id.value_state);
+                    state.setChecked(ruleset.getState());
+
                     //Set Bool Ops 1
                     Spinner boolop1 = getView().findViewById(R.id.value_boolop1);
 
@@ -233,29 +236,37 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     Spinner spinner = getActivity().findViewById(R.id.value_trigger1);
 
                     ArrayAdapter<TriggerSpinnerListItem> adapter = new ArrayAdapter<TriggerSpinnerListItem>(getActivity(),
-                            android.R.layout.simple_spinner_item, trigger);
+                            android.R.layout.simple_spinner_item);
 
                     // Specify the layout to use when the list of choices appears
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     // Apply the adapter to the spinner
                     spinner.setAdapter(adapter);
 
-                    //Set to position
-                    if (ruleset.getTset1_ptr() < Settings.getInstance().getTrigger_sets() && ruleset.getTcat1_ptr() < Settings.getInstance().getTrigger_types()) {
-                        spinner.setSelection(ruleset.getTcat1_ptr() * Settings.getInstance().getTrigger_sets() + ruleset.getTset1_ptr(), false);
-                    } else {
-                        spinner.setSelection(trigger.size() - 1, false);
+                    // Add active elements to Spinner and select current one
+                    int elements = 0;
+                    int selected = -1;
+                    for (int i = 0; i < trigger.size(); i++) {
+                        if (trigger.get(i).getId() == ruleset.getTset1_ptr() && trigger.get(i).getCat() == ruleset.getTcat1_ptr()) {
+                            adapter.add(trigger.get(i));
+                            selected = elements;
+                            elements++;
+                        } else if (trigger.get(i).getActive() == true) {
+                            adapter.add(trigger.get(i));
+                            elements++;
+                        }
                     }
+                    if (selected == -1) spinner.setSelection(elements - 1, false);
+                    else spinner.setSelection(selected, false);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            Integer cat = 0;
-                            Integer id = 0;
+                            TriggerSpinnerListItem item = (TriggerSpinnerListItem) adapterView.getItemAtPosition(i);
 
-                            ruleset.setTcat1_ptr(trigger.get(i).getCat());
-                            ruleset.setTset1_ptr(trigger.get(i).getId());
-                            System.out.println("Trigger 1:" + i + trigger.get(i).getCat() + trigger.get(i).getId());
+                            ruleset.setTcat1_ptr(item.getCat());
+                            ruleset.setTset1_ptr(item.getId());
+                            System.out.println("Trigger 1:" + i + " " + item.getCat() + " " + item.getId());
                         }
 
                         @Override
@@ -268,26 +279,37 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner = getActivity().findViewById(R.id.value_trigger2);
 
                     adapter = new ArrayAdapter<TriggerSpinnerListItem>(getActivity(),
-                            android.R.layout.simple_spinner_item, trigger);
+                            android.R.layout.simple_spinner_item);
 
                     // Specify the layout to use when the list of choices appears
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     // Apply the adapter to the spinner
                     spinner.setAdapter(adapter);
 
-                    //Set to position
-                    if (ruleset.getTset2_ptr() < Settings.getInstance().getTrigger_sets() && ruleset.getTcat2_ptr() < Settings.getInstance().getTrigger_types()) {
-                        spinner.setSelection(ruleset.getTcat2_ptr() * Settings.getInstance().getTrigger_sets() + ruleset.getTset2_ptr(), false);
-                    } else {
-                        spinner.setSelection(trigger.size() - 1, false);
+                    // Add active elements to Spinner and select current one
+                    elements = 0;
+                    selected = -1;
+                    for (int i = 0; i < trigger.size(); i++) {
+                        if (trigger.get(i).getId() == ruleset.getTset2_ptr() && trigger.get(i).getCat() == ruleset.getTcat2_ptr()) {
+                            adapter.add(trigger.get(i));
+                            selected = elements;
+                            elements++;
+                        } else if (trigger.get(i).getActive() == true) {
+                            adapter.add(trigger.get(i));
+                            elements++;
+                        }
                     }
+                    if (selected == -1) spinner.setSelection(elements - 1, false);
+                    else spinner.setSelection(selected, false);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            ruleset.setTcat2_ptr(trigger.get(i).getCat());
-                            ruleset.setTset2_ptr(trigger.get(i).getId());
-                            System.out.println("Trigger 2:" + i + trigger.get(i).getCat() + trigger.get(i).getId());
+                            TriggerSpinnerListItem item = (TriggerSpinnerListItem) adapterView.getItemAtPosition(i);
+
+                            ruleset.setTcat2_ptr(item.getCat());
+                            ruleset.setTset2_ptr(item.getId());
+                            System.out.println("Trigger 2:" + i + " " + item.getCat() + " " + item.getId());
                         }
 
                         @Override
@@ -300,26 +322,37 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     spinner = getActivity().findViewById(R.id.value_trigger3);
 
                     adapter = new ArrayAdapter<TriggerSpinnerListItem>(getActivity(),
-                            android.R.layout.simple_spinner_item, trigger);
+                            android.R.layout.simple_spinner_item);
 
                     // Specify the layout to use when the list of choices appears
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     // Apply the adapter to the spinner
                     spinner.setAdapter(adapter);
 
-                    //Set to position
-                    if (ruleset.getTset3_ptr() < Settings.getInstance().getTrigger_sets() && ruleset.getTcat3_ptr() < Settings.getInstance().getTrigger_types()) {
-                        spinner.setSelection(ruleset.getTcat3_ptr() * Settings.getInstance().getTrigger_sets() + ruleset.getTset3_ptr(), false);
-                    } else {
-                        spinner.setSelection(trigger.size() - 1, false);
+                    // Add active elements to Spinner and select current one
+                    elements = 0;
+                    selected = -1;
+                    for (int i = 0; i < trigger.size(); i++) {
+                        if (trigger.get(i).getId() == ruleset.getTset3_ptr() && trigger.get(i).getCat() == ruleset.getTcat3_ptr()) {
+                            adapter.add(trigger.get(i));
+                            selected = elements;
+                            elements++;
+                        } else if (trigger.get(i).getActive() == true) {
+                            adapter.add(trigger.get(i));
+                            elements++;
+                        }
                     }
+                    if (selected == -1) spinner.setSelection(elements - 1, false);
+                    else spinner.setSelection(selected, false);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            ruleset.setTcat3_ptr(trigger.get(i).getCat());
-                            ruleset.setTset3_ptr(trigger.get(i).getId());
-                            System.out.println("Trigger 3:" + i + trigger.get(i).getCat() + trigger.get(i).getId());
+                            TriggerSpinnerListItem item = (TriggerSpinnerListItem) adapterView.getItemAtPosition(i);
+
+                            ruleset.setTcat3_ptr(item.getCat());
+                            ruleset.setTset3_ptr(item.getId());
+                            System.out.println("Trigger 3:" + i + " " + item.getCat() + " " + item.getId());
                         }
 
                         @Override
@@ -338,24 +371,36 @@ public class RuleSetDetailsFragment extends Fragment implements AsyncRestRespons
                     Spinner spinner = getActivity().findViewById(R.id.value_actionchain);
 
                     ArrayAdapter<ActionChainSpinnerListItem> adapter = new ArrayAdapter<ActionChainSpinnerListItem>(getActivity(),
-                            android.R.layout.simple_spinner_item, actionchain);
+                            android.R.layout.simple_spinner_item);
 
                     // Specify the layout to use when the list of choices appears
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     // Apply the adapter to the spinner
                     spinner.setAdapter(adapter);
 
-                    //Set to position
-                    if (ruleset.getChain_ptr() < Settings.getInstance().getActionschains_num()) {
-                        spinner.setSelection(ruleset.getChain_ptr(), false);
-                    } else {
-                        spinner.setSelection(actionchain.size() - 1, false);
+                    // Add active elements to Spinner and select current one
+                    int elements = 0;
+                    int selected = -1;
+                    for (int i = 0; i < actionchain.size(); i++) {
+                        if (actionchain.get(i).getId() == ruleset.getChain_ptr()) {
+                            adapter.add(actionchain.get(i));
+                            selected = elements;
+                            elements++;
+                        } else if (actionchain.get(i).getActive() == true) {
+                            adapter.add(actionchain.get(i));
+                            elements++;
+                        }
                     }
+                    if (selected == -1) spinner.setSelection(elements - 1, false);
+                    else spinner.setSelection(selected, false);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            ruleset.setChain_ptr(actionchain.get(i).getId());
+                            ActionChainSpinnerListItem item = (ActionChainSpinnerListItem) adapterView.getItemAtPosition(i);
+                            ruleset.setChain_ptr(item.getId());
+
+                            System.out.println("ActionChain:" + i + " " + item.getId());
                         }
 
                         @Override

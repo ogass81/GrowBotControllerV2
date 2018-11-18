@@ -451,7 +451,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             context = inflater.inflate(R.layout.fragment_trigger_details_switch, container, false);
 
             //Setup Active Switch Listener
-            ui_switch = context.findViewById(R.id.value_current);
+            ui_switch = context.findViewById(R.id.value_state);
             ui_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -553,6 +553,9 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
             Switch active = getView().findViewById(R.id.value_active);
             active.setChecked(trigger.getActive());
 
+            Switch current = getView().findViewById(R.id.value_state);
+            current.setChecked(trigger.getState());
+
             if (trigger.getType() == 0) {
 
                 updateStartDate();
@@ -588,8 +591,7 @@ public class TriggerDetailsFragment extends Fragment implements AsyncRestRespons
                 TextView counter = getView().findViewById(R.id.value_counter);
                 counter.setText(trigger.getCount().toString());
             } else if (trigger.getType() == 3) {
-                Switch current = getView().findViewById(R.id.value_current);
-                current.setChecked(trigger.getState());
+
             }
         }
     }

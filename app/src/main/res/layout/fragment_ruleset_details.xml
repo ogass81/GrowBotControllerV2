@@ -126,15 +126,31 @@
             android:background="#c0c0c0" />
 
         <Switch
-            android:id="@+id/value_active"
+            android:id="@+id/value_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/line3"
+            android:text="Current State" />
+        <View
+            android:id="@+id/line4"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/value_state"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
+
+        <Switch
+            android:id="@+id/value_active"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/line4"
             android:text="Active" />
 
         <View
-            android:id="@+id/line4"
+            android:id="@+id/line5"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
@@ -148,7 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/line4"
+            android:layout_below="@+id/line5"
             android:text="Save" />
 
         <TextView

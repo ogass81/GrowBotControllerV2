@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = InfoFragment.class;
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == 102) {
-            fragmentClass = ActionListFragment.class;
+            fragmentClass = ManualActionchainListFragment.class;
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_sensor) {
             fragmentClass = SensorListFragment.class;

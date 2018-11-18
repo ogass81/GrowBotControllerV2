@@ -32,7 +32,7 @@ public class ActionChainListItem {
     }
 
     // Decodes array of business json results into business model objects
-    public static ArrayList<ActionChainListItem> fromJson(JSONArray jsonArray) {
+    public static ArrayList<ActionChainListItem> fromJson(JSONArray jsonArray, boolean active) {
         JSONObject JSONitem;
 
         ArrayList<ActionChainListItem> list = new ArrayList<ActionChainListItem>(jsonArray.length());
@@ -47,7 +47,9 @@ public class ActionChainListItem {
 
             ActionChainListItem listitem = ActionChainListItem.fromJson(i, JSONitem);
             if (listitem != null) {
-                list.add(listitem);
+                if (active == true && listitem.active == true) {
+                    list.add(listitem);
+                } else if (active == false) list.add(listitem);
             }
         }
 

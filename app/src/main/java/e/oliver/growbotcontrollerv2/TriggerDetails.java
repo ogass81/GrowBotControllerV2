@@ -49,7 +49,7 @@ public class TriggerDetails {
             item.threshold = jsonObject.getInt("val");
 
             if (item.type == 2) item.count = jsonObject.getInt("count");
-            if (item.type == 3) item.state = jsonObject.getBoolean("state");
+            item.state = jsonObject.getBoolean("state");
 
             item.interval = jsonObject.getInt("intv");
 
@@ -79,6 +79,7 @@ public class TriggerDetails {
                 jsonObject.put("intv", interval.toString());
             } else if (type == 2) {
                 jsonObject.put("count", count.toString());
+                jsonObject.put("relop", relop.toString());
                 jsonObject.put("val", threshold.toString());
             } else if (type == 3) {
                 jsonObject.put("state", state.toString());

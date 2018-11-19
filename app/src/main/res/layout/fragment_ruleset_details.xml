@@ -42,86 +42,49 @@
             android:background="#c0c0c0" />
 
         <TextView
-            android:id="@+id/label_Rule1"
+            android:id="@+id/label_rules"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/line1"
-            android:text="Rule 1" />
+            android:text="Rules" />
 
-        <Spinner
-            android:id="@+id/value_trigger1"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_Rule1" />
-
-        <Spinner
-            android:id="@+id/value_boolop1"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_Rule1"
-            android:layout_toEndOf="@+id/value_trigger1" />
-
-        <TextView
-            android:id="@+id/label_Rule2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/value_trigger1"
-            android:text="Rule 2" />
-
-        <Spinner
-            android:id="@+id/value_trigger2"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_Rule2" />
-
-        <Spinner
-            android:id="@+id/value_boolop2"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_Rule2"
-            android:layout_toEndOf="@+id/value_trigger2" />
-
-        <TextView
-            android:id="@+id/label_Rule3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/value_trigger2"
-            android:text="Rule 3" />
-
-        <Spinner
-            android:id="@+id/value_trigger3"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_Rule3" />
+        <LinearLayout
+            android:id="@+id/value_rules"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/label_rules"
+            android:orientation="vertical"></LinearLayout>
 
         <View
             android:id="@+id/line2"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/value_trigger3"
+            android:layout_below="@+id/value_rules"
             android:layout_marginTop="10dp"
             android:background="#c0c0c0" />
 
         <TextView
-            android:id="@+id/label_actionchain"
+            android:id="@+id/label_sequence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/line2"
             android:text="Sequence" />
 
-        <Spinner
-            android:id="@+id/value_actionchain"
-            android:layout_width="420dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_actionchain" />
+        <LinearLayout
+            android:id="@+id/value_sequence"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/label_sequence"
+            android:orientation="vertical"></LinearLayout>
+
 
         <View
             android:id="@+id/line3"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/value_actionchain"
+            android:layout_below="@+id/value_sequence"
             android:layout_marginTop="10dp"
             android:background="#c0c0c0" />
 

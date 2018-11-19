@@ -23,6 +23,8 @@ public class Settings extends Application {
     private Integer actionschains_num;
     private Integer actionschains_length;
     private Integer rulesets_num;
+    private Integer rulesets_trigger;
+    private Integer rulesets_actions;
     private Integer trigger_sets;
     private Integer trigger_types;
     private Integer sensor_num;
@@ -41,7 +43,6 @@ public class Settings extends Application {
     private String wifi_pw;
     private String ap_SSID;
     private String ap_pw;
-
     private String http_user;
     private String http_password;
     private Integer logsize;
@@ -53,6 +54,14 @@ public class Settings extends Application {
 
     public static Settings getInstance() {
         return ourInstance;
+    }
+
+    public Integer getRulesets_trigger() {
+        return rulesets_trigger;
+    }
+
+    public Integer getRulesets_actions() {
+        return rulesets_actions;
     }
 
     public String getClient_user() {
@@ -222,6 +231,8 @@ public class Settings extends Application {
             this.actionschains_num = jsonObject.getInt("actionschains_num");
             this.actionschains_length = jsonObject.getInt("actionschains_length");
             this.rulesets_num = jsonObject.getInt("rulesets_num");
+            this.rulesets_trigger = jsonObject.getInt("rulesets_trig");
+            this.rulesets_actions = jsonObject.getInt("rulesets_act");
             this.trigger_sets = jsonObject.getInt("trigger_sets");
             this.trigger_types = jsonObject.getInt("trigger_types");
             this.sensor_num = jsonObject.getInt("sensor_num");
@@ -280,7 +291,6 @@ public class Settings extends Application {
 
         return jsonObject;
     }
-
 
 
 }

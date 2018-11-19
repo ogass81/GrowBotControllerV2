@@ -9,20 +9,58 @@ import java.util.ArrayList;
 /**
  * Created by ogass on 05.07.2017.
  */
+class TriggerPtr {
+    private int category;
+    private int id;
+
+    public TriggerPtr(int category, int id) {
+        this.category = category;
+        this.id = id;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TriggerPtr)) return false;
+
+        TriggerPtr that = (TriggerPtr) o;
+
+        if (getCategory() != that.getCategory()) return false;
+        return getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCategory();
+        result = 31 * result + getId();
+        return result;
+    }
+}
 
 public class RuleSetDetails {
     private String id;
     private String title;
     private Boolean active;
     private Boolean state;
-    private Integer tset1_ptr;
-    private Integer tcat1_ptr;
-    private Integer tset2_ptr;
-    private Integer tcat2_ptr;
-    private Integer tset3_ptr;
-    private Integer tcat3_ptr;
-    private Integer chain_ptr;
+    private ArrayList<TriggerPtr> triggerPtrs = new ArrayList<TriggerPtr>();
     private ArrayList<Integer> boolop = new ArrayList<Integer>();
+    private ArrayList<Integer> actionPtrs = new ArrayList<Integer>();
 
     // Decodes business json into business model object
     public static RuleSetDetails fromJson(JSONObject jsonObject) {
@@ -32,26 +70,45 @@ public class RuleSetDetails {
             rs.id = jsonObject.getString("id");
             rs.title = jsonObject.getString("tit");
             rs.active = jsonObject.getBoolean("act");
-            rs.tset1_ptr = jsonObject.getInt("tset1_ptr");
-            rs.tcat1_ptr = jsonObject.getInt("tcat1_ptr");
-            rs.tset2_ptr = jsonObject.getInt("tset2_ptr");
-            rs.tcat2_ptr = jsonObject.getInt("tcat2_ptr");
-            rs.tset3_ptr = jsonObject.getInt("tset3_ptr");
-            rs.tcat3_ptr = jsonObject.getInt("tcat3_ptr");
-            rs.chain_ptr = jsonObject.getInt("chain_ptr");
             rs.state = jsonObject.getBoolean("state");
-            JSONArray cast = jsonObject.getJSONArray("bool");
 
-            for (int i = 0; i < cast.length(); i++) {
-                rs.boolop.add(cast.getInt(i));
+            JSONArray trigger = jsonObject.getJSONArray("trigger");
+            for (int i = 0; i < trigger.length(); i++) {
+                JSONObject set = trigger.getJSONObject(i);
+                rs.triggerPtrs.add(new TriggerPtr(set.getInt("cat"), set.getInt("id")));
             }
 
+            JSONArray bool = jsonObject.getJSONArray("boolop");
+            for (int i = 0; i < bool.length(); i++) {
+                rs.boolop.add(bool.getInt(i));
+            }
+
+            JSONArray actionchain = jsonObject.getJSONArray("actionchain");
+            for (int i = 0; i < actionchain.length(); i++) {
+                rs.actionPtrs.add(actionchain.getInt(i));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
         // Return new object
         return rs;
+    }
+
+    public ArrayList<TriggerPtr> getTriggerPtrs() {
+        return triggerPtrs;
+    }
+
+    public void setTriggerPtrs(ArrayList<TriggerPtr> triggerPtrs) {
+        this.triggerPtrs = triggerPtrs;
+    }
+
+    public ArrayList<Integer> getActionPtrs() {
+        return actionPtrs;
+    }
+
+    public void setActionPtrs(ArrayList<Integer> actionPtrs) {
+        this.actionPtrs = actionPtrs;
     }
 
     public Boolean getState() {
@@ -82,62 +139,6 @@ public class RuleSetDetails {
         this.active = active;
     }
 
-    public Integer getTset1_ptr() {
-        return tset1_ptr;
-    }
-
-    public void setTset1_ptr(Integer tset1_ptr) {
-        this.tset1_ptr = tset1_ptr;
-    }
-
-    public Integer getTcat1_ptr() {
-        return tcat1_ptr;
-    }
-
-    public void setTcat1_ptr(Integer tcat1_ptr) {
-        this.tcat1_ptr = tcat1_ptr;
-    }
-
-    public Integer getTset2_ptr() {
-        return tset2_ptr;
-    }
-
-    public void setTset2_ptr(Integer tset2_ptr) {
-        this.tset2_ptr = tset2_ptr;
-    }
-
-    public Integer getTcat2_ptr() {
-        return tcat2_ptr;
-    }
-
-    public void setTcat2_ptr(Integer tcat2_ptr) {
-        this.tcat2_ptr = tcat2_ptr;
-    }
-
-    public Integer getTset3_ptr() {
-        return tset3_ptr;
-    }
-
-    public void setTset3_ptr(Integer tset3_ptr) {
-        this.tset3_ptr = tset3_ptr;
-    }
-
-    public Integer getTcat3_ptr() {
-        return tcat3_ptr;
-    }
-
-    public void setTcat3_ptr(Integer tcat3_ptr) {
-        this.tcat3_ptr = tcat3_ptr;
-    }
-
-    public Integer getChain_ptr() {
-        return chain_ptr;
-    }
-
-    public void setChain_ptr(Integer chain_ptr) {
-        this.chain_ptr = chain_ptr;
-    }
-
     public ArrayList<Integer> getBoolop() {
         return boolop;
     }
@@ -152,23 +153,26 @@ public class RuleSetDetails {
             jsonObject.put("tit", title.toString());
             jsonObject.put("act", active.toString());
 
-            jsonObject.put("tcat1_ptr", tcat1_ptr.toString());
-            jsonObject.put("tset1_ptr", tset1_ptr.toString());
-
-            jsonObject.put("tcat2_ptr", tcat2_ptr.toString());
-            jsonObject.put("tset2_ptr", tset2_ptr.toString());
-
-            jsonObject.put("tcat3_ptr", tcat3_ptr.toString());
-            jsonObject.put("tset3_ptr", tset3_ptr.toString());
-
-            jsonObject.put("chain_ptr", chain_ptr.toString());
+            JSONArray trigger = new JSONArray();
+            for (int i = 0; i < triggerPtrs.size(); i++) {
+                JSONObject set = new JSONObject();
+                set.put("cat", triggerPtrs.get(i).getCategory());
+                set.put("id", triggerPtrs.get(i).getId());
+                trigger.put(set);
+            }
+            jsonObject.put("trigger", trigger);
 
             JSONArray bp = new JSONArray();
-
             for (int i = 0; i < boolop.size(); i++) {
                 bp.put(boolop.get(i));
             }
-            jsonObject.put("bool", bp);
+            jsonObject.put("boolop", bp);
+
+            JSONArray actionchain = new JSONArray();
+            for (int i = 0; i < actionPtrs.size(); i++) {
+                actionchain.put(getActionPtrs().get(i));
+            }
+            jsonObject.put("actionchain", actionchain);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
